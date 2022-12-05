@@ -8,7 +8,7 @@ class ProductsDAO {
             return
         }
         try {
-            products = await conn.db(process.env.ECOM_NS).collection("movies")
+            products = await conn.db(process.env.ECOM_NS).collection("ecom_products")
         } catch (e) {
             console.error(`Failure to connect to a collection in productsDAO: ${e}`);
         }
@@ -21,8 +21,8 @@ class ProductsDAO {
     } = {}) {
         let query
         if (filters) {
-            if ("title" in filters) {
-                query = { $text: { $search: filters["title"]}
+            if ("item" in filters) {
+                query = { $text: { $search: filters["item"]}
             }
         }}
         let cursor
