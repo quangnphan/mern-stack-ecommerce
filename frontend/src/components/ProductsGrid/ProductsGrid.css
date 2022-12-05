@@ -1,0 +1,45 @@
+.products-grid{
+    margin: 20px 0;
+}
+.products-grid .MuiGrid-container .MuiGrid-item {
+  text-align: center;
+  min-height: 600px;
+}
+.grid-1,
+.grid-2,
+.grid-3,
+.grid-4 {
+  padding: 30px;
+}
+.grid-1 {
+  background: url("../../images/iphone-14-pro.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+.grid-2 {
+  background: url("../../images/ipad.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.grid-3 {
+  background: url("../../images/imac.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+.grid-4 {
+  background: url("../../images/ipad-pro.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+@media(max-width: 600px){
+    .products-grid h2{
+        font-size: 3rem;
+    }
+}

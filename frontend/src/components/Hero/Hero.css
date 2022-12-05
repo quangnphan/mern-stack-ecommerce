@@ -1,0 +1,23 @@
+.hero{
+    background: url('../../images/hero-iphone.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    text-align: center;
+    padding: 50px 0;
+}
+@media(max-width: 600px){
+    .hero{
+        min-height: 60vh;
+    }
+    .hero h2{
+        font-size: 3rem;
+    }
+}
+.hero a{
+    color: #06c;
+}
+.hero p{
+    font-size: 18px;
+}

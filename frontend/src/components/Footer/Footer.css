@@ -8,6 +8,7 @@
     align-items: flex-start;
     border-top: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
+    gap: 10px;
 }
 .footer-list ul li{
     margin: 20px 0;
@@ -25,4 +26,14 @@
 .footer-end{
     display: flex;
     gap: 20px;
+}
+@media(max-width: 500px){
+    .footer-end{
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+.footer-end p{
+    color: rgb(114,114,114);
+    cursor: pointer;
 }

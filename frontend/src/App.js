@@ -4,10 +4,11 @@ import {
   ProductDetail,
   Homepage,
   Products,
+  ProductList,
   Success,
   PageNotFound,
 } from "./pages";
-import {Navbar,Footer} from './components';
+import { Navbar, Footer } from "./components";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Homepage />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/products/:category" element={<ProductList />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/success" element={<Success />} />
