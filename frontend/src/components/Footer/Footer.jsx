@@ -1,53 +1,63 @@
 import React from "react";
-import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import "./Footer.css";
-import { services, shopAndLearn, appleStore } from "../../utils/constants";
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import AppleIcon from "@mui/icons-material/Apple";
+import { links } from "../../utils/links";
 
 const Footer = () => {
+  const year = new Date().getFullYear();
   return (
     <div className="footer">
       <Container maxWidth="md">
-        <Box className="footer-list">
-          <ul>
-            <li>Shop and Learn</li>
-            {shopAndLearn.map((item, index) => (
-              <li key={index}>
-                <Link>{item}</Link>
-              </li>
-            ))}
-          </ul>
-          <ul>
-            <li>Services</li>
-            {services.map((item, index) => (
-              <li key={index}>
-                <Link>{item}</Link>
-              </li>
-            ))}
-          </ul>
-          <ul>
-            <li>Apple Store</li>
-            {appleStore.map((item, index) => (
-              <li key={index}>
-                <Link>{item}</Link>
-              </li>
-            ))}
-          </ul>
-        </Box>
-        <Box className="footer-bottom">
-          <p style={{ margin: "20px 0" }}>
-            More ways to shop: Find an Apple Store or other retailer near you.
+        <div className="footer-wrapper">
+          <div className="footer-top">
+            <AppleIcon />
+            <ul className="links">
+              {links.map((link) => {
+                const { id, text, url } = link;
+                return (
+                  <li key={id}>
+                    <Link className="link" to={url}>
+                      {text}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <p className="about">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
           </p>
-          <div style={{ marginBottom: "15px" }}>
-            © Apple, Inc. All rights reserved.
+          <div className="footer-bottom">
+            <p>Copyright {year}. All rights reserved</p>
+            <div className="social-links">
+              <ul className="links">
+                <li>
+                  <a href="#facebook">
+                    <FacebookIcon />
+                  </a>
+                </li>
+                <li>
+                  <a href="#instagram">
+                    <InstagramIcon />
+                  </a>
+                </li>
+                <li>
+                  <a href="#twitter">
+                    <TwitterIcon />
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div className="footer-end">
-            <p>Community guidelines</p>
-            <p>Terms</p>
-            <p>Privacy policy</p>
-          </div>
-        </Box>
+        </div>
       </Container>
     </div>
   );
