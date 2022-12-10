@@ -1,9 +1,10 @@
 .hero{
-    background: url('../../images/hero-iphone.jpeg');
-    background-position: center;
+    background: url('../../assets/background/hero-iphone.jpeg');
+    background-position: bottom;
     background-repeat: no-repeat;
-    background-size: cover;
-    min-height: 100vh;
+    background-size: contain;
+    background-color: #fbfbfd;
+    min-height: 90vh;
     text-align: center;
     padding: 100px 0;
 }

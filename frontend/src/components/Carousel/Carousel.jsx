@@ -24,12 +24,12 @@ const Carousel = () => {
     },
   ];
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     slidesToShow: 3,
     speed: 500,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 1500,
   };
   return (
     <div className="carousel">

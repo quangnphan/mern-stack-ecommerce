@@ -8,27 +8,27 @@
   padding: 30px;
 }
 .grid-1 {
-  background: url("../../images/iphone-14-pro.jpeg");
+  background: url("../../assets/background/iphone-14-pro.jpeg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: white;
 }
 .grid-2 {
-  background: url("../../images/ipad.jpeg");
+  background: url("../../assets/background/ipad.jpeg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 .grid-3 {
-  background: url("../../images/imac.jpeg");
+  background: url("../../assets/background/imac.jpeg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: white;
 }
 .grid-4 {
-  background: url("../../images/ipad-pro.jpeg");
+  background: url("../../assets/background/ipad-pro.jpeg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
