@@ -21,8 +21,8 @@ class ProductsDAO {
     } = {}) {
         let query
         if (filters) {
-            if ("item" in filters) {
-                query = { $text: { $search: filters["item"]}
+            if ("category" in filters) {
+                query = { "category": { $eq: filters["category"]}
             }
         }}
         let cursor
