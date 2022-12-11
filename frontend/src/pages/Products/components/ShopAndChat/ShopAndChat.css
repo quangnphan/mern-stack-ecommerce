@@ -1,0 +1,15 @@
+.shop-container {
+    margin-top: 48px;
+}
+@media (max-width: 636px) {
+    .shop-container {
+        margin-top: 30px;
+    }
+}
+.shop-title {
+    font-weight: bolder !important;
+}
+
+.shop-title span {   
+    color: dimgray;    
+}

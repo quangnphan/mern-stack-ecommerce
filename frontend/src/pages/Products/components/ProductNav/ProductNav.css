@@ -1,0 +1,17 @@
+.product-slider {
+    padding-top: 50px;
+    text-align: center;
+}
+
+.product-card {
+   margin-left: 21% ;
+    width: 500px !important;
+
+}
+
+@media (max-width: 636) {
+    .product-card {
+       margin-left: 0;
+        width: 500px !important;
+     }
+}

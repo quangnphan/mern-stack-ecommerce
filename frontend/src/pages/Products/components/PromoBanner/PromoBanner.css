@@ -1,0 +1,14 @@
+.promo {
+  padding-top: 50px;
+  text-align: center;
+}
+
+@media (max-width: 600) {
+    .promo {
+      padding-top: 20% !important;
+    }
+  }
+
+.promo-div {
+  font-size: 14px !important;
+}
