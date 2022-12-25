@@ -1,0 +1,19 @@
+.product-detail{
+    padding: 100px 0;
+}
+.product-detail-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+.product-detail .detail-promotion{
+    background-color: #f5f5f7;
+    font-size: 12px;
+    padding: 12px 16px;
+    margin: 6px 0;
+    border-radius: 18px;
+}
+.detail-header-left span{
+    color: orange;
+}

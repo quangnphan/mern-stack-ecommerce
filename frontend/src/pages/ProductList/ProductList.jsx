@@ -4,6 +4,7 @@ import { Button, Container } from "@mui/material";
 import ipadProIcon from "../../assets/header-icons/ipad-pro-icon.svg";
 import ipadAirIcon from "../../assets/header-icons/ipad-air-icon.svg";
 import ipadProImg from "../../assets/products/ipad-pro.jpeg";
+import { Link } from "react-router-dom";
 
 const ProductList = () => {
   return (
@@ -35,9 +36,9 @@ const ProductList = () => {
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad.
               </p>
-              <Button variant="contained">
-                Select
-              </Button>
+              <Link to="/product/1">
+                <Button variant="contained">Select</Button>
+              </Link>
             </div>
           </div>
           <div className="product-list-box">
@@ -52,9 +53,9 @@ const ProductList = () => {
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad.
               </p>
-              <Button variant="contained">
-                Select
-              </Button>
+              <Link to="/product/1">
+                <Button variant="contained">Select</Button>
+              </Link>
             </div>
           </div>
           <div className="product-list-box">
@@ -69,9 +70,9 @@ const ProductList = () => {
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad.
               </p>
-              <Button variant="contained">
-                Select
-              </Button>
+              <Link to="/product/1">
+                <Button variant="contained">Select</Button>
+              </Link>
             </div>
           </div>
         </div>
