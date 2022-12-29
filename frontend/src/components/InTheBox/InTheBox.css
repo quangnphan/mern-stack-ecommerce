@@ -1,0 +1,39 @@
+.in-the-box {
+  text-align: center;
+}
+.in-the-box h3 {
+  margin: 50px 0;
+}
+.box-wrapper {
+  position: relative;
+  background-color: #fafafa;
+  padding: 0 30px;
+  min-height: 350px;
+}
+.box-images {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+.box-wrapper img{
+    position: absolute;
+}
+.box-wrapper .img1 {
+  max-width: 300px;
+  bottom: 0;
+  left: 100px;
+}
+.box-wrapper .img2 {
+  max-height: 300px;
+  bottom: 0;
+  left: 53%;
+}
+.box-wrapper .img3 {
+  max-height: 300px;
+  right: 100px;
+  bottom: 20px;
+}
+.box-images p{
+    position: absolute;
+}
