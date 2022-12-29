@@ -35,6 +35,9 @@
   z-index: 9999;
   opacity: 0.8;
 }
+.navbar .nav-icons svg{
+  color: #f5f5f7;
+}
 .navbar .nav-icons:hover{
   opacity: 1;
   transition: 0.7s all;
@@ -125,4 +128,29 @@
   background: #fff;
   transform: none;
   transition: transform 0.2s ease-in-out;
+}
+
+.MuiPopover-paper{
+  top: 70px !important;
+  left: 0;
+  right: 30%;
+  min-width: 300px !important;
+  text-align: center;
+}
+.cart-popover-list{
+  min-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cart-popover-btn{
+  border-top: 1px solid #ddd;
+}
+@media(max-width: 768px){
+  .MuiPopover-paper{
+    top: 70px !important;
+    left: 0;
+    right: unset;
+    min-width: unset;
+  }
 }

@@ -16,6 +16,18 @@
   align-items: center;
   flex-direction: row;
 }
+.box-des {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 0 100px;
+}
+.box-des p{
+  margin-top: 20px;
+  margin-left: 100px;
+  text-align: center;
+}
 .box-wrapper img{
     position: absolute;
 }
@@ -27,12 +39,11 @@
 .box-wrapper .img2 {
   max-height: 300px;
   bottom: 0;
-  left: 53%;
 }
 .box-wrapper .img3 {
   max-height: 300px;
   right: 100px;
-  bottom: 20px;
+  bottom: 10px;
 }
 .box-images p{
     position: absolute;

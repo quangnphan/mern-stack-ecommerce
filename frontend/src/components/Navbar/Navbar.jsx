@@ -4,14 +4,21 @@ import "./Navbar.css";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import AppleIcon from "@mui/icons-material/Apple";
+import { Popover, Button, Typography } from "@mui/material";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 // import SearchIcon from '@mui/icons-material/Search';
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const handleHamburger = () => {
     setIsNavOpen(!isNavOpen);
   };
+
+  const handleOpenCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
+
   return (
     <div className="navbar">
       <Container maxWidth="md">
@@ -49,7 +56,24 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="cart nav-icons">
-            <ShoppingBagIcon />
+            <ShoppingBagIcon onClick={handleOpenCart} />
+
+            <Popover
+              open={isCartOpen}
+              onClose={() => setIsCartOpen(false)}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              disableScrollLock={true}
+            >
+              <div className="cart-popover-list">
+                <Typography sx={{ p: 2 }}>Your cart is empty.</Typography>
+              </div>
+              <div className="cart-popover-btn">
+                <Button>View cart</Button>
+              </div>
+            </Popover>
           </div>
         </Box>
       </Container>
