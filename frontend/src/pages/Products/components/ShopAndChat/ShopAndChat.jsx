@@ -3,16 +3,16 @@ import React from "react";
 import { Typography, Container, Grid,  } from "@mui/material";
 import SpecialistIcon from "../../images/specialist-icon.jfif"
 import AppleIcon from "@mui/icons-material/Apple";
-import { Link } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const ShopAndChat = () => {
   return (
-    <div className="shop-container">
-      <Container
+    // <div className="shop-container">
+      <Container 
         sx={{
           p: 2,
           margin: "auto",
-          maxWidth: 636,
+          maxWidth: "lg",
           flexGrow: 1,
           backgroundColor: (theme) =>
             theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -20,7 +20,7 @@ const ShopAndChat = () => {
         
       >
         <Grid container sx >
-          <Grid xs={12} md={8} spacing={3}>
+          <Grid xs={12} md={8} spacing={0}>
             <Typography variant="h3" className="shop-title">
               Store. <span>The best way to buy the products you love.</span>
             </Typography>
@@ -38,7 +38,7 @@ const ShopAndChat = () => {
                     Need shopping helps?
                   </Typography>
                   <Typography variant="body2">
-                    <Link underline="none" >Ask a Specialist</Link>
+                    <Link underline="none"  to={"/send"} >Ask a Specialist</Link>
                   </Typography>
                 </Grid>
               </Grid>
@@ -52,7 +52,7 @@ const ShopAndChat = () => {
                     Visit an Apple Store
                   </Typography>
                   <Typography variant="body2">
-                  <Link underline="none" >Find one near you ></Link>
+                  <Link underline="none">Find one near you ></Link>
                   </Typography>
                 </Grid>
               </Grid>
@@ -60,7 +60,7 @@ const ShopAndChat = () => {
           </Grid>
         </Grid>
       </Container>
-    </div>
+    // </div>
   );
 };
 
