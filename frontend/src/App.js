@@ -9,6 +9,7 @@ import {
   PageNotFound,
 } from "./pages";
 import { Navbar, Footer } from "./components";
+import EmailAgent from "./pages/Products/components/ShopAndChat/EmailAgent";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/success" element={<Success />} />
         <Route path="*" element={<PageNotFound />} />
+        <Route path="/send" element={<EmailAgent />} />
       </Routes>
       <Footer />
     </Router>

@@ -1,0 +1,39 @@
+.card-slider {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: left !important;
+     
+    
+}
+.card-slider-title {
+    margin-left: 21% ;
+    font-weight: 700 !important;
+}
+.card {
+    /* margin-left: 21% ; */
+    max-width: 980px !important;
+         
+}
+.card-background {
+    height: 400px !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 7% !important;
+    display: flex !important;
+    align-items: stretch !important; 
+    
+}
+
+/* .card-info {
+    color: rgb(89, 0, 172);
+    margin-top: 15px !important;
+    margin-left:20px !important;
+    margin-right:20px !important;
+} */
+
+.card-slider-title span {   
+    color: dimgray;    
+}
+
+.slick-list {margin: 0 -5px;}
+.slick-slide>div {padding: 0 5px;}

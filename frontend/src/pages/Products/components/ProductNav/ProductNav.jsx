@@ -53,7 +53,7 @@ const ProductNav = () => {
     ],
   };
 
-  return (
+  return (    
     <div className="product-slider">
       <Slider {...settings} className="product-card">
         {productList.map((product, i) => {
