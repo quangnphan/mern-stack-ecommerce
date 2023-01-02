@@ -3,45 +3,69 @@ import Slider from "react-slick";
 import "./Carousel.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import YourHome from "../../assets/background/your-home.jpeg";
+import Rooms from "../../assets/background/rooms.jpeg";
+import Fitness from "../../assets/background/fitness-devices.jpeg";
+import Lock from "../../assets/background/apple-security.jpeg";
 
 const Carousel = () => {
   const array = [
     {
-      name: "slide 1",
-      background: "black",
+      name: "Your Home",
+      background: YourHome,
     },
     {
-      name: "slide 2",
-      background: "white",
+      name: "Lock",
+      background: Lock,
     },
     {
-      name: "slide 3",
-      background: "red",
+      name: "Rooms",
+      background: Rooms,
     },
     {
-      name: "slide 4",
-      background: "blue",
+      name: "Fitness",
+      background: Fitness,
     },
   ];
   const settings = {
     dots: false,
     infinite: true,
     slidesToShow: 3,
-    speed: 500,
+    speed: 1500,
     autoplay: true,
-    autoplaySpeed: 1500,
+    autoplaySpeed: 3000,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
   return (
     <div className="carousel">
       <Slider {...settings}>
         {array.map((item, index) => {
-          return (
-            <div key={index} className="slider-div">
-              <div style={{background: item.background,minHeight:'400px'}}>
-                {item.name}
-              </div>
-            </div>
-          );
+          return <img key={index} src={item.background} alt="carousel img" />;
         })}
       </Slider>
     </div>
