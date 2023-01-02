@@ -8,6 +8,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const LightBox = () => {
   const images = [Product1, Product2, Product3];
+  // eslint-disable-next-line
   const [image, setImage] = useState(images);
   const [index, setIndex] = useState(0);
 

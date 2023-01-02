@@ -2,7 +2,7 @@ import { Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import { LightBox, InTheBox } from "../../components";
 import "./ProductDetail.css";
-import { Form, Formik } from "formik";
+// import { Form, Formik } from "formik";
 
 const ProductDetail = () => {
   return (
