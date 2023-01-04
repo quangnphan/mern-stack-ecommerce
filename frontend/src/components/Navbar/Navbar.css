@@ -133,7 +133,6 @@
 .MuiPopover-paper{
   top: 70px !important;
   left: 0;
-  right: 30%;
   min-width: 300px !important;
   text-align: center;
 }
