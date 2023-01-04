@@ -4,13 +4,13 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-color: #fbfbfd;
-    min-height: 100vh;
+    min-height: 80vh;
     text-align: center;
     padding: 100px 0;
 }
 @media(max-width: 600px){
     .hero{
-        min-height: 65vh;
+        min-height: 60vh;
         padding: 60px 0;
     }
     .hero h2{

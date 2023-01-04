@@ -29,7 +29,7 @@
 }
 .product-list-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 450px);
+  grid-template-columns: repeat(auto-fit, 300px);
   justify-content: center;
   gap: 30px;
   padding: 50px 0;
@@ -38,9 +38,11 @@
 }
 .product-list-box {
   background-color: white;
-  max-width: 450px;
+  max-width: 300px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
   padding: 20px;
   border-radius: 0.5rem;
 }
@@ -51,7 +53,12 @@
 }
 .product-list-box-img img {
   max-width: 250px;
+  border-radius: 0.5rem;
 }
 .product-list-box .MuiButtonBase-root {
   margin-top: 20px;
+}
+.product-list-box a{
+  display: flex;
+  justify-content: flex-end;
 }

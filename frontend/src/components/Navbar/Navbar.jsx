@@ -21,7 +21,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <Box className="nav-container">
           <div
             class={`hamburger ${isNavOpen ? "open" : ""}`}
@@ -71,7 +71,9 @@ const Navbar = () => {
                 <Typography sx={{ p: 2 }}>Your cart is empty.</Typography>
               </div>
               <div className="cart-popover-btn">
-                <Button>View cart</Button>
+                <Link to="/cart" onClick={() => setIsCartOpen(false)}>
+                  <Button>View cart</Button>
+                </Link>
               </div>
             </Popover>
           </div>

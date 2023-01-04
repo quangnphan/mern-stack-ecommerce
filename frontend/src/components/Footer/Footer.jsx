@@ -12,7 +12,7 @@ const Footer = () => {
   const year = new Date().getFullYear();
   return (
     <div className="footer">
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <div className="footer-wrapper">
           <div className="footer-top">
             <AppleIcon />

@@ -7,6 +7,33 @@ import ipadProImg from "../../assets/products/ipad-pro.jpeg";
 import { Link } from "react-router-dom";
 
 const ProductList = () => {
+  const products = [
+    {
+      id: 1,
+      image: ipadProImg,
+      name: "iPad Pro",
+      desc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+      enim ad.`,
+    },
+    {
+      id: 2,
+      image: ipadProImg,
+      name: "iPad Pro",
+      desc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+      enim ad.`,
+    },
+    {
+      id: 3,
+      image: ipadProImg,
+      name: "iPad Pro",
+      desc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+      enim ad.`,
+    },
+  ];
+
   return (
     <div className="product-list">
       <Container maxWidth="md">
@@ -21,60 +48,26 @@ const ProductList = () => {
           </div>
         </div>
       </Container>
-      <div className="product-list-ribbon">Get your holiday gifts on time.</div>
+      <div className="product-list-ribbon">Get your gifts on time.</div>
       <Container maxWidth="lg">
         <div className="product-list-grid">
-          <div className="product-list-box">
-            <div className="product-list-box-img">
-              <img src={ipadProImg} alt="product img" />
-            </div>
-            <div>
-              <h4>Apple</h4>
-              <h3>iPad Pro</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad.
-              </p>
-              <Link to="/product/1">
-                <Button variant="contained">Select</Button>
-              </Link>
-            </div>
-          </div>
-          <div className="product-list-box">
-            <div className="product-list-box-img">
-              <img src={ipadProImg} alt="product img" />
-            </div>
-            <div>
-              <h4>Apple</h4>
-              <h3>iPad Pro</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad.
-              </p>
-              <Link to="/product/1">
-                <Button variant="contained">Select</Button>
-              </Link>
-            </div>
-          </div>
-          <div className="product-list-box">
-            <div className="product-list-box-img">
-              <img src={ipadProImg} alt="product img" />
-            </div>
-            <div>
-              <h4>Apple</h4>
-              <h3>iPad Pro</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad.
-              </p>
-              <Link to="/product/1">
-                <Button variant="contained">Select</Button>
-              </Link>
-            </div>
-          </div>
+          {products.map((product) => {
+            return (
+              <div className="product-list-box">
+                <div className="product-list-box-img">
+                  <img src={product.image} alt="product img" />
+                </div>
+                <div>
+                  <h4>Apple</h4>
+                  <h3>{product.name}</h3>
+                  <p>{product.desc}</p>
+                  <Link to={`/product/${product.id}`}>
+                    <Button variant="contained">Select</Button>
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </Container>
     </div>
