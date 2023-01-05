@@ -19,7 +19,7 @@ function App() {
         <Route exact path="/" element={<Homepage />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:category" element={<ProductList />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/product/:category/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/success" element={<Success />} />
         <Route path="*" element={<PageNotFound />} />

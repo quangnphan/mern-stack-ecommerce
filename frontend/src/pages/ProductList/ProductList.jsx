@@ -9,7 +9,8 @@ import { Link } from "react-router-dom";
 const ProductList = () => {
   const products = [
     {
-      id: 1,
+      id: "iPadPro2022",
+      category: "iPad",
       image: ipadProImg,
       name: "iPad Pro",
       desc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -17,7 +18,8 @@ const ProductList = () => {
       enim ad.`,
     },
     {
-      id: 2,
+      id: "iPadPro2022",
+      category: "iPad",
       image: ipadProImg,
       name: "iPad Pro",
       desc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -25,7 +27,8 @@ const ProductList = () => {
       enim ad.`,
     },
     {
-      id: 3,
+      id: "iPadPro2022",
+      category: "iPad",
       image: ipadProImg,
       name: "iPad Pro",
       desc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -61,7 +64,7 @@ const ProductList = () => {
                   <h4>Apple</h4>
                   <h3>{product.name}</h3>
                   <p>{product.desc}</p>
-                  <Link to={`/product/${product.id}`}>
+                  <Link to={`/product/${product.category}/${product.id}`}>
                     <Button variant="contained">Select</Button>
                   </Link>
                 </div>
