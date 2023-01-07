@@ -22,14 +22,15 @@
   align-items: center;
   flex-direction: row;
   padding: 0 100px;
+  gap: 100px;
 }
-.box-des p{
+.box-des p {
   margin-top: 20px;
   margin-left: 100px;
   text-align: center;
 }
-.box-wrapper img{
-    position: absolute;
+.box-wrapper img {
+  position: absolute;
 }
 .box-wrapper .img1 {
   max-width: 300px;
@@ -45,6 +46,28 @@
   right: 100px;
   bottom: 10px;
 }
-.box-images p{
-    position: absolute;
+.box-images p {
+  position: absolute;
+}
+@media (max-width: 768px) {
+  .box-wrapper {
+    min-height: 250px;
+  }
+  .box-des p {
+    margin-top: 20px;
+    margin-left: unset;
+    text-align: center;
+  }
+  .box-images .img1 {
+    max-width: 200px;
+    left: 50px;
+  }
+  .box-wrapper .img2 {
+    max-height: 200px;
+  }
+  .box-wrapper .img3 {
+    max-height: 200px;
+    right: 50px;
+    bottom: 10px;
+  }
 }

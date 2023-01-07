@@ -48,10 +48,10 @@ const ProductDetail = () => {
         </div>
         <div className="product-detail-main">
           <Grid container spacing={2}>
-            <Grid item xs={7} className="product-slider">
+            <Grid item xs={12} md={7} className="product-slider">
               <LightBox />
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={12} md={5}>
               <div className="product-selection">
                 <Typography variant="h4">
                   <span>Model.</span> Choose your settings
