@@ -1,12 +1,12 @@
 import React from "react";
 import Slider from "react-slick";
 import "./Carousel.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import YourHome from "../../assets/background/your-home.jpeg";
 import Rooms from "../../assets/background/rooms.jpeg";
 import Fitness from "../../assets/background/fitness-devices.jpeg";
 import Lock from "../../assets/background/apple-security.jpeg";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Carousel = () => {
   const array = [

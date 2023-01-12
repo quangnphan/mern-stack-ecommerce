@@ -1,65 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./LightBox.css";
 import Product1 from "../../assets/products/ipad-pro.jpeg";
 import Product2 from "../../assets/products/ipad-pro-02.jpeg";
 import Product3 from "../../assets/products/ipad-pro.jpeg";
+import Product4 from "../../assets/products/ipad-pro-02.jpeg";
+import Slider from "react-slick";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const LightBox = () => {
-  const images = [Product1, Product2, Product3];
-  // eslint-disable-next-line
-  const [image, setImage] = useState(images);
-  const [index, setIndex] = useState(0);
+  const images = [Product1, Product2, Product3, Product4];
 
-  const handlePrev = () => {
-    setIndex(index - 1);
+  const settings = {
+    dots: false,
+    fade: true,
+    infinite: true,
+    arrows: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    nextArrow: <ArrowForwardIosIcon />,
+    prevArrow: <ArrowBackIosNewIcon />,
   };
-
-  const handleNext = () => {
-    setIndex(index + 1);
-  };
-
-  const handleImageSelect = (i) => {
-    setIndex(images.indexOf(i));
-  };
-
-  useEffect(() => {
-    const lastIndex = image.length - 1;
-    if (index < 0) {
-      setIndex(lastIndex);
-    }
-    if (index > lastIndex) {
-      setIndex(0);
-    }
-  }, [index, image]);
 
   return (
     <div className="lightbox-wrapper">
-      <div className="lightbox">
-        <button className="prev" onClick={handlePrev}>
-          <ArrowBackIosNewIcon />
-        </button>
-        <div className="lightbox-img-wrapper">
-          <img className="lightbox-img" src={image[index]} alt="lightbox-img" />
-        </div>
-        <button className="next" onClick={handleNext}>
-          <ArrowForwardIosIcon />
-        </button>
-      </div>
-      <div className="images">
-        {images.map((item) => {
-          return (
-            <div className="images-wrapper">
-              <img
-                onClick={() => handleImageSelect(item)}
-                src={item}
-                alt="img-select"
-              />
-            </div>
-          );
+      <Slider {...settings}>
+        {images.map((image, index) => {
+          return <img key={index} src={image} alt="img-slider" />;
         })}
-      </div>
+      </Slider>
     </div>
   );
 };
