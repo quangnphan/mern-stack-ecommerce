@@ -7,27 +7,27 @@ import EcomDataService from "../../services/ecom.js";
 import { useParams } from "react-router-dom";
 
 const ProductDetail = () => {
-  const params = useParams();
-  const [selectedProduct, setSelectedProduct] = useState();
+  // const params = useParams();
+  // const [selectedProduct, setSelectedProduct] = useState();
 
-  const getProduct = async () => {
-    const response = await EcomDataService.find(params.category, "category");
-    let category = response.data?.products[0]?.skus;
-    console.log(category);
-    category.forEach((sku) => {
-      if (sku.sku === params.id) {
-        console.log(sku);
-        setSelectedProduct(sku);
+  // const getProduct = async () => {
+  //   const response = await EcomDataService.find(params.category, "category");
+  //   let category = response.data?.products[0]?.skus;
+  //   console.log(category);
+  //   category.forEach((sku) => {
+  //     if (sku.sku === params.id) {
+  //       console.log(sku);
+  //       setSelectedProduct(sku);
         
-      }
-    });
-  };
+  //     }
+  //   });
+  // };
 
-  useEffect(() => {
-    getProduct();
+  // useEffect(() => {
+  //   getProduct();
     
-  }, []);
-  console.log(selectedProduct);
+  // }, []);
+  // console.log(selectedProduct);
   return (
     <div className="product-detail">
       <Container maxWidth="lg">
@@ -58,7 +58,7 @@ const ProductDetail = () => {
                 </Typography>
                 <Formik>
                   <Form>
-                {selectedProduct?.variants?.display?.length > 1 ? (
+                {/* {selectedProduct?.variants?.display?.length > 1 ? (
                       <>
                         {selectedProduct?.variants?.display?.map((display, index) => {
                           return(
@@ -81,7 +81,7 @@ const ProductDetail = () => {
                       </>
                     ) : (
                       <></>
-                    )}
+                    )} */}
                 </Form>
                 </Formik>
               </div>
