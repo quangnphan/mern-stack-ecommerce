@@ -8,7 +8,10 @@ export default class ProductsController {
         if (req.query.category) {
             filters.category = req.query.category
         }
-        const { productsList, totalNumProducts } = await ProductsDAO.getProducts({
+        else if (req.query.sku) {
+            filters.sku = req.query.sku
+        }             
+        const { productsList, totalNumProducts,} = await ProductsDAO.getProducts({
             filters,
             page,
             productsPerPage,
@@ -19,8 +22,22 @@ export default class ProductsController {
             page: page,
             filters: filters,
             total_results: totalNumProducts,
-
         }
         res.json(response)
     }
+
+    static async apiGetProductById(req, res, next) {
+        try {
+          let id = req.params.id || {}
+          let product = await ProductsDAO.getProductByID(id)
+          if (!product) {
+            res.status(404).json({ error: "Not found" })
+            return
+          }
+          res.json(product)
+        } catch (e) {
+          console.log(`api, ${e}`)
+          res.status(500).json({ error: e })
+        }
+      }
 }

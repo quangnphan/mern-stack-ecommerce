@@ -22,32 +22,48 @@ class ProductsDAO {
         let query
         if (filters) {
             if ("category" in filters) {
-                query = { "category": { $eq: filters["category"]}
+                query = { "category": { $eq: filters["category"]}}
             }
-        }}
+            else if ("sku" in filters) {
+                query = { "skus.sku": {$eq: filters["sku"]}}
+            }            
+        }
         let cursor
     
         try {
             cursor = await products
-            .find(query)
+            .find(query)            
         } catch (e) {
             console.error(`Unable to issue find command, ${e}`)
-            return { productsList: [], totalNumProducts: 0 }
+            return { productsList: [], totalNumProducts: 0}
         }
 
         //limit page
         const limitCursor = cursor.limit(productsPerPage).skip(productsPerPage * page)
-
-        // const productsList = await cursor.toArray()
-        const productsList = await limitCursor.toArray()
-        const totalNumProducts = await products.countDocuments(query)
-
+        const productsList = await limitCursor.toArray()       
+        const totalNumProducts = await products.countDocuments(query)        
         return { productsList, totalNumProducts}
     }
 
-    
-
-
+    static async getProductByID(id) {
+        try {
+          const pipeline = [
+             {
+                $unwind: "$skus",
+             }, 
+            {
+                $match: {
+                    "skus.sku": id,
+                },
+            },                 
+                
+              ]
+          return await products.aggregate(pipeline).next()
+        } catch (e) {
+          console.error(`Something went wrong in getProductByID: ${e}`)
+          throw e
+        }
+      }
 }
 
 export default ProductsDAO;
