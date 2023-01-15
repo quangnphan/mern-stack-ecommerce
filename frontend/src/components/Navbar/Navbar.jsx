@@ -57,7 +57,6 @@ const Navbar = () => {
           </div>
           <div className="cart nav-icons">
             <ShoppingBagIcon onClick={handleOpenCart} />
-
             <Popover
               open={isCartOpen}
               onClose={() => setIsCartOpen(false)}
@@ -71,9 +70,12 @@ const Navbar = () => {
                 <Typography sx={{ p: 2 }}>Your cart is empty.</Typography>
               </div>
               <div className="cart-popover-btn">
-                <Link to="/cart" onClick={() => setIsCartOpen(false)}>
-                  <Button>View cart</Button>
-                </Link>
+                <Button>
+                  <Link to="/cart" onClick={() => setIsCartOpen(false)}>
+                    {" "}
+                    View Cart
+                  </Link>
+                </Button>
               </div>
             </Popover>
           </div>

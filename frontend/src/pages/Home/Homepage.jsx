@@ -1,5 +1,5 @@
-import React from 'react';
-import { Hero, ProductsGrid,Carousel } from '../../components';
+import React from "react";
+import { Hero, ProductsGrid, Carousel } from "../../components";
 
 const Homepage = () => {
   return (
@@ -8,7 +8,7 @@ const Homepage = () => {
       <ProductsGrid />
       <Carousel />
     </div>
-  )
-}
+  );
+};
 
-export default Homepage
+export default Homepage;

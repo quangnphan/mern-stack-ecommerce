@@ -2,7 +2,16 @@
    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
    height: 300px;
    border-radius: 10px;
+   object-fit: contain;
 }
 .slick-slide{
    padding: 10px;
+}
+.slick-next::before,.slick-prev::before{
+   color: rgb(1, 1, 22) !important;
+}
+@media (max-width: 900px){
+   .carousel img{
+      height: 300px;
+   }
 }
