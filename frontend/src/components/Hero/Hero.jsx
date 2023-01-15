@@ -7,15 +7,17 @@ const Hero = () => {
   return (
     <div className='hero'>
         <Container maxWidth="lg">
-            <Typography variant='h2'>
+            <Typography variant='h1'>
                 iPhone 14
             </Typography>
-            <Typography variant='body1'>
+            <Typography variant='h4'>
                 Big and bigger.
             </Typography>
-            <Link to="">
+            <Typography variant="h5">
+            <Link to="/product/iPhone/638d3fcfca9f34b3673bcd5e">
                 Learn more
             </Link>
+            </Typography>
         </Container>
     </div>
   )
