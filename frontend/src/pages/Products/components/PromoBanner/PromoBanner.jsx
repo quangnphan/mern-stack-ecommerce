@@ -9,11 +9,11 @@ const PromoBanner = () => {
     {
       title:
         "Save 5% on Apple products with a new Apple Card through December 25. Only at Apple. Exclusions and terms apply.",
-      direct: "Learn more",
+      direct: " ",
     },
     {
       title: "Get your holiday gifts on time.",
-      direct: "See when to order",
+      direct: " ",
     },
   ];
   const settings = {
