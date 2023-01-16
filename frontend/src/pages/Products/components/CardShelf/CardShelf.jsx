@@ -69,7 +69,8 @@ const CardShelf = () => {
   };
 
   return (
-    <Container maxWidth="md">
+    <div className="cardshelf-container">
+    <Container maxWidth="md" >
       <Typography className="card-slider-title" variant="h5">
         The latest. <span>Take a look at what's new, right now.</span>
       </Typography>
@@ -150,6 +151,7 @@ const CardShelf = () => {
         </Slider>
       </div>
     </Container>
+    </div>
   );
 };
 

@@ -7,34 +7,35 @@ import { Link } from "react-router-dom";
 
 const ShopAndChat = () => {
   return (
-    // <div className="shop-container">
+    <div className="shop-container">
       <Container 
         sx={{
           p: 2,
           margin: "auto",
           maxWidth: "lg",
-          flexGrow: 1,
+          flexGrow: 1,          
           backgroundColor: (theme) =>
             theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+            
         }}
         
       >
-        <Grid container sx >
-          <Grid xs={12} md={8} spacing={0}>
+        <Grid container>
+          <Grid xs={12} md={8} item spacing={12}>
             <Typography variant="h3" className="shop-title">
               Store. <span>The best way to buy the products you love.</span>
             </Typography>
           </Grid>
 
-          <Grid xs={12} md={4} container>
-            <Grid xs md container  spacing={0} >
+          <Grid xs={12} md={3} container>
+            <Grid container item spacing={0} >
 
               <Grid container  columnSpacing={{xs:1, md:1}}>
                 <Grid xs={2} md={2} >
                   <img alt="store-chat-specialist" src={SpecialistIcon} />
                 </Grid>
                 <Grid xs={10} md={10}>
-                  <Typography gutterBottom variant="subtitle1" component="div">
+                  <Typography gutterBottom variant="subtitle1">
                     Need shopping helps?
                   </Typography>
                   <Typography variant="body2">
@@ -43,7 +44,7 @@ const ShopAndChat = () => {
                 </Grid>
               </Grid>
 
-              <Grid xs container columnSpacing={{xs:1, md:1}}>
+              <Grid container columnSpacing={{xs:1, md:1}}>
                 <Grid xs={2} md={2}>
                     <AppleIcon />
                 </Grid>
@@ -60,7 +61,7 @@ const ShopAndChat = () => {
           </Grid>
         </Grid>
       </Container>
-    // </div>
+    </div>
   );
 };
 

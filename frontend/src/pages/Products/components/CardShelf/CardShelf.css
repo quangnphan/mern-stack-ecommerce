@@ -1,3 +1,8 @@
+.cardshelf-container .css-xdmu94-MuiContainer-root {
+    margin-left: 0 !important;
+    padding: 0 !important;
+}
+
 .card-slider {
     padding-top: 50px;
     padding-bottom: 50px;
@@ -5,8 +10,7 @@
      
     
 }
-.card-slider-title {
-    margin-left: 21% ;
+.card-slider-title {    
     font-weight: 700 !important;
 }
 .card {
@@ -15,9 +19,10 @@
          
 }
 .card-background {
-    height: 400px !important;
+    /* height: 400px !important; */
     background-repeat: no-repeat;
-    background-size: cover;
+    background-position: center;
+    background-size: 100% 100%;
     border-radius: 7% !important;
     display: flex !important;
     align-items: stretch !important; 
