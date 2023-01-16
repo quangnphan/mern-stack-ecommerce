@@ -12,8 +12,6 @@ const ProductDetail = () => {
 
   const getProduct = async () => {
     const response = await EcomDataService.get(params.id);
-    
-    console.log(response);
 
   };
 

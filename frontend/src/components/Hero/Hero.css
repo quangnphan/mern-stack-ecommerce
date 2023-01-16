@@ -1,50 +1,60 @@
-.hero{
-    background: url('../../assets/background/hero-iphone.jpeg');
-    background-position: bottom;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-color: #fbfbfd;
+.hero {
+  background: url("../../assets/background/hero-iphone.jpeg");
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #fbfbfd;
+  min-height: 85vh;
+  text-align: center;
+  padding: 100px 0;
+}
+.hero h1 {
+  font-size: 4.8rem;
+}
+.hero h4 {
+  font-weight: 300;
+}
+.hero a {
+  color: #06c;
+  font-weight: 300;
+  font-size: 18px;
+}
+.hero p {
+  font-size: 18px;
+}
+/* in case the height is not enough to cover the background */
+@media (max-height: 1000px) {
+  .hero {
+    min-height: 90vh;
+    padding: 70px;
+  }
+  .hero h1{
+    font-size: 3.5rem;
+  }
+  .hero h4{
+    font-size: 2rem;
+  }
+}
+@media (max-width: 1000px) {
+  .hero {
     min-height: 80vh;
-    text-align: center;
-    padding: 90px 0;
+    background-size: cover;
+  }
+  .hero h1 {
+    font-size: 3.5rem;
+  }
+  .hero h4 {
+    font-size: 2rem;
+  }
 }
-.hero h1{
-    font-size: 4.8rem;
-}
-.hero h4{
-    font-weight: 300;
-}
-.hero a{
-    color: #06c;
-    font-weight: 300;
-    font-size: 18px;
-}
-.hero p{
-    font-size: 18px;
-}
-@media (max-width: 900px){
-    .hero{
-        min-height: 60vh;
-    }
-    .hero h1{
-        font-size: 3.5rem;
-    }
-    .hero h4{
-        font-size: 2rem;
-    }
-}
-@media(max-width: 500px){
-    .hero{
-        min-height: 50vh;
-        padding: 60px 0;
-    }
-    .hero h1{
-        font-size: 2.5rem;
-    }
-    .hero h4{
-        font-size: 1.7rem;
-    }
-    .hero a{
-        font-size: 16px;
-    }
+@media (max-width: 500px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  .hero h4 {
+    font-size: 1.7rem;
+  }
+  .hero a {
+    font-size: 16px;
+  }
 }
