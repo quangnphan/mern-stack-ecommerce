@@ -4,11 +4,15 @@ import "./Navbar.css";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import AppleIcon from "@mui/icons-material/Apple";
-import { Popover, Button, Typography } from "@mui/material";
+import { Popover, Button, Typography, Badge } from "@mui/material";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
-// import SearchIcon from '@mui/icons-material/Search';
+import { useSelector } from "react-redux";
+
+import iPad from "../../assets/products/ipad-pro-03.jpeg";
 
 const Navbar = () => {
+  const quantity = useSelector((state) => state.cart.quantity);
+  const products = useSelector((state) => state.cart.products);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const handleHamburger = () => {
@@ -56,7 +60,9 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="cart nav-icons">
-            <ShoppingBagIcon onClick={handleOpenCart} />
+            <Badge badgeContent={quantity} color={"primary"}>
+              <ShoppingBagIcon onClick={handleOpenCart} />
+            </Badge>
             <Popover
               open={isCartOpen}
               onClose={() => setIsCartOpen(false)}
@@ -67,12 +73,35 @@ const Navbar = () => {
               disableScrollLock={true}
             >
               <div className="cart-popover-list">
-                <Typography sx={{ p: 2 }}>Your cart is empty.</Typography>
+                {products.length > 0 ? (
+                  <ul>
+                    {products.map((prod) => {
+                      return (
+                        <li>
+                          <div className="cart-popover-flex">
+                            <div>
+                              <img
+                                className="cart-popover-img"
+                                src={iPad}
+                                alt="cart img"
+                              />
+                            </div>
+                            <div>{prod.name}</div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : (
+                  <Typography sx={{ p: 2 }}>Your cart is empty.</Typography>
+                )}
               </div>
               <div className="cart-popover-btn">
-                <Button>
+                <Button
+                  className={products.length > 0 ? "" : "disabled"}
+                  disabled={products.length > 0 ? false : true}
+                >
                   <Link to="/cart" onClick={() => setIsCartOpen(false)}>
-                    {" "}
                     View Cart
                   </Link>
                 </Button>
