@@ -1,24 +1,45 @@
-import { Container, Grid, Typography } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Typography,
+  FormControl,
+  Button,
+  stepContentClasses,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { LightBox, InTheBox } from "../../components";
 import "./ProductDetail.css";
-import { Form, Formik, Field } from "formik";
 import EcomDataService from "../../services/ecom.js";
 import { useParams } from "react-router-dom";
+import { display } from "@mui/system";
 
 const ProductDetail = () => {
   const params = useParams();
+  const [model, setModel] = useState("");
+  const [color, setColor] = useState("");
   const [selectedProduct, setSelectedProduct] = useState();
 
   const getProduct = async () => {
     const response = await EcomDataService.get(params.id);
+    setSelectedProduct(response.data?.skus);
+  };
 
+  const handleModelChange = (event) => {
+    setModel(event.target.value);
+  };
+  const handleColorChange = (event) => {
+    setColor(event.target.value);
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(`Model: ${model}`);
   };
 
   useEffect(() => {
     getProduct();
-    
-  }, []);
+    console.log(selectedProduct);
+  }, [params.id]);
+
   return (
     <div className="product-detail">
       <Container maxWidth="lg">
@@ -43,12 +64,89 @@ const ProductDetail = () => {
               <LightBox />
             </Grid>
             <Grid item xs={12} md={5}>
-              <div className="product-selection">
-                <Typography variant="h4">
-                  <span>Model.</span> Choose your settings
-                </Typography>
-                <Formik>
-                  <Form>
+              <div className="product-selection">                
+                <form className="ipad-form" onSubmit={handleSubmit}>
+                  <FormControl>                    
+                    {selectedProduct?.variants.display && (
+                      <>
+                        <Typography variant="h4">
+                          <span>Model.</span> Choose your settings
+                        </Typography>
+                        {selectedProduct?.variants?.display.map(
+                          (display, index) => {
+                            let monthlyPayment = ((selectedProduct.price.base + display.price) / 12).toFixed(2);
+                            return (
+                              <label for={display.size}>
+                                <input
+                                  type="radio"
+                                  id={display.size}
+                                  name="radio-group"
+                                  value={display.size}
+                                  onClick={handleModelChange}
+                                />
+                                <div id="selectable-display">
+                                  <span>
+                                    <span>
+                                      <span>
+                                        <strong>{display.size} display</strong>
+                                      </span>
+                                    </span>
+
+                                    <span>
+                                      <span>
+                                        <span>
+                                          From ${selectedProduct.price?.base}
+                                        </span>
+                                        <span>or ${monthlyPayment}/mo.</span>
+                                        <span>for 12 months</span>
+                                      </span>
+                                    </span>
+                                  </span>
+                                </div>
+                              </label>
+                            );
+                          }
+                        )}
+                      </>
+                    )}
+
+                    {selectedProduct?.variants.colors && (
+                      <>
+                        <Typography variant="h4">
+                          <span>Finish.</span> Pick your favorite color
+                        </Typography>
+                        <Typography variant="h4">
+                                Color <span >{color.toUpperCase()}</span>
+                        </Typography>
+                        {selectedProduct?.variants?.colors.map(
+                          (color, index) => { 
+                            let divStyle = {
+                              backgroundColor: "red",
+                              
+                         }                           
+                            return (
+                              <>                                                        
+                              <label for={color}>
+                                <input
+                                  type="radio"
+                                  id={color}
+                                  name="radio-group"
+                                  value={color}
+                                  onClick={handleColorChange}
+                                />                                 
+                                <div id="selectable-color" style={divStyle}>
+                                  
+                                </div>
+                              </label>
+                              </>);
+                          }
+                        )}
+                      </>
+                    )}
+                  </FormControl>
+                  <Button type="submit">Submit</Button>
+                </form>
+
                 {/* {selectedProduct?.variants?.display?.length > 1 ? (
                       <>
                         {selectedProduct?.variants?.display?.map((display, index) => {
@@ -73,8 +171,6 @@ const ProductDetail = () => {
                     ) : (
                       <></>
                     )} */}
-                </Form>
-                </Formik>
               </div>
             </Grid>
           </Grid>
