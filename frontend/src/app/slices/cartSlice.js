@@ -7,16 +7,22 @@ const cartSlice = createSlice({
       {
         id: 1,
         name: "iPhone",
-        storage: "8gb",
+        storage: "128gb",
+        color: "Space Gray",
+        price: "1099",
+        quantity: "1",
       },
       {
         id: 2,
-        name: "iPad",
-        storage: "8gb",
+        name: "Macbook",
+        storage: "128gb",
+        color: "Space Gray",
+        price: "2099",
+        quantity: "1",
       },
     ],
-    quantity: 0,
-    total: 0,
+    quantity: 2,
+    total: 4000,
   },
   reducers: {
     addProduct: (state, action) => {
