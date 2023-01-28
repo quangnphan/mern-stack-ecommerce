@@ -35,16 +35,25 @@
     
 }
 
+.form-typography span {   
+  color: dimgray;    
+}
+
 input[type="radio"] {
   display: none;
 }
 
 input[type="radio"]:checked + #selectable-display {
-  border-color: blue;
+  border: 2px solid blue;
 }
 
 input[type="radio"]:checked + #selectable-color {
-  border-color: blue;
+  border: 2px solid blue;
+}
+
+input[type="radio"]:hover + #selectable-color {
+  border: 2px solid transparent;
+  cursor: pointer;
 }
 
 
@@ -59,17 +68,9 @@ input[type="radio"]:checked + #selectable-color {
   margin-top: 20px;
 }
 
-.hide {
-  display: none;
-}
-
 #selectable-color {
   border-radius: 100%;
   padding: 20px;
   width: 20px;
   height: 20px;
-}
-
-#selectable-color:hover + .hide {
-  display: block;
 }
