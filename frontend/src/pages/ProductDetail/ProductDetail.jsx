@@ -66,7 +66,8 @@ const ProductDetail = () => {
     console.log(`Total Connectivity: ${totalConnectivity}`);
     console.log(totalDisplay); 
     console.log(baseStorage);   
-    console.log(baseConnecivity); 
+    console.log(baseConnecivity);
+    console.log(paymentType);
     console.log(`Total: ${total}`);
   };
 
@@ -78,7 +79,7 @@ const ProductDetail = () => {
     console.log(baseStorage);   
     console.log(baseConnecivity);  
     setTotal(totalDisplay+baseStorage+baseConnecivity);
-  }, [params.id,totalDisplay,totalStorage,totalConnectivity,total]);
+  }, [params.id,totalDisplay,baseStorage,baseConnecivity,total]);
 
   return (
     <div className="product-detail">
@@ -163,7 +164,7 @@ const ProductDetail = () => {
                         {selectedProduct?.variants?.colors.map(
                           (color, index) => { 
                             let divStyle = {
-                              backgroundColor: color==="Scarlet"? "red" : color,                              
+                              backgroundColor: color==="Scarlet"? "#BB0000" : color==="Midnight" ? "#302E41" :  color==="Starlight" ? "#F8F9EC": color ,                              
                          }                           
                             return (
                               <>                                                        
@@ -287,8 +288,7 @@ const ProductDetail = () => {
                       </>
                     )} 
 
-                    {selectedProduct?.variants.connectivity && category === "iPad" && (
-                      // let monthlyPayment = ((basePrice) / 12).toFixed(2);
+                    {(                      
                       <>
                         <Typography variant="h4" className="form-typography">
                           Payment options. <span>Select one that works for you.</span>
@@ -324,13 +324,56 @@ const ProductDetail = () => {
                                     </span>
                                   </span>
                                 </div>
+                              </label>
+                              <label for="payment-monthly">
+                                <input
+                                  type="radio"                                  
+                                  id="payment-monthly"
+                                  name="radio-group5"
+                                  value={(total / 12).toFixed(2)}
+                                  onClick={handlePaymentChange}                                  
+                                  required
+                                />
+                                <div id="selectable-display">
+                                  <span>
+                                    <span>
+                                      <span>
+                                       <strong>Finance</strong>                                       
+                                      </span>
+                                    </span>
+
+                                    <span>
+                                      <span>
+                                        <span>
+                                          Apple Card Monthly Installments
+                                        </span>
+                                        <span>
+                                          From $ {(total / 12).toFixed(2)}/mo. for 12 mo.
+                                        </span>
+                                        <span>
+                                          {total} Total
+                                        </span>
+                                        <br/>
+                                        <hr/>
+                                        <ul>
+                                          <li>Pay for your iPad with Apple Card Monthly Installments</li>
+                                          <li>Financed at 0% APR◇</li>
+                                        </ul>                                        
+                                      </span>
+                                    </span>
+                                  </span>
+                                </div>
                               </label>   
                       </>
                     )}
 
+                        <Typography variant="h4" className="form-typography">
+                          From ${total} or ${(total / 12).toFixed(2)}/mo.per month for 12 mo.
+                        </Typography>  
+
 
                   </FormControl>
-                  <Button type="submit">Add to Bag</Button>
+                  <Button type="submit">CONTINUE</Button>
                 </form>
 
                 
