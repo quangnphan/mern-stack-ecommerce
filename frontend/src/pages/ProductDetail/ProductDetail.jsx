@@ -10,28 +10,34 @@ import { LightBox, InTheBox } from "../../components";
 import "./ProductDetail.css";
 import EcomDataService from "../../services/ecom.js";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../app/slices/cartSlice";
 
 
 const ProductDetail = () => {
   const params = useParams();
+  const dispatch = useDispatch();
   const [category, setCategory] = useState("");
+  const [name, setName] = useState({});
   const [selectedProduct, setSelectedProduct] = useState(); 
   const [model, setModel] = useState("");
   const [color, setColor] = useState("");
   const [storage, setStorage] = useState("");
   const [baseStorage, setbaseStorage] = useState(0);
-  const [totalStorage, setTotalStorage] = useState(0);
+  // const [totalStorage, setTotalStorage] = useState(0);
   const [base, setBase] = useState(0);
   const [totalDisplay, setTotalDisplay] = useState(0);
   const [connectivity, setConnectivity] = useState("");
   const [baseConnecivity, setBaseConnectivity] = useState(0);
-  const [totalConnectivity, setTotalConnectivity] = useState(0);
-  const [total, setTotal] = useState(0) ;
+  // const [totalConnectivity, setTotalConnectivity] = useState(0);
+  const [price, setPrice] = useState(0) ;
+  const [quantity, setQuantity] = useState(1);
   const [paymentType, setPaymentType] = useState("");
 
   const getProduct = async () => {
     const response = await EcomDataService.get(params.id);
     setCategory(response.data?.category);
+    setName(response.data?.skus.name);
     setSelectedProduct(response.data?.skus); 
     setBase(response.data?.skus.price.base); 
   };  
@@ -45,41 +51,39 @@ const ProductDetail = () => {
   const handleStorageChange = (event) => {    
     setStorage(event.target.value.split(",")[0]);
     setbaseStorage(parseInt(event.target.value.split(",")[1]));
-    setTotalStorage(parseInt(event.target.value.split(",")[2]));
+    // setTotalStorage(parseInt(event.target.value.split(",")[2]));
   };
   const handleConnectivityChange = (event) => {    
     setConnectivity(event.target.value.split(",")[0]);
     setBaseConnectivity(parseInt(event.target.value.split(",")[1]));
-    setTotalConnectivity(parseInt(event.target.value.split(",")[2]));
+    // setTotalConnectivity(parseInt(event.target.value.split(",")[2]));
   };
   const handlePaymentChange = (event) => {
     setPaymentType(event.target.value);
   }
+  const handleQuantityChange = (event) => {
+    setQuantity (currentQuantity => {
+      return currentQuantity + event
+    })
+  }
   const handleSubmit = (event) => {
-    event.preventDefault();    
+    event.preventDefault(); 
+    console.log(`Name: ${name}`);   
     console.log(`Model: ${model}`);
     console.log(`Color: ${color}`);
     console.log(`Storage: ${storage}`);
     console.log(`Connectivity: ${connectivity}`);
-    console.log(`Total Display: ${totalDisplay}`);
-    console.log(`Total Storage: ${totalStorage}`);
-    console.log(`Total Connectivity: ${totalConnectivity}`);
-    console.log(totalDisplay); 
-    console.log(baseStorage);   
-    console.log(baseConnecivity);
-    console.log(paymentType);
-    console.log(`Total: ${total}`);
+    console.log(quantity);
+    console.log(`Price: ${price}`);
+    dispatch (
+      addProduct({ name, model, color, storage, price, quantity})
+    );
   };
 
   useEffect(() => {
     getProduct();    
-    console.log(selectedProduct);
-    console.log(category);
-    console.log(totalDisplay); 
-    console.log(baseStorage);   
-    console.log(baseConnecivity);  
-    setTotal(totalDisplay+baseStorage+baseConnecivity);
-  }, [params.id,totalDisplay,baseStorage,baseConnecivity,total]);
+    setPrice(totalDisplay+baseStorage+baseConnecivity);
+  }, [params.id,totalDisplay,baseStorage,baseConnecivity,price]);
 
   return (
     <div className="product-detail">
@@ -298,7 +302,7 @@ const ProductDetail = () => {
                                   type="radio"                                  
                                   id="payment"
                                   name="radio-group5"
-                                  value={total}
+                                  value={price}
                                   onClick={handlePaymentChange}                                  
                                   required
                                 />
@@ -313,7 +317,7 @@ const ProductDetail = () => {
                                     <span>
                                       <span>
                                         <span>
-                                          From ${total}
+                                          From ${price}
                                         </span>
                                         <br/>
                                         <hr/>
@@ -330,7 +334,7 @@ const ProductDetail = () => {
                                   type="radio"                                  
                                   id="payment-monthly"
                                   name="radio-group5"
-                                  value={(total / 12).toFixed(2)}
+                                  value={(price / 12).toFixed(2)}
                                   onClick={handlePaymentChange}                                  
                                   required
                                 />
@@ -348,10 +352,10 @@ const ProductDetail = () => {
                                           Apple Card Monthly Installments
                                         </span>
                                         <span>
-                                          From $ {(total / 12).toFixed(2)}/mo. for 12 mo.
+                                          From $ {(price / 12).toFixed(2)}/mo. for 12 mo.
                                         </span>
                                         <span>
-                                          {total} Total
+                                          {price} Total
                                         </span>
                                         <br/>
                                         <hr/>
@@ -368,7 +372,13 @@ const ProductDetail = () => {
                     )}
 
                         <Typography variant="h4" className="form-typography">
-                          From ${total} or ${(total / 12).toFixed(2)}/mo.per month for 12 mo.
+                          Quantity. <span>You might need more than one.</span>
+                          <br/>
+                          <button onClick={() => handleQuantityChange(-1)}>-</button>
+                          {quantity}
+                          <button onClick={() => handleQuantityChange(1)}>+</button>
+                          <br/>
+                          Each from ${price} or ${(price / 12).toFixed(2)}/mo.per month for 12 mo.
                         </Typography>  
 
 
