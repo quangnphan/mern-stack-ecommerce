@@ -1,0 +1,87 @@
+.products{
+    padding: 100px 0;
+    text-align: center;
+}
+.products-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.products-category{
+    margin: 50px 0;
+}
+.category{
+    margin: 30px 0;
+}
+.category-name{
+    margin: 10px 0;
+}
+.product-box{
+    background-color: #f5f5f7;
+    padding: 100px 100px 40px 100px;
+    border-radius: 10px;
+}
+.product-box h5{
+    margin: 50px 0 30px 0;
+}
+.benefits-flex{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 50px 0;
+}
+.benefit{
+    max-width: 370px;
+    padding: 30px;
+}
+.benefit img{
+    max-width: 50px;
+    max-height: 50px;
+}
+.refurbished{
+    min-height: 450px;
+    display: flex;
+    justify-content: center;
+    background-color: #f5f5f7;
+    margin-bottom: 15px;
+}
+.refurbished .info{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 50px;
+}
+.refurbished-img-holder{
+    background: url('./images/certified-refurbished.png');
+    flex: 1;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right;
+}
+.apple-tv{
+    min-height: 450px;
+    display: flex;
+    justify-content: center;
+    background-color: black;
+}
+.apple-tv .info{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 70px;
+    color: #fff;
+}
+.apple-tv-img-holder{
+    background: url('./images/apple-tv.png');
+    flex: 1;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+    margin-right: 30px;
+}
