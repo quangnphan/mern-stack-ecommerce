@@ -76,7 +76,7 @@ const ProductDetail = () => {
     console.log(quantity);
     console.log(`Price: ${price}`);
     dispatch (
-      addProduct({ name, model, color, storage, price, quantity})
+      addProduct({ ...selectedProduct, name, model, color, storage, price, quantity})
     );
   };
 
