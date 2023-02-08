@@ -62,9 +62,7 @@ const ProductDetail = () => {
     setPaymentType(event.target.value);
   }
   const handleQuantityChange = (event) => {
-    setQuantity (currentQuantity => {
-      return currentQuantity + event
-    })
+    setQuantity (quantity + event)
   }
   const handleSubmit = (event) => {
     event.preventDefault(); 
@@ -103,13 +101,13 @@ const ProductDetail = () => {
             </div>
           </div>
         </div>
-        <div className="product-detail-main">
-          <Grid container spacing={2}>
+        <div >
+          <Grid container spacing={2} className="product-detail-main">
             <Grid item xs={12} md={7} className="product-slider">
               <LightBox />
             </Grid>
-            <Grid item xs={12} md={5}>
-              <div className="product-selection">                
+            <Grid item xs={12} md={5} className="product-selection"> 
+              <div >                
                 <form className="ipad-form" onSubmit={handleSubmit}>
                   <FormControl>                    
                     {selectedProduct?.variants.display && (
@@ -132,20 +130,20 @@ const ProductDetail = () => {
                                   required
                                 />
                                 <div id="selectable-display">
-                                  <span>
-                                    <span>
-                                      <span>
+                                  <span className="input-column">
+                                    <span className="input-column-right">
+                                      <span className="input-row-right">
                                         <strong>{display.size} display</strong>
                                       </span>
                                     </span>
 
-                                    <span>
-                                      <span>
-                                        <span>
+                                    <span className="input-column-left">
+                                      <span className="input-row-left detail-font">
+                                        <span className="input-row-single">
                                           From ${basePrice}
                                         </span>
-                                        <span>or ${monthlyPayment}/mo.</span>
-                                        <span>for 12 months</span>
+                                        <span className="input-row-single">or ${monthlyPayment}/mo.</span>
+                                        <span className="input-row-single">for 12 months</span>
                                       </span>
                                     </span>
                                   </span>
@@ -162,7 +160,7 @@ const ProductDetail = () => {
                         <Typography variant="h4" className="form-typography">
                           Finish.<span> Pick your favorite color</span>
                         </Typography>
-                        <Typography variant="h4">
+                        <Typography variant="h6">
                                 Color <span className="hide">{color.toUpperCase()}</span>
                         </Typography>
                         {selectedProduct?.variants?.colors.map(
@@ -213,20 +211,20 @@ const ProductDetail = () => {
                                   
                                 />
                                 <div id="selectable-display">
-                                  <span>
-                                    <span>
-                                      <span>
+                                  <span className="input-column">
+                                    <span className="input-column-right">
+                                      <span className="input-row-right">
                                         <strong>{storage.unit}</strong>
                                       </span>
                                     </span>
 
-                                    <span>
-                                      <span>
-                                        <span>
+                                    <span className="input-column-left">
+                                      <span className="input-row-left detail-font">
+                                        <span className="input-row-single">
                                           From ${basePrice}
                                         </span>
-                                        <span>or ${monthlyPayment}/mo.</span>
-                                        <span>for 12 months</span>
+                                        <span className="input-row-single ">or ${monthlyPayment}/mo.</span>
+                                        <span className="input-row-single ">for 12 months</span>
                                       </span>
                                     </span>
                                   </span>
@@ -258,21 +256,21 @@ const ProductDetail = () => {
                                   required
                                 />
                                 <div id="selectable-display">
-                                  <span>
-                                    <span>
-                                      <span>
+                                  <span className="input-column">
+                                    <span className="input-column-right">
+                                      <span className="input-row-right">
                                         {connect.type === 1 ? (<strong>Wi-fi</strong>) 
                                         : (<strong>Wi-fi + Cellular</strong>)}                                        
                                       </span>
                                     </span>
 
-                                    <span>
-                                      <span>
-                                        <span>
+                                    <span className="input-column-left">
+                                      <span className="input-row-left detail-font">
+                                        <span className="input-row-single ">
                                           From ${basePrice}
                                         </span>
-                                        <span>or ${monthlyPayment}/mo.</span>
-                                        <span>for 12 months</span>
+                                        <span className="input-row-single ">or ${monthlyPayment}/mo.</span>
+                                        <span className="input-row-single ">for 12 months</span>
                                       </span>
                                     </span>
                                   </span>
@@ -308,21 +306,22 @@ const ProductDetail = () => {
                                 />
                                 <div id="selectable-display">
                                   <span>
-                                    <span>
-                                      <span>
+                                    <span className="input-row-left">
+                                      <span className="input-row-single left-align" >
                                        <strong>Buy</strong>                                       
                                       </span>
+                                      <span className="input-row-single left-align detail-font">
+                                          From ${price}
+                                        </span>
                                     </span>
 
                                     <span>
-                                      <span>
-                                        <span>
-                                          From ${price}
-                                        </span>
-                                        <br/>
+                                      <span> 
+                                        <br/>                                      
                                         <hr/>
+                                        <br/>
                                         <ul>
-                                          <li>Pay the total amount today</li>
+                                          <li className="detail-font">Pay the total amount today</li>
                                         </ul>                                        
                                       </span>
                                     </span>
@@ -340,28 +339,29 @@ const ProductDetail = () => {
                                 />
                                 <div id="selectable-display">
                                   <span>
-                                    <span>
-                                      <span>
+                                    <span className="input-row-left">
+                                      <span className="input-row-single left-align">
                                        <strong>Finance</strong>                                       
                                       </span>
+                                      <span className="input-row-single left-align detail-font">
+                                          Apple Card Monthly Installments
+                                        </span>
+                                        <span className="input-row-single left-align detail-font">
+                                          From $ {(price / 12).toFixed(2)}/mo. for 12 mo.
+                                        </span>
+                                        <span className="input-row-single left-align detail-font">
+                                          ${price} Total
+                                        </span>                                        
                                     </span>
 
                                     <span>
-                                      <span>
-                                        <span>
-                                          Apple Card Monthly Installments
-                                        </span>
-                                        <span>
-                                          From $ {(price / 12).toFixed(2)}/mo. for 12 mo.
-                                        </span>
-                                        <span>
-                                          {price} Total
-                                        </span>
+                                      <span>                                        
                                         <br/>
                                         <hr/>
+                                        <br/>
                                         <ul>
-                                          <li>Pay for your iPad with Apple Card Monthly Installments</li>
-                                          <li>Financed at 0% APR◇</li>
+                                          <li className="detail-font">Pay for your iPad with Apple Card Monthly Installments</li>
+                                          <li className="detail-font">Financed at 0% APR◇</li>
                                         </ul>                                        
                                       </span>
                                     </span>
@@ -372,18 +372,22 @@ const ProductDetail = () => {
                     )}
 
                         <Typography variant="h4" className="form-typography">
-                          Quantity. <span>You might need more than one.</span>
-                          <br/>
-                          <button onClick={() => handleQuantityChange(-1)}>-</button>
-                          {quantity}
-                          <button onClick={() => handleQuantityChange(1)}>+</button>
-                          <br/>
+                          Quantity. <span>You might need more than one.</span>                       
+                        </Typography>
+                        <div class="quantity-container">
+                          <button type="button" class="decrease-button" onClick={() => handleQuantityChange(-1)}>-</button>
+                          <span type="text" class="quantity-input">{quantity}</span>
+                          <button type="button" class="increase-button" onClick={() => handleQuantityChange(1)}>+</button>
+                        </div>                        
+                          
+                        <Typography variant="h4" className="form-typography">                        
                           Each from ${price} or ${(price / 12).toFixed(2)}/mo.per month for 12 mo.
-                        </Typography>  
+                        </Typography> 
+                        
+                        <Button type="submit">CONTINUE</Button>
 
 
-                  </FormControl>
-                  <Button type="submit">CONTINUE</Button>
+                  </FormControl>                 
                 </form>
 
                 
