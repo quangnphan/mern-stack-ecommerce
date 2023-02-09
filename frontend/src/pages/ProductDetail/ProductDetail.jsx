@@ -33,6 +33,7 @@ const ProductDetail = () => {
   const [price, setPrice] = useState(0) ;
   const [quantity, setQuantity] = useState(1);
   const [paymentType, setPaymentType] = useState("");
+  const [id, setId] = useState("");
 
   const getProduct = async () => {
     const response = await EcomDataService.get(params.id);
@@ -43,29 +44,53 @@ const ProductDetail = () => {
   };  
   const handleModelChange = (event) => {
     setModel(event.target.value.split(",")[0]);
-    setTotalDisplay(base + parseInt(event.target.value.split(",")[1]));    
+    setTotalDisplay(base + parseInt(event.target.value.split(",")[1]));
+    const nextLabel = event.target.parentElement.nextSibling;
+    if (nextLabel) {
+      nextLabel.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }    
   };
   const handleColorChange = (event) => {
     setColor(event.target.value);
+    const nextLabel = event.target.parentElement.nextSibling;
+    if (nextLabel) {
+      nextLabel.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
   };
   const handleStorageChange = (event) => {    
     setStorage(event.target.value.split(",")[0]);
     setbaseStorage(parseInt(event.target.value.split(",")[1]));
+    const nextLabel = event.target.parentElement.nextSibling;
+    if (nextLabel) {
+      nextLabel.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
     // setTotalStorage(parseInt(event.target.value.split(",")[2]));
   };
   const handleConnectivityChange = (event) => {    
     setConnectivity(event.target.value.split(",")[0]);
     setBaseConnectivity(parseInt(event.target.value.split(",")[1]));
+    const nextLabel = event.target.parentElement.nextSibling;
+    if (nextLabel) {
+      nextLabel.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
     // setTotalConnectivity(parseInt(event.target.value.split(",")[2]));
   };
   const handlePaymentChange = (event) => {
     setPaymentType(event.target.value);
+    const nextLabel = event.target.parentElement.nextSibling;
+    if (nextLabel) {
+      nextLabel.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
   }
   const handleQuantityChange = (event) => {
     setQuantity (quantity + event)
   }
+  const generateId = () => {
+    setId(Date.now());
+  }
   const handleSubmit = (event) => {
     event.preventDefault(); 
+    generateId();
     console.log(`Name: ${name}`);   
     console.log(`Model: ${model}`);
     console.log(`Color: ${color}`);
@@ -73,13 +98,15 @@ const ProductDetail = () => {
     console.log(`Connectivity: ${connectivity}`);
     console.log(quantity);
     console.log(`Price: ${price}`);
+    console.log(id);
     dispatch (
-      addProduct({ ...selectedProduct, name, model, color, storage, price, quantity})
+      addProduct({ ...selectedProduct, name, id, model, color, storage, price, quantity,})
     );
   };
 
   useEffect(() => {
-    getProduct();    
+    getProduct(); 
+    generateId();   
     setPrice(totalDisplay+baseStorage+baseConnecivity);
   }, [params.id,totalDisplay,baseStorage,baseConnecivity,price]);
 
@@ -101,8 +128,8 @@ const ProductDetail = () => {
             </div>
           </div>
         </div>
-        <div >
-          <Grid container spacing={2} className="product-detail-main">
+        <div className="product-detail-main" >
+          <Grid container spacing={2} >
             <Grid item xs={12} md={7} className="product-slider">
               <LightBox />
             </Grid>
@@ -388,9 +415,7 @@ const ProductDetail = () => {
 
 
                   </FormControl>                 
-                </form>
-
-                
+                </form>                
               </div>
             </Grid>
           </Grid>

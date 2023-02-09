@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./Cart.css";
 import { Typography, Container, Grid } from "@mui/material";
 import iPadImg from "../../assets/products/ipad-pro.jpeg";
@@ -8,41 +8,41 @@ const Cart = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.products);
   const cart = useSelector((state) => state.cart);
-  const [tax, setTax] = useState();
-  const [subTotal, setSubTotal] = useState();
-  const [total, setTotal] = useState();
+  // const [tax, setTax] = useState();
+  // const [subTotal, setSubTotal] = useState();
+  // const [total, setTotal] = useState();
 
   console.log(products);
 
-  const handleRemove = (id) => {
-    dispatch(removeProduct({ id }));
+  const handleRemove = () => {
+    dispatch(removeProduct(products));
   };
 
   useEffect(() => {
     console.log(products);
-    let subTotal = 0;
-    let tax = 0;
-    let total = 0;
-    let shipping = Number(7.99);
-    if (products.length > 0) {
-      subTotal = products
-        .map((product) => product.price * product.quantity)
-        .reduce((a, b) => a + b);
+    // let subTotal = 0;
+    // let tax = 0;
+    // let total = 0;
+    // let shipping = Number(7.99);
+    // if (products.length > 0) {
+    //   subTotal = products
+    //     .map((product) => product.price * product.quantity)
+    //     .reduce((a, b) => a + b);
      
-      setSubTotal(subTotal);
+    //   setSubTotal(subTotal);
 
-      //meo nho tinh tax co + shipping vo luon ko :D
-      tax = parseFloat((((subTotal+shipping)/100) * 8.25).toFixed(2));
+    //   //meo nho tinh tax co + shipping vo luon ko :D
+    //   tax = parseFloat((((subTotal+shipping)/100) * 8.25).toFixed(2));
     
-      total = parseFloat((subTotal + tax + shipping)).toFixed(2);
-      //Sai type, check dum cho nay ku, hinh nhu cai string cai number
-      console.log(subTotal);
-      console.log(tax);
-      console.log(total);
+    //   total = parseFloat((subTotal + tax + shipping)).toFixed(2);
+    //   //Sai type, check dum cho nay ku, hinh nhu cai string cai number
+    //   console.log(subTotal);
+    //   console.log(tax);
+    //   console.log(total);
 
-      setTax(tax);
-      setTotal(total);
-    }
+    //   setTax(tax);
+    //   setTotal(total);
+    //}
   }, [products]);
   return (
     <div className="bag">
@@ -62,12 +62,12 @@ const Cart = () => {
                       <div>
                         <Typography variant="h5">
                           {item.name} {item.storage}
-                          <br />- {item.color}
+                          <br />- {item.color} x {item.quantity}
                         </Typography>
                       </div>
                       <div className="info-right">
                         <span className="price">${item.price}</span>
-                        <button onClick={() => handleRemove(item._id)}>
+                        <button onClick={handleRemove}>
                           Remove
                         </button>
                       </div>
@@ -91,9 +91,9 @@ const Cart = () => {
                     <Typography>Estimated Tax</Typography>
                   </div>
                   <div className="payment-right">
-                    <Typography>${subTotal}</Typography>
-                    <Typography>$7.99</Typography>
-                    <Typography>${tax}</Typography>
+                    <Typography>${cart.subTotal}</Typography>
+                    <Typography>${cart.shipping}</Typography>
+                    <Typography>${cart.tax}</Typography>
                   </div>
                 </Grid>
               </Grid>
@@ -104,7 +104,7 @@ const Cart = () => {
                     <Typography variant="h5">Total</Typography>
                   </div>
                   <div>
-                    <Typography variant="h5">${total}</Typography>
+                    <Typography variant="h5">${cart.total}</Typography>
                   </div>
                 </Grid>
               </Grid>
