@@ -5,7 +5,7 @@ import {
   FormControl,
   Button,
 } from "@mui/material";
-import React, { useEffect, useState, } from "react";
+import React, { useEffect, useState } from "react";
 import { LightBox, InTheBox } from "../../components";
 import "./ProductDetail.css";
 import EcomDataService from "../../services/ecom.js";
@@ -13,13 +13,12 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../app/slices/cartSlice";
 
-
 const ProductDetail = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const [category, setCategory] = useState("");
   const [name, setName] = useState({});
-  const [selectedProduct, setSelectedProduct] = useState(); 
+  const [selectedProduct, setSelectedProduct] = useState();
   const [model, setModel] = useState("");
   const [color, setColor] = useState("");
   const [storage, setStorage] = useState("");
@@ -30,7 +29,7 @@ const ProductDetail = () => {
   const [connectivity, setConnectivity] = useState("");
   const [baseConnecivity, setBaseConnectivity] = useState(0);
   // const [totalConnectivity, setTotalConnectivity] = useState(0);
-  const [price, setPrice] = useState(0) ;
+  const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [paymentType, setPaymentType] = useState("");
   const [id, setId] = useState("");
@@ -39,39 +38,39 @@ const ProductDetail = () => {
     const response = await EcomDataService.get(params.id);
     setCategory(response.data?.category);
     setName(response.data?.skus.name);
-    setSelectedProduct(response.data?.skus); 
-    setBase(response.data?.skus.price.base); 
-  };  
+    setSelectedProduct(response.data?.skus);
+    setBase(response.data?.skus.price.base);
+  };
   const handleModelChange = (event) => {
     setModel(event.target.value.split(",")[0]);
     setTotalDisplay(base + parseInt(event.target.value.split(",")[1]));
     const nextLabel = event.target.parentElement.nextSibling;
     if (nextLabel) {
-      nextLabel.scrollIntoView({behavior: 'smooth', block: 'start'});
-    }    
+      nextLabel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
   const handleColorChange = (event) => {
     setColor(event.target.value);
     const nextLabel = event.target.parentElement.nextSibling;
     if (nextLabel) {
-      nextLabel.scrollIntoView({behavior: 'smooth', block: 'start'});
+      nextLabel.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
-  const handleStorageChange = (event) => {    
+  const handleStorageChange = (event) => {
     setStorage(event.target.value.split(",")[0]);
     setbaseStorage(parseInt(event.target.value.split(",")[1]));
     const nextLabel = event.target.parentElement.nextSibling;
     if (nextLabel) {
-      nextLabel.scrollIntoView({behavior: 'smooth', block: 'start'});
+      nextLabel.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     // setTotalStorage(parseInt(event.target.value.split(",")[2]));
   };
-  const handleConnectivityChange = (event) => {    
+  const handleConnectivityChange = (event) => {
     setConnectivity(event.target.value.split(",")[0]);
     setBaseConnectivity(parseInt(event.target.value.split(",")[1]));
     const nextLabel = event.target.parentElement.nextSibling;
     if (nextLabel) {
-      nextLabel.scrollIntoView({behavior: 'smooth', block: 'start'});
+      nextLabel.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     // setTotalConnectivity(parseInt(event.target.value.split(",")[2]));
   };
@@ -79,19 +78,19 @@ const ProductDetail = () => {
     setPaymentType(event.target.value);
     const nextLabel = event.target.parentElement.nextSibling;
     if (nextLabel) {
-      nextLabel.scrollIntoView({behavior: 'smooth', block: 'start'});
+      nextLabel.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-  }
+  };
   const handleQuantityChange = (event) => {
-    setQuantity (quantity + event)
-  }
+    setQuantity(quantity + event);
+  };
   const generateId = () => {
     setId(Date.now());
-  }
+  };
   const handleSubmit = (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
     generateId();
-    console.log(`Name: ${name}`);   
+    console.log(`Name: ${name}`);
     console.log(`Model: ${model}`);
     console.log(`Color: ${color}`);
     console.log(`Storage: ${storage}`);
@@ -99,16 +98,25 @@ const ProductDetail = () => {
     console.log(quantity);
     console.log(`Price: ${price}`);
     console.log(id);
-    dispatch (
-      addProduct({ ...selectedProduct, name, id, model, color, storage, price, quantity,})
+    dispatch(
+      addProduct({
+        ...selectedProduct,
+        name,
+        id,
+        model,
+        color,
+        storage,
+        price,
+        quantity,
+      })
     );
   };
 
   useEffect(() => {
-    getProduct(); 
-    generateId();   
-    setPrice(totalDisplay+baseStorage+baseConnecivity);
-  }, [params.id,totalDisplay,baseStorage,baseConnecivity,price]);
+    getProduct();
+    generateId();
+    setPrice(totalDisplay + baseStorage + baseConnecivity);
+  }, [params.id, totalDisplay, baseStorage, baseConnecivity, price]);
 
   return (
     <div className="product-detail">
@@ -117,7 +125,10 @@ const ProductDetail = () => {
           <div className="detail-header-left">
             <span>New</span>
             <Typography variant="h3">Buy {selectedProduct?.name}</Typography>
-            <p>From ${selectedProduct?.price.base} or ${(selectedProduct?.price.base/12).toFixed(2)}/mo. for 12 mo.</p>
+            <p>
+              From ${selectedProduct?.price.base} or $
+              {(selectedProduct?.price.base / 12).toFixed(2)}/mo. for 12 mo.
+            </p>
           </div>
           <div className="detail-header-right">
             <div className="detail-promotion">
@@ -128,15 +139,15 @@ const ProductDetail = () => {
             </div>
           </div>
         </div>
-        <div className="product-detail-main" >
-          <Grid container spacing={2} >
+        <div className="product-detail-main">
+          <Grid container spacing={2}>
             <Grid item xs={12} md={7} className="product-slider">
               <LightBox />
             </Grid>
-            <Grid item xs={12} md={5} className="product-selection"> 
-              <div >                
+            <Grid item xs={12} md={5} className="product-selection">
+              <div>
                 <form className="ipad-form" onSubmit={handleSubmit}>
-                  <FormControl>                    
+                  <FormControl>
                     {selectedProduct?.variants.display && (
                       <>
                         <Typography variant="h4" className="form-typography">
@@ -144,16 +155,20 @@ const ProductDetail = () => {
                         </Typography>
                         {selectedProduct?.variants?.display.map(
                           (display, index) => {
-                            let basePrice = (selectedProduct.price.base + display.price);
-                            let monthlyPayment = ((selectedProduct.price.base + display.price) / 12).toFixed(2);
+                            let basePrice =
+                              selectedProduct.price.base + display.price;
+                            let monthlyPayment = (
+                              (selectedProduct.price.base + display.price) /
+                              12
+                            ).toFixed(2);
                             return (
                               <label for={display.size}>
                                 <input
-                                  type="radio"                                  
+                                  type="radio"
                                   id={display.size}
                                   name="radio-group1"
                                   value={[display.size, display.price]}
-                                  onClick={handleModelChange}                                 
+                                  onClick={handleModelChange}
                                   required
                                 />
                                 <div id="selectable-display">
@@ -169,8 +184,12 @@ const ProductDetail = () => {
                                         <span className="input-row-single">
                                           From ${basePrice}
                                         </span>
-                                        <span className="input-row-single">or ${monthlyPayment}/mo.</span>
-                                        <span className="input-row-single">for 12 months</span>
+                                        <span className="input-row-single">
+                                          or ${monthlyPayment}/mo.
+                                        </span>
+                                        <span className="input-row-single">
+                                          for 12 months
+                                        </span>
                                       </span>
                                     </span>
                                   </span>
@@ -188,30 +207,40 @@ const ProductDetail = () => {
                           Finish.<span> Pick your favorite color</span>
                         </Typography>
                         <Typography variant="h6">
-                                Color <span className="hide">{color.toUpperCase()}</span>
+                          Color{" "}
+                          <span className="hide">{color.toUpperCase()}</span>
                         </Typography>
                         {selectedProduct?.variants?.colors.map(
-                          (color, index) => { 
+                          (color, index) => {
                             let divStyle = {
-                              backgroundColor: color==="Scarlet"? "#BB0000" : color==="Midnight" ? "#302E41" :  color==="Starlight" ? "#F8F9EC": color ,                              
-                         }                           
+                              backgroundColor:
+                                color === "Scarlet"
+                                  ? "#BB0000"
+                                  : color === "Midnight"
+                                  ? "#302E41"
+                                  : color === "Starlight"
+                                  ? "#F8F9EC"
+                                  : color,
+                            };
                             return (
-                              <>                                                        
-                              <label for={color}>
-                                <input
-                                  type="radio"
-                                  id={color}
-                                  name="radio-group2"
-                                  value={color}
-                                  onClick={handleColorChange}                                
-                                  key={index}
-                                  required
-                                />                                 
-                                <div id="selectable-color" style={divStyle}>
-                                  
-                                </div>
-                              </label>
-                              </>);
+                              <>
+                                <label for={color}>
+                                  <input
+                                    type="radio"
+                                    id={color}
+                                    name="radio-group2"
+                                    value={color}
+                                    onClick={handleColorChange}
+                                    key={index}
+                                    required
+                                  />
+                                  <div
+                                    id="selectable-color"
+                                    style={divStyle}
+                                  ></div>
+                                </label>
+                              </>
+                            );
                           }
                         )}
                       </>
@@ -224,18 +253,21 @@ const ProductDetail = () => {
                         </Typography>
                         {selectedProduct?.variants?.storages.map(
                           (storage, index) => {
-                            let basePrice = (totalDisplay + storage.price);
-                            let monthlyPayment = ((basePrice) / 12).toFixed(2);
+                            let basePrice = totalDisplay + storage.price;
+                            let monthlyPayment = (basePrice / 12).toFixed(2);
                             return (
                               <label for={storage.unit}>
                                 <input
-                                  type="radio"                                  
+                                  type="radio"
                                   id={storage.unit}
                                   name="radio-group3"
-                                  value={[storage.unit, storage.price, basePrice]}
-                                  onClick={handleStorageChange}                                  
-                                  required                                
-                                  
+                                  value={[
+                                    storage.unit,
+                                    storage.price,
+                                    basePrice,
+                                  ]}
+                                  onClick={handleStorageChange}
+                                  required
                                 />
                                 <div id="selectable-display">
                                   <span className="input-column">
@@ -250,8 +282,12 @@ const ProductDetail = () => {
                                         <span className="input-row-single">
                                           From ${basePrice}
                                         </span>
-                                        <span className="input-row-single ">or ${monthlyPayment}/mo.</span>
-                                        <span className="input-row-single ">for 12 months</span>
+                                        <span className="input-row-single ">
+                                          or ${monthlyPayment}/mo.
+                                        </span>
+                                        <span className="input-row-single ">
+                                          for 12 months
+                                        </span>
                                       </span>
                                     </span>
                                   </span>
@@ -263,159 +299,198 @@ const ProductDetail = () => {
                       </>
                     )}
 
-                    {selectedProduct?.variants.connectivity && category === "iPad" && (
-                      <>
-                        <Typography variant="h4" className="form-typography">
-                          Connectivity. <span>Choose how you'd stay connected</span>
-                        </Typography>
-                        {selectedProduct?.variants?.connectivity.map(
-                          (connect, index) => {
-                            let basePrice = (totalDisplay+ baseStorage + connect.price);
-                            let monthlyPayment = ((basePrice) / 12).toFixed(2);
-                            return (
-                              <label for={connect.type}>
-                                <input
-                                  type="radio"                                  
-                                  id={connect.type}
-                                  name="radio-group4"
-                                  value={[connect.type, connect.price, basePrice]}
-                                  onClick={handleConnectivityChange}                                  
-                                  required
-                                />
-                                <div id="selectable-display">
-                                  <span className="input-column">
-                                    <span className="input-column-right">
-                                      <span className="input-row-right">
-                                        {connect.type === 1 ? (<strong>Wi-fi</strong>) 
-                                        : (<strong>Wi-fi + Cellular</strong>)}                                        
-                                      </span>
-                                    </span>
-
-                                    <span className="input-column-left">
-                                      <span className="input-row-left detail-font">
-                                        <span className="input-row-single ">
-                                          From ${basePrice}
+                    {selectedProduct?.variants.connectivity &&
+                      category === "iPad" && (
+                        <>
+                          <Typography variant="h4" className="form-typography">
+                            Connectivity.{" "}
+                            <span>Choose how you'd stay connected</span>
+                          </Typography>
+                          {selectedProduct?.variants?.connectivity.map(
+                            (connect, index) => {
+                              let basePrice =
+                                totalDisplay + baseStorage + connect.price;
+                              let monthlyPayment = (basePrice / 12).toFixed(2);
+                              return (
+                                <label for={connect.type}>
+                                  <input
+                                    type="radio"
+                                    id={connect.type}
+                                    name="radio-group4"
+                                    value={[
+                                      connect.type,
+                                      connect.price,
+                                      basePrice,
+                                    ]}
+                                    onClick={handleConnectivityChange}
+                                    required
+                                  />
+                                  <div id="selectable-display">
+                                    <span className="input-column">
+                                      <span className="input-column-right">
+                                        <span className="input-row-right">
+                                          {connect.type === 1 ? (
+                                            <strong>Wi-fi</strong>
+                                          ) : (
+                                            <strong>Wi-fi + Cellular</strong>
+                                          )}
                                         </span>
-                                        <span className="input-row-single ">or ${monthlyPayment}/mo.</span>
-                                        <span className="input-row-single ">for 12 months</span>
+                                      </span>
+
+                                      <span className="input-column-left">
+                                        <span className="input-row-left detail-font">
+                                          <span className="input-row-single ">
+                                            From ${basePrice}
+                                          </span>
+                                          <span className="input-row-single ">
+                                            or ${monthlyPayment}/mo.
+                                          </span>
+                                          <span className="input-row-single ">
+                                            for 12 months
+                                          </span>
+                                        </span>
                                       </span>
                                     </span>
-                                  </span>
-                                </div>
-                              </label>
-                            );
-                          }
-                        )}
-                      </>
-                    )} 
+                                  </div>
+                                </label>
+                              );
+                            }
+                          )}
+                        </>
+                      )}
 
                     {category === "iPhone" && (
                       <>
                         <Typography variant="h4" className="form-typography">
-                          Connectivity. <span>International unlock - Carrier worried free</span>
-                        </Typography>                        
-                      </>
-                    )} 
-
-                    {(                      
-                      <>
-                        <Typography variant="h4" className="form-typography">
-                          Payment options. <span>Select one that works for you.</span>
-                        </Typography>   
-                              <label for="payment">
-                                <input
-                                  type="radio"                                  
-                                  id="payment"
-                                  name="radio-group5"
-                                  value={price}
-                                  onClick={handlePaymentChange}                                  
-                                  required
-                                />
-                                <div id="selectable-display">
-                                  <span>
-                                    <span className="input-row-left">
-                                      <span className="input-row-single left-align" >
-                                       <strong>Buy</strong>                                       
-                                      </span>
-                                      <span className="input-row-single left-align detail-font">
-                                          From ${price}
-                                        </span>
-                                    </span>
-
-                                    <span>
-                                      <span> 
-                                        <br/>                                      
-                                        <hr/>
-                                        <br/>
-                                        <ul>
-                                          <li className="detail-font">Pay the total amount today</li>
-                                        </ul>                                        
-                                      </span>
-                                    </span>
-                                  </span>
-                                </div>
-                              </label>
-                              <label for="payment-monthly">
-                                <input
-                                  type="radio"                                  
-                                  id="payment-monthly"
-                                  name="radio-group5"
-                                  value={(price / 12).toFixed(2)}
-                                  onClick={handlePaymentChange}                                  
-                                  required
-                                />
-                                <div id="selectable-display">
-                                  <span>
-                                    <span className="input-row-left">
-                                      <span className="input-row-single left-align">
-                                       <strong>Finance</strong>                                       
-                                      </span>
-                                      <span className="input-row-single left-align detail-font">
-                                          Apple Card Monthly Installments
-                                        </span>
-                                        <span className="input-row-single left-align detail-font">
-                                          From $ {(price / 12).toFixed(2)}/mo. for 12 mo.
-                                        </span>
-                                        <span className="input-row-single left-align detail-font">
-                                          ${price} Total
-                                        </span>                                        
-                                    </span>
-
-                                    <span>
-                                      <span>                                        
-                                        <br/>
-                                        <hr/>
-                                        <br/>
-                                        <ul>
-                                          <li className="detail-font">Pay for your iPad with Apple Card Monthly Installments</li>
-                                          <li className="detail-font">Financed at 0% APR◇</li>
-                                        </ul>                                        
-                                      </span>
-                                    </span>
-                                  </span>
-                                </div>
-                              </label>   
+                          Connectivity.{" "}
+                          <span>
+                            International unlock - Carrier worried free
+                          </span>
+                        </Typography>
                       </>
                     )}
 
+                    {
+                      <>
                         <Typography variant="h4" className="form-typography">
-                          Quantity. <span>You might need more than one.</span>                       
+                          Payment options.{" "}
+                          <span>Select one that works for you.</span>
                         </Typography>
-                        <div class="quantity-container">
-                          <button type="button" class="decrease-button" onClick={() => handleQuantityChange(-1)}>-</button>
-                          <span type="text" class="quantity-input">{quantity}</span>
-                          <button type="button" class="increase-button" onClick={() => handleQuantityChange(1)}>+</button>
-                        </div>                        
-                          
-                        <Typography variant="h4" className="form-typography">                        
-                          Each from ${price} or ${(price / 12).toFixed(2)}/mo.per month for 12 mo.
-                        </Typography> 
-                        
-                        <Button type="submit">CONTINUE</Button>
+                        <label for="payment">
+                          <input
+                            type="radio"
+                            id="payment"
+                            name="radio-group5"
+                            value={price}
+                            onClick={handlePaymentChange}
+                            required
+                          />
+                          <div id="selectable-display">
+                            <span>
+                              <span className="input-row-left">
+                                <span className="input-row-single left-align">
+                                  <strong>Buy</strong>
+                                </span>
+                                <span className="input-row-single left-align detail-font">
+                                  From ${price}
+                                </span>
+                              </span>
 
+                              <span>
+                                <span>
+                                  <br />
+                                  <hr />
+                                  <br />
+                                  <ul>
+                                    <li className="detail-font">
+                                      Pay the total amount today
+                                    </li>
+                                  </ul>
+                                </span>
+                              </span>
+                            </span>
+                          </div>
+                        </label>
+                        <label for="payment-monthly">
+                          <input
+                            type="radio"
+                            id="payment-monthly"
+                            name="radio-group5"
+                            value={(price / 12).toFixed(2)}
+                            onClick={handlePaymentChange}
+                            required
+                          />
+                          <div id="selectable-display">
+                            <span>
+                              <span className="input-row-left">
+                                <span className="input-row-single left-align">
+                                  <strong>Finance</strong>
+                                </span>
+                                <span className="input-row-single left-align detail-font">
+                                  Apple Card Monthly Installments
+                                </span>
+                                <span className="input-row-single left-align detail-font">
+                                  From $ {(price / 12).toFixed(2)}/mo. for 12
+                                  mo.
+                                </span>
+                                <span className="input-row-single left-align detail-font">
+                                  ${price} Total
+                                </span>
+                              </span>
 
-                  </FormControl>                 
-                </form>                
+                              <span>
+                                <span>
+                                  <br />
+                                  <hr />
+                                  <br />
+                                  <ul>
+                                    <li className="detail-font">
+                                      Pay for your iPad with Apple Card Monthly
+                                      Installments
+                                    </li>
+                                    <li className="detail-font">
+                                      Financed at 0% APR◇
+                                    </li>
+                                  </ul>
+                                </span>
+                              </span>
+                            </span>
+                          </div>
+                        </label>
+                      </>
+                    }
+
+                    <Typography variant="h4" className="form-typography">
+                      Quantity. <span>You might need more than one.</span>
+                    </Typography>
+                    <div class="quantity-container">
+                      <button
+                        type="button"
+                        class="decrease-button"
+                        onClick={() => handleQuantityChange(-1)}
+                      >
+                        -
+                      </button>
+                      <span type="text" class="quantity-input">
+                        {quantity}
+                      </span>
+                      <button
+                        type="button"
+                        class="increase-button"
+                        onClick={() => handleQuantityChange(1)}
+                      >
+                        +
+                      </button>
+                    </div>
+
+                    <Typography variant="h4" className="form-typography">
+                      Each from ${price} or ${(price / 12).toFixed(2)}/mo.per
+                      month for 12 mo.
+                    </Typography>
+
+                    <Button type="submit">CONTINUE</Button>
+                  </FormControl>
+                </form>
               </div>
             </Grid>
           </Grid>

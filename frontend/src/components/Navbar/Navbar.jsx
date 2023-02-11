@@ -86,7 +86,10 @@ const Navbar = () => {
                                 alt="cart img"
                               />
                             </div>
-                            <div>{prod.name}</div>
+                            <div style={{ textAlign: "left" }}>
+                              {prod.name}
+                              <br />x {prod.quantity}
+                            </div>
                           </div>
                         </li>
                       );
