@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import "./Cart.css";
-import { Typography, Container, Grid } from "@mui/material";
+import { Typography, Container, Grid, Button } from "@mui/material";
 import iPadImg from "../../assets/products/ipad-pro.jpeg";
 import { useSelector, useDispatch } from "react-redux";
-import { removeProduct } from "../../app/slices/cartSlice";
+import { clearCart, removeProduct } from "../../app/slices/cartSlice";
 const Cart = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.products);
@@ -14,8 +14,12 @@ const Cart = () => {
 
   console.log(products);
 
-  const handleRemove = () => {
-    dispatch(removeProduct(products));
+  const handleRemove = (id) => {
+    dispatch(removeProduct(id));
+  };
+
+  const handleClear = () => {
+    dispatch(clearCart());
   };
 
   useEffect(() => {
@@ -28,12 +32,12 @@ const Cart = () => {
     //   subTotal = products
     //     .map((product) => product.price * product.quantity)
     //     .reduce((a, b) => a + b);
-     
+
     //   setSubTotal(subTotal);
 
     //   //meo nho tinh tax co + shipping vo luon ko :D
     //   tax = parseFloat((((subTotal+shipping)/100) * 8.25).toFixed(2));
-    
+
     //   total = parseFloat((subTotal + tax + shipping)).toFixed(2);
     //   //Sai type, check dum cho nay ku, hinh nhu cai string cai number
     //   console.log(subTotal);
@@ -47,8 +51,17 @@ const Cart = () => {
   return (
     <div className="bag">
       <Container maxWidth="lg">
-        <Typography variant="h3">Review your bag.</Typography>
-        <Typography variant="body1">Free delivery and free returns.</Typography>
+        <div className="cart-header-flex">
+          <div>
+            <Typography variant="h3">Review your bag.</Typography>
+            <Typography variant="body1">
+              Free delivery and free returns.
+            </Typography>
+          </div>
+          <div>
+            <Button onClick={handleClear}>Clear Cart</Button>
+          </div>
+        </div>
         {products.length > 0 ? (
           <>
             {products.map((item) => {
@@ -67,7 +80,7 @@ const Cart = () => {
                       </div>
                       <div className="info-right">
                         <span className="price">${item.price}</span>
-                        <button onClick={handleRemove}>
+                        <button onClick={() => handleRemove(item.id)}>
                           Remove
                         </button>
                       </div>

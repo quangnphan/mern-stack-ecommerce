@@ -36,6 +36,15 @@
 .bag-total{
     padding: 20px 0;
 }
+.bag h4{
+    text-align: center;
+    margin-top: 50px;
+}
+.cart-header-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
 @media(max-width: 600px){
     .bag-info h5{
         font-size: 18px;
@@ -43,8 +52,12 @@
     .bag-info .price{
         font-size: 18px;
     }
-}
-.bag h4{
-    text-align: center;
-    margin-top: 50px;
+    .cart-header-flex{
+        align-items: unset;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+    .cart-header-flex h3{
+        font-size: 2.5rem;
+    }
 }
