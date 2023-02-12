@@ -13,10 +13,9 @@ const LightBox = () => {
 
   const settings = {
     dots: false,
-    fade: true,
     infinite: true,
     arrows: true,
-    speed: 500,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     nextArrow: <ArrowForwardIosIcon />,
