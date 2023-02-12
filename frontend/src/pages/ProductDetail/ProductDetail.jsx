@@ -31,6 +31,7 @@ const ProductDetail = () => {
   // const [totalConnectivity, setTotalConnectivity] = useState(0);
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  // eslint-disable-next-line
   const [paymentType, setPaymentType] = useState("");
   const [id, setId] = useState("");
 
@@ -116,6 +117,7 @@ const ProductDetail = () => {
     getProduct();
     generateId();
     setPrice(totalDisplay + baseStorage + baseConnecivity);
+    // eslint-disable-next-line
   }, [params.id, totalDisplay, baseStorage, baseConnecivity, price]);
 
   return (
@@ -140,21 +142,21 @@ const ProductDetail = () => {
           </div>
         </div>
         <div className="product-detail-main">
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={7} className="product-slider">
+          <div className="product-detail-flex">
+            <div className="product-slider">
               <LightBox />
-            </Grid>
-            <Grid item xs={12} md={5} className="product-selection">
+            </div>
+            <div className="product-selection">
               <div>
                 <form className="ipad-form" onSubmit={handleSubmit}>
                   <FormControl>
                     {selectedProduct?.variants.display && (
                       <>
-                        <Typography variant="h4" className="form-typography">
+                        <Typography variant="h5" className="form-typography">
                           Model. <span>Choose your settings</span>
                         </Typography>
                         {selectedProduct?.variants?.display.map(
-                          (display, index) => {
+                          (display) => {
                             let basePrice =
                               selectedProduct.price.base + display.price;
                             let monthlyPayment = (
@@ -203,56 +205,59 @@ const ProductDetail = () => {
 
                     {selectedProduct?.variants.colors && (
                       <>
-                        <Typography variant="h4" className="form-typography">
+                        <Typography variant="h5" className="form-typography">
                           Finish.<span> Pick your favorite color</span>
                         </Typography>
-                        <Typography variant="h6">
+                        <Typography variant="h7">
                           Color{" "}
                           <span className="hide">{color.toUpperCase()}</span>
                         </Typography>
-                        {selectedProduct?.variants?.colors.map(
-                          (color, index) => {
-                            let divStyle = {
-                              backgroundColor:
-                                color === "Scarlet"
-                                  ? "#BB0000"
-                                  : color === "Midnight"
-                                  ? "#302E41"
-                                  : color === "Starlight"
-                                  ? "#F8F9EC"
-                                  : color,
-                            };
-                            return (
-                              <>
-                                <label for={color}>
-                                  <input
-                                    type="radio"
-                                    id={color}
-                                    name="radio-group2"
-                                    value={color}
-                                    onClick={handleColorChange}
-                                    key={index}
-                                    required
-                                  />
-                                  <div
-                                    id="selectable-color"
-                                    style={divStyle}
-                                  ></div>
-                                </label>
-                              </>
-                            );
-                          }
-                        )}
+                        <div className="colors">
+                          {selectedProduct?.variants?.colors.map(
+                            (color, index) => {
+                              let divStyle = {
+                                backgroundColor:
+                                  color === "Scarlet"
+                                    ? "#BB0000"
+                                    : color === "Midnight"
+                                    ? "#302E41"
+                                    : color === "Starlight"
+                                    ? "#F8F9EC"
+                                    : color,
+                              };
+                              return (
+                                <div>
+                                  <label for={color}>
+                                    <input
+                                      type="radio"
+                                      id={color}
+                                      name="radio-group2"
+                                      value={color}
+                                      onClick={handleColorChange}
+                                      key={index}
+                                      required
+                                    />
+                                    <div
+                                      className="color-select"
+                                      id="selectable-color"
+                                      style={divStyle}
+                                    ></div>
+                                  </label>
+                                </div>
+                              );
+                            }
+                          )}
+                        </div>
                       </>
                     )}
 
                     {selectedProduct?.variants.storages && (
                       <>
-                        <Typography variant="h4" className="form-typography">
+                        <Typography variant="h5" className="form-typography">
                           Storage. <span>How much space do you need</span>
                         </Typography>
                         {selectedProduct?.variants?.storages.map(
-                          (storage, index) => {
+                          (storage) => {
                             let basePrice = totalDisplay + storage.price;
                             let monthlyPayment = (basePrice / 12).toFixed(2);
                             return (
@@ -302,12 +307,12 @@ const ProductDetail = () => {
                     {selectedProduct?.variants.connectivity &&
                       category === "iPad" && (
                         <>
-                          <Typography variant="h4" className="form-typography">
+                          <Typography variant="h5" className="form-typography">
                             Connectivity.{" "}
                             <span>Choose how you'd stay connected</span>
                           </Typography>
                           {selectedProduct?.variants?.connectivity.map(
-                            (connect, index) => {
+                            (connect) => {
                               let basePrice =
                                 totalDisplay + baseStorage + connect.price;
                               let monthlyPayment = (basePrice / 12).toFixed(2);
@@ -361,7 +366,7 @@ const ProductDetail = () => {
 
                     {category === "iPhone" && (
                       <>
-                        <Typography variant="h4" className="form-typography">
+                        <Typography variant="h5" className="form-typography">
                           Connectivity.{" "}
                           <span>
                             International unlock - Carrier worried free
@@ -372,7 +377,7 @@ const ProductDetail = () => {
 
                     {
                       <>
-                        <Typography variant="h4" className="form-typography">
+                        <Typography variant="h5" className="form-typography">
                           Payment options.{" "}
                           <span>Select one that works for you.</span>
                         </Typography>
@@ -460,7 +465,7 @@ const ProductDetail = () => {
                       </>
                     }
 
-                    <Typography variant="h4" className="form-typography">
+                    <Typography variant="h5" className="form-typography">
                       Quantity. <span>You might need more than one.</span>
                     </Typography>
                     <div class="quantity-container">
@@ -483,17 +488,16 @@ const ProductDetail = () => {
                       </button>
                     </div>
 
-                    <Typography variant="h4" className="form-typography">
+                    <Typography style={{marginTop: '10px'}} variant="h7" className="form-typography">
                       Each from ${price} or ${(price / 12).toFixed(2)}/mo.per
                       month for 12 mo.
                     </Typography>
-
-                    <Button type="submit">CONTINUE</Button>
+                    <Button className="continue-to-cart-btn" variant="contained" type="submit">CONTINUE</Button>
                   </FormControl>
                 </form>
               </div>
-            </Grid>
-          </Grid>
+            </div>
+          </div>
           <div className="in-the-box-container">
             <InTheBox />
           </div>
