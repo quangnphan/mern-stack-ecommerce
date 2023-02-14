@@ -11,6 +11,9 @@ class EcomDataService {
   get(id) {
     return http.get(`/product/${id}`);
   }
+  createOrder(data) {
+    return http.post("/order", data);
+  }
 }
 
 export default new EcomDataService();
