@@ -14,7 +14,7 @@ const Hero = () => {
                 Big and bigger.
             </Typography>
             <Typography variant="h5">
-            <Link to="/product/iPhone/638d3fcfca9f34b3673bcd5e">
+            <Link to="/product/iPhone/iPhone14_Main">
                 Learn more
             </Link>
             </Typography>

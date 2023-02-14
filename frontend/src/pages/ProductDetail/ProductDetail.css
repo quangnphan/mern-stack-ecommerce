@@ -34,12 +34,17 @@
 }
 .product-slider {
   margin-top: 30px;
-  max-width: 50vw;
+  max-width: 700px;
   max-height: 400px;
   align-self: flex-start;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+}
+@media (max-width: 1100px) {
+  .product-slider {
+    max-width: 600px;
+  }
 }
 @media (max-width: 950px) {
   .product-slider {
@@ -60,9 +65,6 @@
 }
 .detail-header-left span {
   color: orange;
-}
-.ipad-form {
-  display: inline-grid;
 }
 .form-typography span {
   color: dimgray;
@@ -185,4 +187,7 @@ input[type="radio"]:hover + #selectable-color {
   min-width: 250px !important;
   margin: 30px auto 0 !important;
   text-align: center !important;
+}
+.MuiFormControl-root{
+  width: 100%;
 }

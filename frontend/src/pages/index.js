@@ -5,3 +5,4 @@ export {default as ProductList} from './ProductList/ProductList';
 export {default as ProductDetail} from './ProductDetail/ProductDetail';
 export {default as Success} from './Success/Success';
 export {default as PageNotFound} from './404/PageNotFound';
+export {default as Checkout} from './Checkout/Checkout';
