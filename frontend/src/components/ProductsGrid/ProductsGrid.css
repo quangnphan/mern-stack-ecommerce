@@ -8,6 +8,11 @@
   justify-content: space-between;
   border-radius: 10px;
 }
+.products-grid a {
+  color: #06c;
+  font-weight: 300;
+  font-size: 18px;
+}
 .products-grid .MuiGrid-container .MuiGrid-item {
   text-align: center;
   min-height: 500px;

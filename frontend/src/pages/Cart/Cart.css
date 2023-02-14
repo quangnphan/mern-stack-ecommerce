@@ -45,6 +45,11 @@
     justify-content: space-between;
     align-items: flex-end;
 }
+.checkout-btn{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
 @media(max-width: 600px){
     .bag-info h5{
         font-size: 18px;

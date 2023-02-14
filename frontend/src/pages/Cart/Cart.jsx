@@ -4,6 +4,7 @@ import { Typography, Container, Grid, Button } from "@mui/material";
 import iPadImg from "../../assets/products/ipad-pro.jpeg";
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart, removeProduct } from "../../app/slices/cartSlice";
+import { Link } from "react-router-dom";
 const Cart = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.products);
@@ -122,6 +123,11 @@ const Cart = () => {
                 </Grid>
               </Grid>
             </div>
+              <Link className="checkout-btn" to="/checkout">
+                <Button variant="contained">
+                Checkout
+                </Button>
+              </Link>
           </>
         ) : (
           <Typography variant="h4">Your cart is empty.</Typography>

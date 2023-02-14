@@ -82,23 +82,12 @@ const ProductDetail = () => {
       nextLabel.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
-  const handleQuantityChange = (event) => {
-    setQuantity(quantity + event);
-  };
   const generateId = () => {
     setId(Date.now());
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     generateId();
-    console.log(`Name: ${name}`);
-    console.log(`Model: ${model}`);
-    console.log(`Color: ${color}`);
-    console.log(`Storage: ${storage}`);
-    console.log(`Connectivity: ${connectivity}`);
-    console.log(quantity);
-    console.log(`Price: ${price}`);
-    console.log(id);
     dispatch(
       addProduct({
         ...selectedProduct,
@@ -114,6 +103,11 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
     getProduct();
     generateId();
     setPrice(totalDisplay + baseStorage + baseConnecivity);
@@ -472,7 +466,13 @@ const ProductDetail = () => {
                       <button
                         type="button"
                         class="decrease-button"
-                        onClick={() => handleQuantityChange(-1)}
+                        onClick={() => {
+                          if(quantity === 1){
+                            return;
+                          }else{
+                            setQuantity(quantity - 1);
+                          }
+                        }}
                       >
                         -
                       </button>
@@ -482,7 +482,7 @@ const ProductDetail = () => {
                       <button
                         type="button"
                         class="increase-button"
-                        onClick={() => handleQuantityChange(1)}
+                        onClick={() => setQuantity(quantity + 1)}
                       >
                         +
                       </button>
@@ -492,7 +492,7 @@ const ProductDetail = () => {
                       Each from ${price} or ${(price / 12).toFixed(2)}/mo.per
                       month for 12 mo.
                     </Typography>
-                    <Button className="continue-to-cart-btn" variant="contained" type="submit">CONTINUE</Button>
+                    <Button className="continue-to-cart-btn" variant="contained" type="submit">Add To Bag</Button>
                   </FormControl>
                 </form>
               </div>

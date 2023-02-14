@@ -5,7 +5,6 @@
   background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
-  position: fixed;
 }
 .navbar .nav-container {
   display: flex;
