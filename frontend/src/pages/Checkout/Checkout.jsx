@@ -2,7 +2,7 @@ import { Container, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import React from "react";
 import "./Checkout.css";
-import { Stripejs } from "../../components";
+import { StripePayment } from "../../components";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
@@ -15,7 +15,6 @@ const stripePromise = loadStripe(
 
 const Checkout = () => {
   const amount = useSelector((state)=>state.cart.total);
-  console.log(amount);
   const options = {
     // passing the client secret obtained from the server
     clientSecret: 'sk_test_51MbEP2J0BezhDIqMM57Nk4XZzesmZWeErdI2l4j7ZIg8TwiSItnnqdPJNYRiX4EQAUNfGittqjoeH2TkcNgjChl000VbfMVSk9',
@@ -28,8 +27,8 @@ const Checkout = () => {
           <Link to="/cart">Order Summary: ${amount}</Link>
         </div>
         <div className="stripejs">
-          <Elements stripe={stripePromise} options={options}>
-            <Stripejs amount={amount}/>
+          <Elements stripe={stripePromise} >
+            <StripePayment amount={amount}/>
           </Elements>
         </div>
       </Container>
