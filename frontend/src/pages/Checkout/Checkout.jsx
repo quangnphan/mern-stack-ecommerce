@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import "./Checkout.css";
 import { StripePayment } from "../../components";
-import { Elements } from "@stripe/react-stripe-js";
+import { Elements,  } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
 
@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 const stripePromise = loadStripe(
   "pk_test_51MbEP2J0BezhDIqMiucxOQuyBA31bqGKccfRdxLnzZKjb0GkTYNUeRkOhLE69P7WoneutNYX3YpBKbikJQecvR1x00eOKx6OmZ"
 );
+// const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const Checkout = () => {
   const amount = useSelector((state)=>state.cart.total);
@@ -25,12 +26,13 @@ const Checkout = () => {
         <div className="checkout-header">
           <Typography>Checkout</Typography>
           <Link to="/cart">Order Summary: ${amount}</Link>
-        </div>
-        <div className="stripejs">
+        </div>      
+  
           <Elements stripe={stripePromise} >
             <StripePayment amount={amount}/>
           </Elements>
-        </div>
+
+       
       </Container>
     </div>
   );
