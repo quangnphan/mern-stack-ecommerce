@@ -1,7 +1,7 @@
 import express from "express"
 import ProductsCtrl from "./controllers/products.controller.js"
 import OrdersCtrl from "./controllers/orders.controller.js"
-
+import StripesCtrl from "./controllers/stripes.controller.js"
 const router = express.Router()
 
 // router.route("/").get((req,res) => res.send("Connect Success"))
@@ -12,5 +12,7 @@ router
     .route("/order")
     .post(OrdersCtrl.apiPostOrder)
 
-
+router 
+    .route("/payment")
+    .post(StripesCtrl.apiPostPayment)
 export default router 
