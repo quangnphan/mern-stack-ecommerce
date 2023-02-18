@@ -8,7 +8,7 @@ class StripesController {
 
       const paymentIntent = await PaymentsDAO.createPayment(amount);
       //    console.log(paymentIntent);
-      res.status(201).json({ clientSecrete: paymentIntent.client_secret });
+      res.status(201).json({ clientSecret: paymentIntent.client_secret });
     } catch (e) {
       res.status(500).json({ error: e.message });
     }
