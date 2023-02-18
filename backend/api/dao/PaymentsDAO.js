@@ -1,11 +1,13 @@
 import stripe from "stripe";
-// const stripeAPI = stripe(process.env.STRIPE_SECRET_KEY);
-const stripeAPI = stripe("sk_test_51MbEP2J0BezhDIqMM57Nk4XZzesmZWeErdI2l4j7ZIg8TwiSItnnqdPJNYRiX4EQAUNfGittqjoeH2TkcNgjChl000VbfMVSk9");
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const stripeAPI = stripe(process.env.STRIPE_SECRET_KEY);
 
 class PaymentsDAO {
     static async createPayment(amount) {
         try {
-           
             return await stripeAPI.paymentIntents.create({
                 amount: amount*100,
                 currency: "usd",

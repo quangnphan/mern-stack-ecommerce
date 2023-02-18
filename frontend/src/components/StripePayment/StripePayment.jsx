@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import axios from "axios";
+import React, { useState } from "react";
+import {
+  PaymentElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
+import { Button, FormControl } from "@mui/material";
 
-const StripePayment = (amount) => {
+const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
   const stripe = useStripe();
   const elements = useElements();
-  const [clientSecret, setClientSecret] = useState();
-  const [errorMsg, setErrorMsg] = useState("");
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -19,7 +21,7 @@ const StripePayment = (amount) => {
       await stripe
         .confirmCardPayment(clientSecret, {
           payment_method: {
-            card: elements.getElement(CardElement),
+            card: elements.getElement(PaymentElement),
           },
         })
         .then(({ paymentIntent }) => {
@@ -36,32 +38,15 @@ const StripePayment = (amount) => {
     }
   };
 
-  useEffect(() => {
-    async function getClientSecret(total) {
-      try {
-        const { data } = await axios.post(
-          `http://localhost:5000/api/ecom/payment`, {
-            total: total
-          }
-        );
-        setClientSecret(data.clientSecret);
-        console.log(data);
-      } catch (error) {
-        console.log(error);
-        setErrorMsg(error.message);
-      }
-    }
-    getClientSecret(amount.amount);
-  }, [amount]);
-
   return (
-    <form onSubmit={paymentHandler}>
-      <CardElement />
+    <FormControl onSubmit={paymentHandler}>
+      
+      <PaymentElement />
       {errorMsg && <div className="errorMsg">{errorMsg}</div>}
-      <button disabled={!stripe || !elements || processing || success}>
+      <Button className="pay-btn" variant="contained" disabled={!stripe || !elements || processing || success}>
         Pay Now
-      </button>
-    </form>
+      </Button>
+    </FormControl>
   );
 };
 
