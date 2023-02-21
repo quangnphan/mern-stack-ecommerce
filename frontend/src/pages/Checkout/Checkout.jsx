@@ -54,7 +54,7 @@ const Checkout = () => {
           <ArrowBackIosIcon />
           Back to Cart
         </Link>
-
+        <Container maxWidth="md">
         {clientSecret && (
           <Elements stripe={stripePromise} options={options}>
             <StripePayment
@@ -64,6 +64,7 @@ const Checkout = () => {
             />
           </Elements>
         )}
+        </Container>
       </Container>
     </div>
   );
