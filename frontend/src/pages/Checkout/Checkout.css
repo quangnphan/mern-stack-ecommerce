@@ -28,3 +28,7 @@
 .back-btn:hover {
   color: #06c;
 }
+
+.active .MuiSvgIcon-root{
+  color: #0071e3;
+}
