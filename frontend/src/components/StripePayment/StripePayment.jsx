@@ -20,7 +20,7 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
   const elements = useElements();
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(2);
 
   const stepIcons = (props) => {
     const { active, completed } = props;
@@ -114,6 +114,7 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
           },
         })
         .then(({ paymentIntent }) => {
+          console.log(paymentIntent);
           setErrorMsg(false);
           setProcessing(false);
           setSuccess(true);
@@ -137,28 +138,26 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
         ))}
       </Stepper>
 
-      <form style={{ marginTop: "50px" }} onSubmit={paymentHandler}>
-        {activeStep === 3 ? (
-          <Button onClick={handleReset}>Reset</Button>
-        ) : (
-          <>
-            <form>
-              <StepContent step={activeStep} />
-              <Button disabled={activeStep === 0} onClick={handleBack}>
-                Back
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                disabled={!stripe || !elements || processing || success}
-              >
-                {activeStep === 2 ? "Pay" : "Next"}
-              </Button>
-            </form>
-          </>
-        )}
-      </form>
+      {activeStep === 3 ? (
+        <Button onClick={handleReset}>Reset</Button>
+      ) : (
+        <>
+          <form style={{ marginTop: "50px" }} onSubmit={paymentHandler}>
+            <StepContent step={activeStep} />
+            <Button disabled={activeStep === 0} onClick={handleBack}>
+              Back
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              disabled={!stripe || !elements || processing || success}
+            >
+              {activeStep === 2 ? "Pay" : "Next"}
+            </Button>
+          </form>
+        </>
+      )}
     </Container>
   );
 };
