@@ -3,107 +3,77 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import {
   Button,
   Container,
-  Stepper,
-  Step,
-  StepLabel,
   Grid,
   TextField,
   Typography,
 } from "@mui/material";
-import ContactMailIcon from "@mui/icons-material/ContactMail";
-import InfoIcon from "@mui/icons-material/Info";
-import PaymentIcon from "@mui/icons-material/Payment";
+// import ContactMailIcon from "@mui/icons-material/ContactMail";
+// import InfoIcon from "@mui/icons-material/Info";
+// import PaymentIcon from "@mui/icons-material/Payment";
 import "./StripePayment.css";
+import EcomDataService from "../../services/ecom";
 
 const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [activeStep, setActiveStep] = useState(2);
+  const [orderData, setOrderData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone_number: "",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
+  });
 
-  const stepIcons = (props) => {
-    const { active, completed } = props;
-    const icons = {
-      1: <ContactMailIcon />,
-      2: <InfoIcon />,
-      3: <PaymentIcon />,
-    };
-
-    return (
-      <div className={active ? "active" : completed ? "active" : ""}>
-        {icons[String(props.icon)]}
-      </div>
-    );
+  const onChange = (e) => {
+    const value = e.target.value;
+    setOrderData({
+      ...orderData,
+      [e.target.name]: value,
+    });
   };
 
-  const StepContent = ({ step }) => {
-    switch (step) {
-      case 0:
-        return (
-          <>
-            <Typography variant="h5">Contact Information</Typography>
-            <br />
-            <Grid container spacing={2} style={{ marginBottom: "20px" }}>
-              <Grid item xs={6}>
-                <TextField required label="First Name" />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField required label="Last Name" />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField required label="Email" />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField required label="Phone Number" />
-              </Grid>
-            </Grid>
-          </>
-        );
-      case 1:
-        return (
-          <>
-            <Typography variant="h5">Address Information</Typography>
-            <br />
-            <Grid container spacing={2} style={{ marginBottom: "20px" }}>
-              <Grid item xs={12}>
-                <TextField required label="Street Address" />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField required label="City" />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField required label="State" />
-              </Grid>
-              <Grid item xs={4}>
-                <TextField required label="Zipcode" type="number" />
-              </Grid>
-            </Grid>
-          </>
-        );
-      case 2:
-        return (
-          <>
-            <Typography variant="h5">Card Information</Typography>
-            <br />
-            <CardElement />
-            {errorMsg && <div className="errorMsg">{errorMsg}</div>}
-          </>
-        );
-      default:
-        return <></>;
+  const objCheck = (obj) => {
+    console.log(obj);
+    for (var key in obj) {
+      if (obj[key] == null || obj[key] == "")
+          return false;
     }
+    return true;
   };
 
-  const handleNext = () => setActiveStep((prev) => prev + 1);
-
-  const handleBack = () => setActiveStep((prev) => prev - 1);
-
-  const handleReset = () => setActiveStep(0);
+  const createOrder = async (params) => {
+    console.log(params);
+    try {
+      const response = await EcomDataService.createOrder(params);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const paymentHandler = async (e) => {
     e.preventDefault();
-    if (!stripe || !elements || errorMsg) {
+   
+    const params = {
+      first_name: orderData.first_name,
+      last_name: orderData.last_name,
+      email: orderData.email,
+      phone_number: orderData.phone_number,
+      address: orderData.address,
+      city: orderData.city,
+      state: orderData.state,
+      zip: orderData.zip,
+    };
+
+    const check = objCheck(params);
+    console.log(check);
+    if (!stripe || !elements || check == false) {
+      setErrorMsg("Please field all required fields");
       return;
     } else {
       setProcessing(true);
@@ -115,7 +85,11 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
         })
         .then(({ paymentIntent }) => {
           console.log(paymentIntent);
-          setErrorMsg(false);
+
+          //call api create order
+          createOrder(params);
+
+          setErrorMsg('Success!');
           setProcessing(false);
           setSuccess(true);
         })
@@ -130,7 +104,7 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
 
   return (
     <Container maxWidth="md" style={{ marginTop: "50px" }}>
-      <Stepper activeStep={activeStep}>
+      {/* <Stepper activeStep={activeStep}>
         {[1, 2, 3].map((e) => (
           <Step key={e}>
             <StepLabel StepIconComponent={stepIcons} />
@@ -142,7 +116,7 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
         <Button onClick={handleReset}>Reset</Button>
       ) : (
         <>
-          <form style={{ marginTop: "50px" }} onSubmit={paymentHandler}>
+          <div style={{ marginTop: "50px" }}>
             <StepContent step={activeStep} />
             <Button disabled={activeStep === 0} onClick={handleBack}>
               Back
@@ -151,13 +125,80 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
               variant="contained"
               color="primary"
               type="submit"
-              disabled={!stripe || !elements || processing || success}
+              disabled={!stripe || !elements || processing || success || activeStep == 2}
             >
-              {activeStep === 2 ? "Pay" : "Next"}
+              Next
             </Button>
-          </form>
+          </div>
         </>
-      )}
+      )} */}
+
+      <div className="contact">
+        <Grid container spacing={2} style={{ marginBottom: "20px" }}>
+          <Grid item xs={6}>
+            <TextField value={orderData.first_name} onChange={onChange} required label="First Name" name="first_name"/>
+          </Grid>
+          <Grid item xs={6}>
+            <TextField value={orderData.last_name} onChange={onChange} required label="Last Name" name="last_name"/>
+          </Grid>
+          <Grid item xs={6}>
+            <TextField value={orderData.email} onChange={onChange} required label="Email" name="email"/>
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              value={orderData.phone_number}
+              onChange={onChange}
+              required
+              label="Phone Number"
+              name="phone_number"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+            value={orderData.address}
+              onChange={onChange}
+              required
+              label="Street Address"
+              name="address"
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TextField value={orderData.city} onChange={onChange} required label="City" name="city"/>
+          </Grid>
+          <Grid item xs={4}>
+            <TextField value={orderData.state} onChange={onChange} required label="State" name="state"/>
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+            value={orderData.zip}
+              onChange={onChange}
+              required
+              label="Zipcode"
+              type="number"
+              name="zip"
+            />
+          </Grid>
+        </Grid>
+      </div>
+      <div>
+        <form onSubmit={paymentHandler}>
+          <Typography variant="h5">Card Information</Typography>
+          <br />
+          <CardElement />
+          <br />
+          {errorMsg && <div className="errorMsg">{errorMsg}</div>}
+          <br />
+          <Button
+            className="pay-btn"
+            variant="contained"
+            color="primary"
+            type="submit"
+            disabled={!stripe || !elements || processing || success}
+          >
+            Pay
+          </Button>
+        </form>
+      </div>
     </Container>
   );
 };
