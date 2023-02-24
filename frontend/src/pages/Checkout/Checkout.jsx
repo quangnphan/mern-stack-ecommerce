@@ -49,12 +49,10 @@ const Checkout = () => {
             Order Summary: <span>${amount}</span>
           </Link>
         </div>
-
         <Link className="back-btn" to="/cart">
           <ArrowBackIosIcon />
           Back to Cart
         </Link>
-
         {clientSecret && (
           <Elements stripe={stripePromise} options={options}>
             <StripePayment

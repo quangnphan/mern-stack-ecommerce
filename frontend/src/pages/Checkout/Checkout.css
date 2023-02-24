@@ -7,9 +7,6 @@
   justify-content: space-between;
   align-items: center;
 }
-.checkout .MuiFormControl-root {
-  margin-top: 100px;
-}
 .checkout-header span {
   font-weight: 500;
 }
@@ -30,4 +27,8 @@
 .back-btn:hover svg,
 .back-btn:hover {
   color: #06c;
+}
+
+.active .MuiSvgIcon-root{
+  color: #0071e3;
 }
