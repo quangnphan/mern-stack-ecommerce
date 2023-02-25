@@ -4,10 +4,10 @@ Inspiration by Apple.com
 **Demo**
 https://mernstack-ecommerce-03q21.netlify.app/
 
-Current Status: Enhancement UI
+**Current Status**: Enhancement UI
 
-Stack (MERN & Redux)
-This project uses the following technologies
+**Stack (MERN & Redux)
+This project uses the following technologies**
 
 MongoDB for database (hosted on Render) & Mongoose
 Express.js as Node web framework
@@ -16,14 +16,14 @@ Node.js for server
 Lightweight CSS preprocessor/frameworks: Material UI
 Payment method: Stripe
 
-Progress
+**Progress**
 General
   UI - Completed
   Authentication - Have not started
   Admin Dashboard - Have not started
 
 
-Features
+**Features**
 The e-commerce project has the following features:
 Add products to cart
 Update cart quantity or remove products from cart
@@ -31,12 +31,12 @@ Checkout and place an order
 View order history
 
 
-Containerization & Deployment
+**Containerization & Deployment**
  Deployment 
   Backend: Render
   Frontend: Netlify
   
-Quick Start
+**Quick Start**
 
 Clone the repository to your local machine.
 
@@ -57,6 +57,7 @@ Run the client by running npm start in the client directory.
 
 The client should automatically open in your browser at http://localhost:5000/. If it does not, open your browser and navigate to http://localhost:5000/.
 
+**Contribute:**
 Fork the repository.
 Create a new branch for your changes.
 Make your changes and commit them.
