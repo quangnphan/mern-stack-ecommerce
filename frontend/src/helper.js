@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = `http://mernstack-ecommerce-03q21.netlify.app/api/ecom`;
+const baseURL = `https://mern-stack-ecommerce-qelv.onrender.com/api/ecom`;
 
 export default axios.create({
     baseURL: baseURL,
