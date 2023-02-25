@@ -1,4 +1,4 @@
-# mern stack e-commerce
+# E-Commerce Project README
 Inspiration by Apple.com
 
 **Demo**
@@ -45,9 +45,9 @@ Ready to have MongoDB, Stripe accounts
 
 Create a .env file in the server directory and add the following variables:
 
-ECOM_DB_URI=<your MongoDB URI>
-ECOM_NS=<your MongoDB collection>
-STRIPE_SECRET_KEY=<Stripe secret key>
+ECOM_DB_URI= < your MongoDB URI >
+ECOM_NS= < your MongoDB collection >
+STRIPE_SECRET_KEY= < Stripe secret key >
 
 Replace <your MongoDB URI> with the URI of your MongoDB database and <your JWT secret> with a secret string of your choice.
 
