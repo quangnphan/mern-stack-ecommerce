@@ -1,12 +1,12 @@
 # E-Commerce Project README
 Inspiration by Apple.com
 
-**Demo**
+# **Demo**
 https://mernstack-ecommerce-03q21.netlify.app/
 
-**Current Status**: Enhancement UI
+# **Current Status**: Enhancement UI
 
-**Stack (MERN & Redux)
+# **Stack (MERN & Redux)
 This project uses the following technologies**
 
 MongoDB for database (hosted on Render) & Mongoose
@@ -22,7 +22,7 @@ Lightweight CSS preprocessor/frameworks: Material UI
 Payment method: Stripe
 
 
-**Progress**
+# **Progress**
 General
 
   UI - Completed
@@ -32,7 +32,7 @@ General
   Admin Dashboard - Have not started
 
 
-**Features**
+# **Features**
 
 The e-commerce project has the following features:
 
@@ -45,7 +45,7 @@ Checkout and place an order
 View order history
 
 
-**Containerization & Deployment**
+# **Containerization & Deployment**
 
  Deployment 
  
@@ -53,7 +53,7 @@ View order history
   
   Frontend: Netlify
   
-**Quick Start**
+# **Quick Start**
 
 Clone the repository to your local machine.
 
