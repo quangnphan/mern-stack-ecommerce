@@ -1,0 +1,34 @@
+.checkout {
+  margin: 50px 0 100px;
+}
+.checkout-header {
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.checkout-header span {
+  font-weight: 500;
+}
+.pay-btn {
+  margin-top: 20px !important;
+  float: right;
+}
+.back-btn {
+  display: flex !important;
+  align-items: center !important;
+  color: rgb(151, 145, 145);
+  margin-top: 10px;
+}
+.back-btn svg {
+  font-size: 16px;
+  color: rgb(151, 145, 145);
+}
+.back-btn:hover svg,
+.back-btn:hover {
+  color: #06c;
+}
+
+.active .MuiSvgIcon-root{
+  color: #0071e3;
+}

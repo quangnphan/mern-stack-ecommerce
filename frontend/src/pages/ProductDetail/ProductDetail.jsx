@@ -106,7 +106,7 @@ const ProductDetail = () => {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
     getProduct();
     generateId();
@@ -149,51 +149,49 @@ const ProductDetail = () => {
                         <Typography variant="h5" className="form-typography">
                           Model. <span>Choose your settings</span>
                         </Typography>
-                        {selectedProduct?.variants?.display.map(
-                          (display) => {
-                            let basePrice =
-                              selectedProduct.price.base + display.price;
-                            let monthlyPayment = (
-                              (selectedProduct.price.base + display.price) /
-                              12
-                            ).toFixed(2);
-                            return (
-                              <label for={display.size}>
-                                <input
-                                  type="radio"
-                                  id={display.size}
-                                  name="radio-group1"
-                                  value={[display.size, display.price]}
-                                  onClick={handleModelChange}
-                                  required
-                                />
-                                <div id="selectable-display">
-                                  <span className="input-column">
-                                    <span className="input-column-right">
-                                      <span className="input-row-right">
-                                        <strong>{display.size} display</strong>
-                                      </span>
+                        {selectedProduct?.variants?.display.map((display) => {
+                          let basePrice =
+                            selectedProduct.price.base + display.price;
+                          let monthlyPayment = (
+                            (selectedProduct.price.base + display.price) /
+                            12
+                          ).toFixed(2);
+                          return (
+                            <label for={display.size}>
+                              <input
+                                type="radio"
+                                id={display.size}
+                                name="radio-group1"
+                                value={[display.size, display.price]}
+                                onClick={handleModelChange}
+                                required
+                              />
+                              <div id="selectable-display">
+                                <span className="input-column">
+                                  <span className="input-column-right">
+                                    <span className="input-row-right">
+                                      <strong>{display.size} display</strong>
                                     </span>
+                                  </span>
 
-                                    <span className="input-column-left">
-                                      <span className="input-row-left detail-font">
-                                        <span className="input-row-single">
-                                          From ${basePrice}
-                                        </span>
-                                        <span className="input-row-single">
-                                          or ${monthlyPayment}/mo.
-                                        </span>
-                                        <span className="input-row-single">
-                                          for 12 months
-                                        </span>
+                                  <span className="input-column-left">
+                                    <span className="input-row-left detail-font">
+                                      <span className="input-row-single">
+                                        From ${basePrice}
+                                      </span>
+                                      <span className="input-row-single">
+                                        or ${monthlyPayment}/mo.
+                                      </span>
+                                      <span className="input-row-single">
+                                        for 12 months
                                       </span>
                                     </span>
                                   </span>
-                                </div>
-                              </label>
-                            );
-                          }
-                        )}
+                                </span>
+                              </div>
+                            </label>
+                          );
+                        })}
                       </>
                     )}
 
@@ -250,51 +248,45 @@ const ProductDetail = () => {
                         <Typography variant="h5" className="form-typography">
                           Storage. <span>How much space do you need</span>
                         </Typography>
-                        {selectedProduct?.variants?.storages.map(
-                          (storage) => {
-                            let basePrice = totalDisplay + storage.price;
-                            let monthlyPayment = (basePrice / 12).toFixed(2);
-                            return (
-                              <label for={storage.unit}>
-                                <input
-                                  type="radio"
-                                  id={storage.unit}
-                                  name="radio-group3"
-                                  value={[
-                                    storage.unit,
-                                    storage.price,
-                                    basePrice,
-                                  ]}
-                                  onClick={handleStorageChange}
-                                  required
-                                />
-                                <div id="selectable-display">
-                                  <span className="input-column">
-                                    <span className="input-column-right">
-                                      <span className="input-row-right">
-                                        <strong>{storage.unit}</strong>
-                                      </span>
+                        {selectedProduct?.variants?.storages.map((storage) => {
+                          let basePrice = totalDisplay + storage.price;
+                          let monthlyPayment = (basePrice / 12).toFixed(2);
+                          return (
+                            <label for={storage.unit}>
+                              <input
+                                type="radio"
+                                id={storage.unit}
+                                name="radio-group3"
+                                value={[storage.unit, storage.price, basePrice]}
+                                onClick={handleStorageChange}
+                                required
+                              />
+                              <div id="selectable-display">
+                                <span className="input-column">
+                                  <span className="input-column-right">
+                                    <span className="input-row-right">
+                                      <strong>{storage.unit}</strong>
                                     </span>
+                                  </span>
 
-                                    <span className="input-column-left">
-                                      <span className="input-row-left detail-font">
-                                        <span className="input-row-single">
-                                          From ${basePrice}
-                                        </span>
-                                        <span className="input-row-single ">
-                                          or ${monthlyPayment}/mo.
-                                        </span>
-                                        <span className="input-row-single ">
-                                          for 12 months
-                                        </span>
+                                  <span className="input-column-left">
+                                    <span className="input-row-left detail-font">
+                                      <span className="input-row-single">
+                                        From ${basePrice}
+                                      </span>
+                                      <span className="input-row-single ">
+                                        or ${monthlyPayment}/mo.
+                                      </span>
+                                      <span className="input-row-single ">
+                                        for 12 months
                                       </span>
                                     </span>
                                   </span>
-                                </div>
-                              </label>
-                            );
-                          }
-                        )}
+                                </span>
+                              </div>
+                            </label>
+                          );
+                        })}
                       </>
                     )}
 
@@ -467,9 +459,9 @@ const ProductDetail = () => {
                         type="button"
                         class="decrease-button"
                         onClick={() => {
-                          if(quantity === 1){
+                          if (quantity === 1) {
                             return;
-                          }else{
+                          } else {
                             setQuantity(quantity - 1);
                           }
                         }}
@@ -488,11 +480,21 @@ const ProductDetail = () => {
                       </button>
                     </div>
 
-                    <Typography style={{marginTop: '10px'}} variant="h7" className="form-typography">
+                    <Typography
+                      style={{ marginTop: "10px" }}
+                      variant="h7"
+                      className="form-typography"
+                    >
                       Each from ${price} or ${(price / 12).toFixed(2)}/mo.per
                       month for 12 mo.
                     </Typography>
-                    <Button className="continue-to-cart-btn" variant="contained" type="submit">Add To Bag</Button>
+                    <Button
+                      className="continue-to-cart-btn"
+                      variant="contained"
+                      type="submit"
+                    >
+                      Add To Bag
+                    </Button>
                   </FormControl>
                 </form>
               </div>
