@@ -1,16 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./LightBox.css";
-import Product1 from "../../assets/products/ipad-pro.jpeg";
-import Product2 from "../../assets/products/ipad-pro-02.jpeg";
-import Product3 from "../../assets/products/ipad-pro.jpeg";
-import Product4 from "../../assets/products/ipad-pro-02.jpeg";
 import Slider from "react-slick";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import EcomDataService from "../../services/ecom.js";
+import { useParams } from "react-router-dom";
 
 const LightBox = () => {
-  const images = [Product1, Product2, Product3, Product4];
-
+  const params = useParams();
+  const [selectedProduct, setSelectedProduct] = useState();
   const settings = {
     dots: false,
     infinite: true,
@@ -21,12 +19,20 @@ const LightBox = () => {
     nextArrow: <ArrowForwardIosIcon />,
     prevArrow: <ArrowBackIosNewIcon />,
   };
+  const getProduct = async () => {
+    const response = await EcomDataService.get(params.id);
+    setSelectedProduct(response.data?.skus);
+  };
 
+  useEffect(() => {    
+    getProduct();
+    // eslint-disable-next-line
+    }, []);
   return (
     <div className="lightbox-wrapper">
       <Slider {...settings}>
-        {images.map((image, index) => {
-          return <img key={index} src={image} alt="img-slider" />;
+        {selectedProduct?.variants?.images.map((img) => {
+          return <img  src={img} alt="img-slider" />;
         })}
       </Slider>
     </div>

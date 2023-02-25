@@ -61,7 +61,7 @@ const Products = () => {
                         return (
                           <Link to={`/product/${item.category}/${product.sku}`}>
                             <div className="product-box">
-                              <img src={pic} alt="" />
+                              <img src={product.variants.images[0]} alt="" />
                               <Typography variant="h5">
                                 {product.name}
                               </Typography>

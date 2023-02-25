@@ -12,9 +12,13 @@ import {
 // import PaymentIcon from "@mui/icons-material/Payment";
 import "./StripePayment.css";
 import EcomDataService from "../../services/ecom";
+import { useDispatch } from "react-redux";
+import { clearCart, } from "../../app/slices/cartSlice";
+
 
 const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
   const stripe = useStripe();
+  const dispatch = useDispatch();
   const elements = useElements();
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -40,7 +44,7 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
   const objCheck = (obj) => {
     console.log(obj);
     for (var key in obj) {
-      if (obj[key] == null || obj[key] == "")
+      if (obj[key] == null || obj[key] === "")
           return false;
     }
     return true;
@@ -72,7 +76,7 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
 
     const check = objCheck(params);
     console.log(check);
-    if (!stripe || !elements || check == false) {
+    if (!stripe || !elements || check === false) {
       setErrorMsg("Please field all required fields");
       return;
     } else {
@@ -84,17 +88,17 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
           },
         })
         .then(({ paymentIntent }) => {
-          console.log(paymentIntent);
-
           //call api create order
           createOrder(params);
 
           setErrorMsg('Success!');
           setProcessing(false);
-          setSuccess(true);
+          if (paymentIntent) {
+            dispatch({ type: clearCart });
+            setSuccess(true);
+          }
         })
         .catch((error) => {
-          console.log(error);
           setErrorMsg(error.message);
           setProcessing(false);
           setSuccess(false);

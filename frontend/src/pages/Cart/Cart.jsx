@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import "./Cart.css";
 import { Typography, Container, Grid, Button } from "@mui/material";
-import iPadImg from "../../assets/products/ipad-pro.jpeg";
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart, removeProduct } from "../../app/slices/cartSlice";
 import { Link } from "react-router-dom";
@@ -9,11 +8,6 @@ const Cart = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.products);
   const cart = useSelector((state) => state.cart);
-  // const [tax, setTax] = useState();
-  // const [subTotal, setSubTotal] = useState();
-  // const [total, setTotal] = useState();
-
-  console.log(products);
 
   const handleRemove = (id) => {
     dispatch(removeProduct(id));
@@ -24,30 +18,7 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    console.log(products);
-    // let subTotal = 0;
-    // let tax = 0;
-    // let total = 0;
-    // let shipping = Number(7.99);
-    // if (products.length > 0) {
-    //   subTotal = products
-    //     .map((product) => product.price * product.quantity)
-    //     .reduce((a, b) => a + b);
-
-    //   setSubTotal(subTotal);
-
-    //   //meo nho tinh tax co + shipping vo luon ko :D
-    //   tax = parseFloat((((subTotal+shipping)/100) * 8.25).toFixed(2));
-
-    //   total = parseFloat((subTotal + tax + shipping)).toFixed(2);
-    //   //Sai type, check dum cho nay ku, hinh nhu cai string cai number
-    //   console.log(subTotal);
-    //   console.log(tax);
-    //   console.log(total);
-
-    //   setTax(tax);
-    //   setTotal(total);
-    //}
+    console.log(products);    
   }, [products]);
   return (
     <div className="bag">
@@ -70,7 +41,7 @@ const Cart = () => {
                 <div className="bag-products">
                   <Grid container className="bag-product">
                     <Grid item sx={12} md={4} className="bag-images">
-                      <img src={iPadImg} alt="img" />
+                      <img src={item.image} alt="img" />
                     </Grid>
                     <Grid item sx={12} md={8} className="bag-info">
                       <div>

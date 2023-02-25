@@ -8,7 +8,6 @@ import { Popover, Button, Typography, Badge } from "@mui/material";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { useSelector } from "react-redux";
 
-import iPad from "../../assets/products/ipad-pro-03.jpeg";
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
@@ -82,7 +81,7 @@ const Navbar = () => {
                             <div>
                               <img
                                 className="cart-popover-img"
-                                src={iPad}
+                                src={prod.image}
                                 alt="cart img"
                               />
                             </div>
