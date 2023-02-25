@@ -18,6 +18,7 @@ const ProductDetail = () => {
   const dispatch = useDispatch();
   const [category, setCategory] = useState("");
   const [name, setName] = useState({});
+  const [image, setImage] = useState("");
   const [selectedProduct, setSelectedProduct] = useState();
   const [model, setModel] = useState("");
   const [color, setColor] = useState("");
@@ -41,6 +42,7 @@ const ProductDetail = () => {
     setName(response.data?.skus.name);
     setSelectedProduct(response.data?.skus);
     setBase(response.data?.skus.price.base);
+    setImage(response.data?.skus.variants.images[0]);
   };
   const handleModelChange = (event) => {
     setModel(event.target.value.split(",")[0]);
@@ -98,6 +100,7 @@ const ProductDetail = () => {
         storage,
         price,
         quantity,
+        image,
       })
     );
   };

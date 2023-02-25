@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Container, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import "./Checkout.css";
 import { StripePayment } from "../../components";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import EcomDataService from "../../services/ecom";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
@@ -16,6 +16,7 @@ const stripePromise = loadStripe(
 );
 
 const Checkout = () => {
+  const dispatch = useDispatch();
   const amount = useSelector((state) => state.cart.total);
   const [clientSecret, setClientSecret] = useState();
   const [errorMsg, setErrorMsg] = useState();
@@ -59,6 +60,7 @@ const Checkout = () => {
               clientSecret={clientSecret}
               errorMsg={errorMsg}
               setErrorMsg={setErrorMsg}
+              dispatch={dispatch}
             />
           </Elements>
         )}

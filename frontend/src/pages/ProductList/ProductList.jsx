@@ -50,7 +50,7 @@ const ProductList = () => {
                 <div className="product-list-box">
                  <div>
                  <div className="product-list-box-img">
-                    <img src={DemoProduct} alt="product img" />
+                    <img src={product.variants.images[0]} alt="product img" />
                   </div>
                   <div className="product-list-box-info">
                     <div>
