@@ -18,8 +18,11 @@ Payment method: Stripe
 
 **Progress**
 General
+
   UI - Completed
+  
   Authentication - Have not started
+  
   Admin Dashboard - Have not started
 
 
