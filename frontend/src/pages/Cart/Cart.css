@@ -1,5 +1,10 @@
 .bag{
-    padding: 100px 0;
+    padding: 50px 0;
+}
+@media (max-width: 600px){
+    .bag{
+        padding: 30px 0;
+    }
 }
 .bag-products{
     margin-top: 30px;
@@ -9,7 +14,8 @@
     border-bottom: 1px solid #ddd;
 }
 .bag-images img{
-    max-width: 350px;
+    max-height: 200px;
+    width: auto;
 }
 .bag-info{
     display: flex;

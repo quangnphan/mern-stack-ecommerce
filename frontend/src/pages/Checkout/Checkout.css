@@ -1,6 +1,11 @@
 .checkout {
   margin: 50px 0 100px;
 }
+@media (max-width: 600px) {
+  .checkout {
+    margin: 30px 0 100px;
+  }
+}
 .checkout-header {
   border-bottom: 1px solid #ddd;
   display: flex;
