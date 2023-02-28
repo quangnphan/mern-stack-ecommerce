@@ -5,10 +5,32 @@
   color: #0071e3;
 }
 .slick-next{
-  right: 3%;
+  right: 10px;
   z-index: 1;
 }
 .slick-prev{
-  left: 3%;
+  left: 10px;
   z-index: 1;
+}
+.lightbox-wrapper{
+  position: relative !important;
+}
+.lightbox-wrapper .slick-list{
+  background-color: #fafafa;
+  border-radius: 10px;
+  padding: 10px;
+}
+.lightbox-wrapper .slick-track img{
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  width: auto !important; 
+  margin: auto;
+  align-self: center;
+}
+@media (max-width: 600px) {
+  .lightbox-wrapper .slick-track img{
+    height: 250px;
+  }
 }
