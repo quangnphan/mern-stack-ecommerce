@@ -6,7 +6,6 @@ import React, { useState, useEffect } from "react";
 import { Container, Typography } from "@mui/material";
 import "./Products.css";
 import EcomDataService from "../../services/ecom.js";
-import pic from "./images/store-card-13-mac-nav-202203.png";
 import Calendar from "./images/prop-calendar.png";
 import Shipping from "./images/icon-shipping.png";
 import AppleIcon from "./images/icon-apple.png";
@@ -18,7 +17,7 @@ const Products = () => {
   const getProducts = async () => {
     const response = await EcomDataService.getAll();
     let allProducts = response.data?.products;
-    console.log(allProducts);
+    // console.log(allProducts);
 
     setProducts(allProducts);
   };

@@ -12,7 +12,7 @@ class OrdersDAO {
         }
     };
 
-    static async addOrder(date, order) {
+    static async addOrder(date, order, purchaser) {
         try {
             if (!orders) {
                 throw new Error("Orders collection has not been initialized")
@@ -20,6 +20,7 @@ class OrdersDAO {
             const orderDetail = {
                 date: date,
                 order: order,
+                user: purchaser,
             }
             return await orders.insertOne(orderDetail)
         } catch (e) {

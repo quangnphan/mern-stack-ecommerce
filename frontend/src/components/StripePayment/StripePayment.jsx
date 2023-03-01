@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,  } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import {
   Button,
@@ -12,17 +12,22 @@ import {
 // import PaymentIcon from "@mui/icons-material/Payment";
 import "./StripePayment.css";
 import EcomDataService from "../../services/ecom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearCart, } from "../../app/slices/cartSlice";
+import { updateInfo, } from "../../app/slices/confirmationSlice";
+import { useNavigate } from 'react-router-dom';
+
 
 
 const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
+  const navigate = useNavigate();
   const stripe = useStripe();
   const dispatch = useDispatch();
+  const order = useSelector((state) => state.cart.products);
   const elements = useElements();
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [orderData, setOrderData] = useState({
+  const [purchaserData, setPurchaserData] = useState({
     first_name: "",
     last_name: "",
     email: "",
@@ -35,14 +40,14 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
 
   const onChange = (e) => {
     const value = e.target.value;
-    setOrderData({
-      ...orderData,
+    setPurchaserData({
+      ...purchaserData,
       [e.target.name]: value,
     });
   };
 
   const objCheck = (obj) => {
-    console.log(obj);
+    // console.log(obj);
     for (var key in obj) {
       if (obj[key] == null || obj[key] === "")
           return false;
@@ -50,11 +55,9 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
     return true;
   };
 
-  const createOrder = async (params) => {
-    console.log(params);
+  const createOrder = async (data) => {
     try {
-      const response = await EcomDataService.createOrder(params);
-      console.log(response);
+      const response = await EcomDataService.createOrder(data);
     } catch (error) {
       console.log(error);
     }
@@ -64,18 +67,19 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
     e.preventDefault();
    
     const params = {
-      first_name: orderData.first_name,
-      last_name: orderData.last_name,
-      email: orderData.email,
-      phone_number: orderData.phone_number,
-      address: orderData.address,
-      city: orderData.city,
-      state: orderData.state,
-      zip: orderData.zip,
+      first_name: purchaserData.first_name,
+      last_name: purchaserData.last_name,
+      email: purchaserData.email,
+      phone_number: purchaserData.phone_number,
+      address: purchaserData.address,
+      city: purchaserData.city,
+      state: purchaserData.state,
+      zip: purchaserData.zip,
     };
-
+    
+    const data = {params,order};
     const check = objCheck(params);
-    console.log(check);
+    // console.log(check);
     if (!stripe || !elements || check === false) {
       setErrorMsg("Please field all required fields");
       return;
@@ -89,13 +93,15 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
         })
         .then(({ paymentIntent }) => {
           //call api create order
-          createOrder(params);
+          createOrder(data);
 
           setErrorMsg('Success!');
           setProcessing(false);
           if (paymentIntent) {
+            dispatch(updateInfo(purchaserData));
             dispatch({ type: clearCart });
             setSuccess(true);
+            navigate('/success');
           }
         })
         .catch((error) => {
@@ -140,17 +146,17 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
       <div className="contact">
         <Grid container spacing={2} style={{ marginBottom: "20px" }}>
           <Grid item xs={6}>
-            <TextField value={orderData.first_name} onChange={onChange} required label="First Name" name="first_name"/>
+            <TextField value={purchaserData.first_name} onChange={onChange} required label="First Name" name="first_name"/>
           </Grid>
           <Grid item xs={6}>
-            <TextField value={orderData.last_name} onChange={onChange} required label="Last Name" name="last_name"/>
+            <TextField value={purchaserData.last_name} onChange={onChange} required label="Last Name" name="last_name"/>
           </Grid>
           <Grid item xs={6}>
-            <TextField value={orderData.email} onChange={onChange} required label="Email" name="email"/>
+            <TextField value={purchaserData.email} onChange={onChange} required label="Email" name="email"/>
           </Grid>
           <Grid item xs={6}>
             <TextField
-              value={orderData.phone_number}
+              value={purchaserData.phone_number}
               onChange={onChange}
               required
               label="Phone Number"
@@ -159,7 +165,7 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
           </Grid>
           <Grid item xs={12}>
             <TextField
-            value={orderData.address}
+            value={purchaserData.address}
               onChange={onChange}
               required
               label="Street Address"
@@ -167,14 +173,14 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
             />
           </Grid>
           <Grid item xs={4}>
-            <TextField value={orderData.city} onChange={onChange} required label="City" name="city"/>
+            <TextField value={purchaserData.city} onChange={onChange} required label="City" name="city"/>
           </Grid>
           <Grid item xs={4}>
-            <TextField value={orderData.state} onChange={onChange} required label="State" name="state"/>
+            <TextField value={purchaserData.state} onChange={onChange} required label="State" name="state"/>
           </Grid>
           <Grid item xs={4}>
             <TextField
-            value={orderData.zip}
+            value={purchaserData.zip}
               onChange={onChange}
               required
               label="Zipcode"

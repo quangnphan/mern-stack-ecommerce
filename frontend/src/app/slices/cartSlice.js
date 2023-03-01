@@ -17,7 +17,7 @@ const cartSlice = createSlice({
       state.subTotal += action.payload.price * action.payload.quantity;
       state.tax = (state.subTotal * 8.25) / 100;
       state.total = (state.subTotal + state.tax + state.shipping).toFixed(2);
-      console.log(action.payload);
+      // console.log(action.payload);
     },
     removeProduct: (state, action) => {
       const productIndex = state.products.findIndex(

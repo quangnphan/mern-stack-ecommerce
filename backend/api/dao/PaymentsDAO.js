@@ -13,7 +13,7 @@ class PaymentsDAO {
                 currency: "usd",
             })            
         } catch (e) {
-            console.error(`Failure to post order: ${e}`);
+            console.error(`Failure to create payment: ${e}`);
             return { error: e}
         }
     }
