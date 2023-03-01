@@ -91,9 +91,9 @@ const ProductDetail = () => {
     generateId();
     dispatch(
       addProduct({
-        ...selectedProduct,
-        name,
+        ...{},
         id,
+        name,        
         model,
         color,
         storage,

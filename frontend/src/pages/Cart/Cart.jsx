@@ -18,7 +18,7 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    console.log(products);    
+    // console.log(products);    
   }, [products]);
   return (
     <div className="bag">
