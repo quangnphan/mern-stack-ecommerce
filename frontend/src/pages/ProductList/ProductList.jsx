@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./ProductList.css";
-import { Button, Container } from "@mui/material";
+import { Button, CircularProgress, Container } from "@mui/material";
 // import ipadProIcon from "../../assets/header-icons/ipad-pro-icon.svg";
 // import ipadAirIcon from "../../assets/header-icons/ipad-air-icon.svg";
 import DemoProduct from "../../assets/products/ipad-pro-03.jpeg";
@@ -43,37 +43,37 @@ const ProductList = () => {
       </Container> */}
       <div className="product-list-ribbon">Get your gifts on time.</div>
       <Container maxWidth="lg">
-        {products && (
+        {products ? (
           <div className="product-list-grid">
             {products.map((product) => {
               return (
                 <div className="product-list-box">
-                 <div>
-                 <div className="product-list-box-img">
-                    <img src={product.variants.images[0]} alt="product img" />
-                  </div>
-                  <div className="product-list-box-info">
-                    <div>
-                      <h4>Apple</h4>
-                      <h3>{product.name}</h3>
-                      <ul>
-                        {product.variants.features.map((item, index) => {
-                          return <li key={index}>{item}</li>;
-                        })}
-                      </ul>
-                    </div>
-                  </div>
-                 </div>
                   <div>
-                      <Link to={`/product/${category}/${product.sku}`}>
-                        <Button variant="contained">Select</Button>
-                      </Link>
+                    <div className="product-list-box-img">
+                      <img src={product.variants.images[0]} alt="product img" />
                     </div>
+                    <div className="product-list-box-info">
+                      <div>
+                        <h4>Apple</h4>
+                        <h3>{product.name}</h3>
+                        <ul>
+                          {product.variants.features.map((item, index) => {
+                            return <li key={index}>{item}</li>;
+                          })}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <Link to={`/product/${category}/${product.sku}`}>
+                      <Button variant="contained">Select</Button>
+                    </Link>
+                  </div>
                 </div>
-              );
+              )
             })}
           </div>
-        )}
+        ) : <CircularProgress />}
       </Container>
     </div>
   );

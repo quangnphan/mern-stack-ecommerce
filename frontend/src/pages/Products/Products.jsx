@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 // import ShopAndChat from './components/ShopAndChat/ShopAndChat'
 // import ProductNav from './components/ProductNav/ProductNav'
 // import CardShelf from './components/CardShelf/CardShelf'
-import { Container, Typography } from "@mui/material";
+import { Container, Typography, CircularProgress } from "@mui/material";
 import "./Products.css";
 import EcomDataService from "../../services/ecom.js";
 import Calendar from "./images/prop-calendar.png";
@@ -17,7 +17,6 @@ const Products = () => {
   const getProducts = async () => {
     const response = await EcomDataService.getAll();
     let allProducts = response.data?.products;
-    // console.log(allProducts);
 
     setProducts(allProducts);
   };
@@ -27,7 +26,7 @@ const Products = () => {
   }, []);
   return (
     <div className="products">
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         {/* <PromoBanner />
       <ShopAndChat />
       <ProductNav />
@@ -75,7 +74,7 @@ const Products = () => {
                   </div>
                 );
               })
-            : null}
+            : <CircularProgress />}
         </div>
         <div className="benefits-flex">
           <div className="benefit">

@@ -11,7 +11,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 .products-category{
@@ -28,12 +28,22 @@
 }
 .product-box{
     background-color: #f5f5f7;
-    padding: 40px;
+    padding: 20px;
     border-radius: 10px;
-    min-width: 330px;
+    width: 380px;
+    height: 450px;
+}
+.product-box img{
+    max-height: 300px;
 }
 .product-box h5{
-    margin: 50px 0 30px 0;
+    margin: 30px 0 10px 0;
+}
+@media (max-width: 600px){
+    .product-box{
+        width: 350px;
+        padding: 20px;
+    }
 }
 .benefits-flex{
     display: flex;
@@ -99,7 +109,7 @@
         min-height: 280px;
     }
     .header h3{
-        font-size: 2.2rem;
+        font-size: 1.5rem;
     }
     .info h4{
         font-size: 1.5rem;

@@ -19,8 +19,13 @@ const Navbar = () => {
   };
 
   const handleOpenCart = () => {
+    setIsNavOpen(false);
     setIsCartOpen(!isCartOpen);
   };
+
+  const handleClick = () => {
+    setIsNavOpen(false);
+  }
 
   return (
     <div className="navbar">
@@ -38,23 +43,23 @@ const Navbar = () => {
             </div>
           </div>
           <div className="nav-icons">
-            <Link to="/">
+            <Link onClick={handleClick} to="/">
               <AppleIcon />
             </Link>
           </div>
           <div className={`nav-list ${isNavOpen ? "active" : ""}`}>
             <ul>
               <li>
-                <Link to="/products">Store</Link>
+                <Link onClick={handleClick} to="/products">Store</Link>
               </li>
               <li>
-                <Link to="/products/mac">Mac</Link>
+                <Link  onClick={handleClick} to="/products/mac">Mac</Link>
               </li>
               <li>
-                <Link to="/products/ipad">iPad</Link>
+                <Link  onClick={handleClick} to="/products/ipad">iPad</Link>
               </li>
               <li>
-                <Link to="/products/iphone">iPhone</Link>
+                <Link  onClick={handleClick} to="/products/iphone">iPhone</Link>
               </li>
             </ul>
           </div>
