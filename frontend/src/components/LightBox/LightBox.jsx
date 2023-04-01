@@ -31,8 +31,8 @@ const LightBox = () => {
   return (
     <div className="lightbox-wrapper">
       <Slider {...settings}>
-        {selectedProduct?.variants?.images.map((img) => {
-          return <img  src={img} alt="img-slider" />;
+        {selectedProduct?.variants?.images.map((img,key) => {
+          return <img key={key} src={img} alt="img-slider" />;
         })}
       </Slider>
     </div>

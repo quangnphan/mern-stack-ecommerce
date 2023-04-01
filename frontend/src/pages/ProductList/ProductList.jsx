@@ -3,7 +3,6 @@ import "./ProductList.css";
 import { Button, CircularProgress, Container } from "@mui/material";
 // import ipadProIcon from "../../assets/header-icons/ipad-pro-icon.svg";
 // import ipadAirIcon from "../../assets/header-icons/ipad-air-icon.svg";
-import DemoProduct from "../../assets/products/ipad-pro-03.jpeg";
 import { Link, useParams } from "react-router-dom";
 import EcomDataService from "../../services/ecom.js";
 
@@ -45,9 +44,9 @@ const ProductList = () => {
       <Container maxWidth="lg">
         {products ? (
           <div className="product-list-grid">
-            {products.map((product) => {
+            {products.map((product,key) => {
               return (
-                <div className="product-list-box">
+                <div key={key} className="product-list-box">
                   <div>
                     <div className="product-list-box-img">
                       <img src={product.variants.images[0]} alt="product img" />
