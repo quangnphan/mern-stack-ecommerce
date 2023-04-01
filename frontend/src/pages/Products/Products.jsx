@@ -45,9 +45,9 @@ const Products = () => {
         </div>
         <div className="products-category">
           {products.length > 0
-            ? products.map((item) => {
+            ? products.map((item,key) => {
                 return (
-                  <div className="category">
+                  <div key={key} className="category">
                     <div className="category-name">
                       <Typography variant="h5">{item.category}</Typography>
                       <Typography className="body1">
@@ -55,9 +55,9 @@ const Products = () => {
                       </Typography>
                     </div>
                     <div className="products-list">
-                      {item.skus.map((product) => {
+                      {item.skus.map((product,key) => {
                         return (
-                          <Link to={`/product/${item.category}/${product.sku}`}>
+                          <Link key={key} to={`/product/${item.category}/${product.sku}`}>
                             <div className="product-box">
                               <img src={product.variants.images[0]} alt="" />
                               <Typography variant="h5">

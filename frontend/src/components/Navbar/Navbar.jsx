@@ -32,14 +32,14 @@ const Navbar = () => {
       <Container maxWidth="lg">
         <Box className="nav-container">
           <div
-            class={`hamburger ${isNavOpen ? "open" : ""}`}
+            className={`hamburger ${isNavOpen ? "open" : ""}`}
             onClick={handleHamburger}
           >
-            <div class="line line-1">
-              <div class="line-inner line-inner-1"></div>
+            <div className="line line-1">
+              <div className="line-inner line-inner-1"></div>
             </div>
-            <div class="line line-2">
-              <div class="line-inner line-inner-2"></div>
+            <div className="line line-2">
+              <div className="line-inner line-inner-2"></div>
             </div>
           </div>
           <div className="nav-icons">
