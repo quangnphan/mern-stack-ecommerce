@@ -24,6 +24,7 @@ const ProductList = () => {
 
   useEffect(() => {
     getProducts();
+    // eslint-disable-next-line
   }, [params.category]);
 
   return (

@@ -1,21 +1,23 @@
 import { Container, Typography, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { LightBox, InTheBox } from "../../components";
+import { Link } from "react-router-dom";
 import "./ProductDetail.css";
 import EcomDataService from "../../services/ecom.js";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../app/slices/cartSlice";
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
 
 const ProductDetail = () => {
   const params = useParams();
   const dispatch = useDispatch();
-  const [isDialogOpen,setIsDialogOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [popupSuccess, setPopupSuccess] = useState(false);
   const [category, setCategory] = useState("");
   const [name, setName] = useState({});
   const [image, setImage] = useState("");
@@ -27,6 +29,7 @@ const ProductDetail = () => {
   // const [totalStorage, setTotalStorage] = useState(0);
   const [base, setBase] = useState(0);
   const [totalDisplay, setTotalDisplay] = useState(0);
+  // eslint-disable-next-line
   const [connectivity, setConnectivity] = useState("");
   const [baseConnecivity, setBaseConnectivity] = useState(0);
   // const [totalConnectivity, setTotalConnectivity] = useState(0);
@@ -90,7 +93,13 @@ const ProductDetail = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     generateId();
-    if(name == "" || model == "" || color == "" || storage == "" || quantity == ""){
+    if (
+      name === "" ||
+      model === "" ||
+      color === "" ||
+      storage === "" ||
+      quantity === ""
+    ) {
       setIsDialogOpen(true);
       return;
     }
@@ -104,9 +113,10 @@ const ProductDetail = () => {
         storage,
         price,
         quantity,
-        image
+        image,
       })
     );
+    setPopupSuccess(true);
   };
 
   useEffect(() => {
@@ -124,22 +134,39 @@ const ProductDetail = () => {
   return (
     <div className="product-detail">
       <Container maxWidth="lg">
-        <Dialog
-          open={isDialogOpen}
-          onClose={()=>setIsDialogOpen(false)}
-        >
-           <DialogTitle>
-          {"One or more options are not selected!"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Please select all product options before adding it to your cart.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={()=>setIsDialogOpen(false)}>OK</Button>
-        </DialogActions>
+        <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
+          <DialogTitle>{"One or more options are not selected!"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Please select all product options before adding it to your cart.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setIsDialogOpen(false)}>OK</Button>
+          </DialogActions>
         </Dialog>
+
+        <Dialog
+          open={popupSuccess}
+          // onClose={()=>setIsDialogOpen(false)}
+        >
+          <DialogTitle>
+            {"Product successfully added to your shopping cart!"}
+          </DialogTitle>
+          <DialogActions>
+            <Button variant="outlined">
+              <Link to="/products" onClick={() => setPopupSuccess(false)}>
+                CONTINUE SHOPPING
+              </Link>
+            </Button>
+            <Button variant="contained">
+              <Link style={{color:"white"}} to="/cart" onClick={() => setPopupSuccess(false)}>
+                PROCEED TO CHECKOUT
+              </Link>
+            </Button>
+          </DialogActions>
+        </Dialog>
+
         <div className="product-detail-header">
           <div className="detail-header-left">
             <span>New</span>
@@ -187,7 +214,6 @@ const ProductDetail = () => {
                                 name="radio-group1"
                                 value={[display.size, display.price]}
                                 onClick={handleModelChange}
-
                               />
                               <div id="selectable-display">
                                 <span className="input-column">
@@ -226,39 +252,37 @@ const ProductDetail = () => {
                       </Typography>
                       <Typography variant="h7">
                         Color{" "}
-                        <span className="hide">{color.toUpperCase()}</span>
+                        <span className="hide" style={{fontWeight:"700"}}>{color.toUpperCase()}</span>
                       </Typography>
                       <div className="colors">
-                        {selectedProduct?.variants?.colors.map(
-                          (color, key) => {
-                            let divStyle = {
-                              backgroundColor:
-                                color === "Scarlet"
-                                  ? "#BB0000"
-                                  : color === "Midnight"
-                                  ? "#302E41"
-                                  : color === "Starlight"
-                                  ? "#F8F9EC"
-                                  : color,
-                            };
-                            return (
-                              <label key={key} htmlFor={color}>
-                                <input
-                                  type="radio"
-                                  id={color}
-                                  name="radio-group2"
-                                  value={color}
-                                  onClick={handleColorChange}
-                                />
-                                <div
-                                  className="color-select"
-                                  id="selectable-color"
-                                  style={divStyle}
-                                ></div>
-                              </label>
-                            );
-                          }
-                        )}
+                        {selectedProduct?.variants?.colors.map((color, key) => {
+                          let divStyle = {
+                            backgroundColor:
+                              color === "Scarlet"
+                                ? "#BB0000"
+                                : color === "Midnight"
+                                ? "#302E41"
+                                : color === "Starlight"
+                                ? "#F8F9EC"
+                                : color,
+                          };
+                          return (
+                            <label key={key} htmlFor={color}>
+                              <input
+                                type="radio"
+                                id={color}
+                                name="radio-group2"
+                                value={color}
+                                onClick={handleColorChange}
+                              />
+                              <div
+                                className="color-select"
+                                id="selectable-color"
+                                style={divStyle}
+                              ></div>
+                            </label>
+                          );
+                        })}
                       </div>
                     </>
                   )}
