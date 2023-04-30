@@ -143,13 +143,15 @@ input[type="radio"]:hover + #selectable-color {
 }
 #selectable-color {
   border-radius: 100%;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   transition: all 0.3s;
   margin-left: 5px;
+  border: 1px solid lightgray;
 }
 #selectable-color:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
+  border: 1px solid lightgray !important;
 }
 .quantity-container {
   display: flex;
