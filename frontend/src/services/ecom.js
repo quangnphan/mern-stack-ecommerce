@@ -1,11 +1,11 @@
 import http from "../helper.js";
 
 class EcomDataService {
-  getAll(page = 0) {
-    return http.get(`?page=${page}`);
+  getAll() {
+    return http.get(`/products`);
   }
-  find(query, by = "category", page = 0) {
-    return http.get(`?${by}=${query}&page=${page}`);
+  getProductByCategory(category) {
+    return http.get(`/products/${category}`);
   }
   get(id) {
     return http.get(`/product/${id}`);

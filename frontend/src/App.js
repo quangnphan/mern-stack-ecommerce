@@ -10,7 +10,6 @@ import {
   Checkout
 } from "./pages";
 import { Navbar, Footer } from "./components";
-import EmailAgent from "./pages/Products/components/ShopAndChat/EmailAgent";
 
 function App() {
   return (
@@ -25,7 +24,6 @@ function App() {
         <Route path="checkout" element={<Checkout />}/>
         <Route path="/success" element={<Success />} />
         <Route path="*" element={<PageNotFound />} />
-        <Route path="/send" element={<EmailAgent />} />
       </Routes>
       <Footer />
     </Router>

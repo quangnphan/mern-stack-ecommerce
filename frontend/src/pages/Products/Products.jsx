@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import PromoBanner from './components/PromoBanner/PromoBanner'
-// import ShopAndChat from './components/ShopAndChat/ShopAndChat'
-// import ProductNav from './components/ProductNav/ProductNav'
-// import CardShelf from './components/CardShelf/CardShelf'
 import { Container, Typography, CircularProgress } from "@mui/material";
 import "./Products.css";
 import EcomDataService from "../../services/ecom.js";
@@ -13,24 +9,32 @@ import { Link } from "react-router-dom";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [error, setError] = useState("");
 
   const getProducts = async () => {
-    const response = await EcomDataService.getAll();
-    let allProducts = response.data?.products;
+    try {
+      const response = await EcomDataService.getAll();
+      let allProducts = response.data?.products;
 
-    setProducts(allProducts);
+      setProducts(allProducts);
+    } catch (error) {
+      setError("Failed to fetch products");
+      console.log(error);
+    }
   };
 
   useEffect(() => {
+    setError("");
     getProducts();
   }, []);
+
+  if (error) {
+    return <div className="loading" style={{minHeight: '60vh'}}>{error}</div>;
+  }
+
   return (
     <div className="products">
       <Container maxWidth="xl">
-        {/* <PromoBanner />
-      <ShopAndChat />
-      <ProductNav />
-      <CardShelf /> */}
         <div className="header">
           <Typography variant="h3">
             Save on a new Mac or iPad
@@ -44,37 +48,55 @@ const Products = () => {
           </Typography>
         </div>
         <div className="products-category">
-          {products.length > 0
-            ? products.map((item,key) => {
-                return (
-                  <div key={key} className="category">
-                    <div className="category-name">
-                      <Typography variant="h5">{item.category}</Typography>
-                      <Typography className="body1">
-                        Pricing shown for all {item.category} models.
-                      </Typography>
-                    </div>
-                    <div className="products-list">
-                      {item.skus.map((product,key) => {
-                        return (
-                          <Link key={key} to={`/product/${item.category}/${product.sku}`}>
-                            <div className="product-box">
-                              <img src={product.variants.images[0]} alt="" />
-                              <Typography variant="h5">
-                                {product.name}
-                              </Typography>
-                              <Typography>
-                                From ${product.price?.base}
-                              </Typography>
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </div>
+          {products.length > 0 ? (
+            products
+              .reduce((categories, item, key) => {
+                const category = item.category;
+                const existingCategory = categories.find(
+                  (cat) => cat.name === category.name
                 );
-              })
-            : <CircularProgress />}
+
+                if (!existingCategory) {
+                  categories.push({ name: category.name, items: [item] });
+                } else {
+                  existingCategory.items.push(item);
+                }
+
+                return categories;
+              }, [])
+              .map((category, key) => (
+                <div key={key} className="category">
+                  <div className="category-name">
+                    <Typography variant="h5">{category.name}</Typography>
+                    <Typography className="body1">
+                      Pricing shown for all {category.name} models.
+                    </Typography>
+                  </div>
+                  <div className="products-list">
+                    {category.items.map((product, productKey) => {
+                      const lowestPrice = Math.min(
+                        ...product.sizes.flatMap((size) =>
+                          size.storages.map((storage) => storage.price)
+                        )
+                      );
+                      return (
+                        <Link key={productKey} to={`/product/${product._id}`}>
+                          <div className="product-box">
+                            <img src={product.image[0]} alt="" />
+                            <Typography variant="h5">{product.name}</Typography>
+                            <Typography>From ${lowestPrice}</Typography>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))
+          ) : (
+            <div className="loading">
+              <CircularProgress />
+            </div>
+          )}
         </div>
         <div className="benefits-flex">
           <div className="benefit">
