@@ -20,17 +20,12 @@ const ProductDetail = () => {
   const [popupSuccess, setPopupSuccess] = useState(false);
   const [name, setName] = useState({});
   const [images, setImages] = useState();
-  const [model, setModel] = useState("");
-  const [color, setColor] = useState("");
-  const [storage, setStorage] = useState("");
-  const [baseStorage, setbaseStorage] = useState(0);
-  const [base, setBase] = useState(0);
-  const [totalDisplay, setTotalDisplay] = useState(0);
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [id, setId] = useState("");
-
-  const [product, setProduct] = useState();
+  const [model, setModel] = useState(null);
+  const [selectedStorage, setSelectedStorage] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [product,setProduct] = useState(null);
   const [lowestPrice, setLowestPrice] = useState(0);
 
   const getProductLowestPrice = (product) => {
@@ -59,11 +54,12 @@ const ProductDetail = () => {
     try {
       const response = await EcomDataService.getProduct(params.id);
       const productData = response.data?.product;
-      setProduct(productData);
       if (productData) {
         const price = getProductLowestPrice(productData);
         setLowestPrice(price);
+        setName(productData.name);
         setImages(productData.images);
+        setProduct(productData);
       }
       console.log(productData);
     } catch (error) {
@@ -71,17 +67,13 @@ const ProductDetail = () => {
     }
   };
 
-  const generateId = () => {
-    setId(Date.now());
-  };
   const handleSubmit = (event) => {
     event.preventDefault();
-    generateId();
     if (
       name === "" ||
       model === "" ||
-      color === "" ||
-      storage === "" ||
+      // color === "" ||
+      // storage === "" ||
       quantity === ""
     ) {
       setIsDialogOpen(true);
@@ -90,11 +82,10 @@ const ProductDetail = () => {
     dispatch(
       addProduct({
         ...{},
-        id,
         name,
         model,
-        color,
-        storage,
+        // color,
+        // storage,
         price,
         quantity,
         images,
@@ -110,7 +101,7 @@ const ProductDetail = () => {
       behavior: "smooth",
     });
     getProduct();
-    setPrice(totalDisplay + baseStorage);
+    // setPrice(totalDisplay + baseStorage);
     // eslint-disable-next-line
   }, [params.id, totalDisplay, baseStorage, price]);
 
@@ -157,7 +148,7 @@ const ProductDetail = () => {
         <div className="product-detail-header">
           <div className="detail-header-left">
             <span>New</span>
-            <Typography variant="h3">Buy {product?.name}</Typography>
+            <Typography variant="h3">Buy {name}</Typography>
             <p>
               From ${lowestPrice} or $ $
               {parseFloat(lowestPrice / 12).toFixed(2)}/mo. for 12 mo.
@@ -189,10 +180,8 @@ const ProductDetail = () => {
                         <label key={key}>
                           <input
                             type="radio"
-                            // id={display.size}
                             name="radio-group1"
-                            // value={[display.size, display.price]}
-                            onClick={() => {}}
+                            onChange={() => setModel(sizeItem)}
                           />
                           <div id="selectable-display">
                             <span className="input-column">
@@ -205,11 +194,11 @@ const ProductDetail = () => {
                               <span className="input-column-left">
                                 <span className="input-row-left detail-font">
                                   <span className="input-row-single">
-                                    From ${lowestPrice}
+                                    From ${getProductLowestPrice(sizeItem)}
                                   </span>
                                   <span className="input-row-single">
                                     or $
-                                    {parseFloat(lowestPrice / 12).toFixed(2)}
+                                    {parseFloat(getProductLowestPrice(sizeItem) / 12).toFixed(2)}
                                     /mo.
                                   </span>
                                   <span className="input-row-single">
@@ -231,11 +220,11 @@ const ProductDetail = () => {
                     <Typography variant="h7">
                       Color{" "}
                       <span className="hide" style={{ fontWeight: "700" }}>
-                        {color?.toUpperCase()}
+                        {/* {color?.toUpperCase()} */}
                       </span>
                     </Typography>
                     <div className="colors">
-                      {product?.color?.map((color, key) => {
+                      {product?.colors?.map((color, key) => {
                         return (
                           <label key={key}>
                             <input
