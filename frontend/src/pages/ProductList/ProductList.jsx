@@ -19,7 +19,7 @@ const ProductList = () => {
 
   const getProducts = async () => {
     try {
-      const response = await EcomDataService.getProductByCategory(
+      const response = await EcomDataService.getProductsByCategory(
         params.category
       );
       const products = response.data?.products;
@@ -54,7 +54,7 @@ const ProductList = () => {
               <div key={key} className="product-list-box">
                 <div>
                   <div className="product-list-box-img">
-                    <img src={product.image[0]} alt="product img" />
+                    <img src={product.images[0]} alt="product img" />
                   </div>
                   <div className="product-list-box-info">
                     <div>

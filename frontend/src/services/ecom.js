@@ -4,10 +4,10 @@ class EcomDataService {
   getAll() {
     return http.get(`/products`);
   }
-  getProductByCategory(category) {
+  getProductsByCategory(category) {
     return http.get(`/products/${category}`);
   }
-  get(id) {
+  getProduct(id) {
     return http.get(`/product/${id}`);
   }
   createOrder(data) {

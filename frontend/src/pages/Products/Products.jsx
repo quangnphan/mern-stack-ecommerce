@@ -82,7 +82,7 @@ const Products = () => {
                       return (
                         <Link key={productKey} to={`/product/${product._id}`}>
                           <div className="product-box">
-                            <img src={product.image[0]} alt="" />
+                            <img src={product.images[0]} alt="" />
                             <Typography variant="h5">{product.name}</Typography>
                             <Typography>From ${lowestPrice}</Typography>
                           </div>
