@@ -67,6 +67,7 @@
 }
 .product-selection {
   margin-top: 30px;
+  width: 100%;
 }
 .detail-header-left span {
   color: orange;
@@ -193,6 +194,7 @@ input[type="radio"]:hover + #selectable-color {
   min-width: 250px !important;
   margin: 30px auto 0 !important;
   text-align: center !important;
+  display: flex !important;
 }
 .MuiFormControl-root{
   width: 100%;

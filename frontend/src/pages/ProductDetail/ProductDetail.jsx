@@ -18,14 +18,15 @@ const ProductDetail = () => {
   const dispatch = useDispatch();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [popupSuccess, setPopupSuccess] = useState(false);
-  const [name, setName] = useState({});
+  const [name, setName] = useState();
   const [images, setImages] = useState();
+  const [colors, setColors] = useState();
+  const [sizes, setSizes] = useState(null);
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [model, setModel] = useState(null);
+  const [selectedModel, setSelectedModel] = useState(null);
   const [selectedStorage, setSelectedStorage] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
-  const [product,setProduct] = useState(null);
   const [lowestPrice, setLowestPrice] = useState(0);
 
   const getProductLowestPrice = (product) => {
@@ -59,9 +60,9 @@ const ProductDetail = () => {
         setLowestPrice(price);
         setName(productData.name);
         setImages(productData.images);
-        setProduct(productData);
+        setColors(productData.colors);
+        setSizes(productData.sizes);
       }
-      console.log(productData);
     } catch (error) {
       console.log(error);
     }
@@ -71,9 +72,9 @@ const ProductDetail = () => {
     event.preventDefault();
     if (
       name === "" ||
-      model === "" ||
-      // color === "" ||
-      // storage === "" ||
+      selectedModel === "" ||
+      selectedColor === "" ||
+      selectedStorage === "" ||
       quantity === ""
     ) {
       setIsDialogOpen(true);
@@ -83,10 +84,10 @@ const ProductDetail = () => {
       addProduct({
         ...{},
         name,
-        model,
-        // color,
-        // storage,
-        price,
+        model: selectedModel.size,
+        color: selectedColor,
+        storage: selectedStorage.capacity,
+        price: selectedStorage.price,
         quantity,
         images,
       })
@@ -101,9 +102,7 @@ const ProductDetail = () => {
       behavior: "smooth",
     });
     getProduct();
-    // setPrice(totalDisplay + baseStorage);
-    // eslint-disable-next-line
-  }, [params.id, totalDisplay, baseStorage, price]);
+  }, [params.id]);
 
   return (
     <div className="product-detail">
@@ -171,23 +170,26 @@ const ProductDetail = () => {
             <div className="product-selection">
               <div>
                 <form className="form" onSubmit={handleSubmit}>
-                  <>
+                  <div>
                     <Typography variant="h5" className="form-typography">
                       Model. <span>Choose your settings</span>
                     </Typography>
-                    {product?.sizes.map((sizeItem, key) => {
+                    {sizes?.map((sizeItem, key) => {
                       return (
                         <label key={key}>
                           <input
                             type="radio"
                             name="radio-group1"
-                            onChange={() => setModel(sizeItem)}
+                            onChange={() => {
+                              setSelectedModel(sizeItem)
+                              setSelectedStorage(null)
+                            }}
                           />
                           <div id="selectable-display">
                             <span className="input-column">
                               <span className="input-column-right">
                                 <span className="input-row-right">
-                                  <strong>{sizeItem.size} display</strong>
+                                  <strong>{sizeItem?.size} display</strong>
                                 </span>
                               </span>
 
@@ -198,7 +200,9 @@ const ProductDetail = () => {
                                   </span>
                                   <span className="input-row-single">
                                     or $
-                                    {parseFloat(getProductLowestPrice(sizeItem) / 12).toFixed(2)}
+                                    {parseFloat(
+                                      getProductLowestPrice(sizeItem) / 12
+                                    ).toFixed(2)}
                                     /mo.
                                   </span>
                                   <span className="input-row-single">
@@ -211,72 +215,76 @@ const ProductDetail = () => {
                         </label>
                       );
                     })}
-                  </>
+                  </div>
 
-                  <>
-                    <Typography variant="h5" className="form-typography">
-                      Finish.<span> Pick your favorite color</span>
-                    </Typography>
-                    <Typography variant="h7">
-                      Color{" "}
-                      <span className="hide" style={{ fontWeight: "700" }}>
-                        {/* {color?.toUpperCase()} */}
-                      </span>
-                    </Typography>
-                    <div className="colors">
-                      {product?.colors?.map((color, key) => {
-                        return (
-                          <label key={key}>
-                            <input
-                              type="radio"
-                              // id={color}
-                              name="radio-group2"
-                              // value={color}
-                              onClick={() => {}}
-                            />
-                            <div
-                              className="color-select"
-                              id="selectable-color"
-                              style={{ backgroundColor: `${color.hex}` }}
-                            ></div>
-                          </label>
-                        );
-                      })}
+                  {selectedModel && (
+                    <div>
+                      <Typography variant="h5" className="form-typography">
+                        Finish.<span> Pick your favorite color</span>
+                      </Typography>
+                      <Typography variant="h7">
+                        Color -{" "}
+                        <span style={{ fontWeight: "700" }}>
+                          {selectedColor?.toUpperCase()}
+                        </span>
+                      </Typography>
+                      <div className="colors">
+                        {colors?.map((color, key) => {
+                          return (
+                            <label key={key}>
+                              <input
+                                type="radio"
+                                name="radio-group2"
+                                onClick={() => setSelectedColor(color.des)}
+                              />
+                              <div
+                                className="color-select"
+                                id="selectable-color"
+                                style={{ backgroundColor: `${color.hex}` }}
+                              ></div>
+                            </label>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </>
+                  )}
 
-                  <>
-                    <Typography variant="h5" className="form-typography">
-                      Storage. <span>How much space do you need</span>
-                    </Typography>
-                    {product?.sizes?.map((sizeItem, key) => {
-                      return sizeItem.storages?.map((storage) => {
+                  {selectedColor && (
+                    <div>
+                      <Typography variant="h5" className="form-typography">
+                        Storage: <span>How much space do you need?</span>
+                      </Typography>
+                      {selectedModel?.storages?.map((storage, key) => {
                         return (
                           <label key={key} htmlFor={storage.capacity}>
                             <input
                               type="radio"
                               id={storage.capacity}
                               name="radio-group3"
-                              // value={[storage.unit, storage.price, basePrice]}
-                              onClick={() => {}}
+                              checked={selectedStorage === storage}
+                              onChange={() => setSelectedStorage(storage)}
                             />
                             <div id="selectable-display">
                               <span className="input-column">
                                 <span className="input-column-right">
                                   <span className="input-row-right">
-                                    <strong>{storage?.capacity}</strong>
+                                    <strong>{storage.capacity}</strong>
                                   </span>
                                 </span>
 
                                 <span className="input-column-left">
                                   <span className="input-row-left detail-font">
                                     <span className="input-row-single">
-                                      From ${lowestPrice}
+                                      Starting from ${storage.price}
                                     </span>
-                                    <span className="input-row-single ">
-                                      or ${lowestPrice}/mo.
+                                    <span className="input-row-single">
+                                      or $
+                                      {parseFloat(storage.price / 12).toFixed(
+                                        2
+                                      )}
+                                      /mo.
                                     </span>
-                                    <span className="input-row-single ">
+                                    <span className="input-row-single">
                                       for 12 months
                                     </span>
                                   </span>
@@ -285,54 +293,66 @@ const ProductDetail = () => {
                             </div>
                           </label>
                         );
-                      });
-                    })}
-                  </>
+                      })}
+                    </div>
+                  )}
 
-                  <Typography variant="h5" className="form-typography">
-                    Quantity. <span>You might need more than one.</span>
-                  </Typography>
-                  <div className="quantity-container">
-                    <button
-                      type="button"
-                      className="decrease-button"
-                      onClick={() => {
-                        if (quantity === 1) {
-                          return;
-                        } else {
-                          setQuantity(quantity - 1);
-                        }
-                      }}
-                    >
-                      -
-                    </button>
-                    <span type="text" className="quantity-input">
-                      {quantity}
-                    </span>
-                    <button
-                      type="button"
-                      className="increase-button"
-                      onClick={() => setQuantity(quantity + 1)}
-                    >
-                      +
-                    </button>
-                  </div>
+                  {selectedStorage && (
+                    <div>
+                      <Typography variant="h5" className="form-typography">
+                        Quantity. <span>You might need more than one.</span>
+                      </Typography>
+                      <div className="quantity-container">
+                        <button
+                          type="button"
+                          className="decrease-button"
+                          onClick={() => {
+                            if (quantity === 1) {
+                              return;
+                            } else {
+                              setQuantity(quantity - 1);
+                            }
+                          }}
+                        >
+                          -
+                        </button>
+                        <span type="text" className="quantity-input">
+                          {quantity}
+                        </span>
+                        <button
+                          type="button"
+                          className="increase-button"
+                          onClick={() => setQuantity(quantity + 1)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  )}
 
                   <Typography
                     style={{ marginTop: "10px" }}
                     variant="h7"
                     className="form-typography"
                   >
-                    Each from ${price} or ${(price / 12).toFixed(2)}/mo.per
-                    month for 12 mo.
+                    Each from ${selectedStorage ? selectedStorage?.price : 0} or
+                    $
+                    {selectedStorage
+                      ? (selectedStorage?.price / 12).toFixed(2)
+                      : 0}{" "}
+                    /mo.per month for 12 mo.
                   </Typography>
-                  <Button
-                    className="continue-to-cart-btn"
-                    variant="contained"
-                    type="submit"
-                  >
-                    Add To Bag
-                  </Button>
+
+                 
+                    <Button
+                      className="continue-to-cart-btn"
+                      variant="contained"
+                      type="submit"
+                      disabled={selectedModel && selectedStorage && selectedColor ? false : true}
+                    >
+                      Add To Bag
+                    </Button>
+            
                 </form>
               </div>
             </div>
