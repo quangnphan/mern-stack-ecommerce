@@ -22,12 +22,12 @@ const ProductDetail = () => {
   const [images, setImages] = useState();
   const [colors, setColors] = useState();
   const [sizes, setSizes] = useState(null);
-  const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [selectedModel, setSelectedModel] = useState(null);
   const [selectedStorage, setSelectedStorage] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [lowestPrice, setLowestPrice] = useState(0);
+  const [error, setError] = useState(false);
 
   const getProductLowestPrice = (product) => {
     if (
@@ -64,6 +64,7 @@ const ProductDetail = () => {
         setSizes(productData.sizes);
       }
     } catch (error) {
+      setError(true);
       console.log(error);
     }
   };
@@ -101,8 +102,13 @@ const ProductDetail = () => {
       left: 0,
       behavior: "smooth",
     });
+    setError(false);
     getProduct();
   }, [params.id]);
+
+  if(error){
+    return <div className="error">Failed to fetch product.</div>
+  }
 
   return (
     <div className="product-detail">
