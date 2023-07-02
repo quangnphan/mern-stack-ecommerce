@@ -1,29 +1,19 @@
-import React, { useState,  } from "react";
+import React, { useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import {
-  Button,
-  Container,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
-// import ContactMailIcon from "@mui/icons-material/ContactMail";
-// import InfoIcon from "@mui/icons-material/Info";
-// import PaymentIcon from "@mui/icons-material/Payment";
+import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import "./StripePayment.css";
 import EcomDataService from "../../services/ecom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart, } from "../../app/slices/cartSlice";
-import { updateInfo, } from "../../app/slices/confirmationSlice";
-import { useNavigate } from 'react-router-dom';
-
-
+import { clearCart } from "../../app/slices/cartSlice";
+import { updateInfo } from "../../app/slices/confirmationSlice";
+import { useNavigate } from "react-router-dom";
 
 const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
   const navigate = useNavigate();
   const stripe = useStripe();
   const dispatch = useDispatch();
-  const order = useSelector((state) => state.cart.products);
+  const products = useSelector((state) => state.cart.products);
+  const amount = useSelector((state) => state.cart.total);
   const elements = useElements();
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -35,7 +25,7 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
     address: "",
     city: "",
     state: "",
-    zip: "",
+    zipcode: "",
   });
 
   const onChange = (e) => {
@@ -47,25 +37,23 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
   };
 
   const objCheck = (obj) => {
-    // console.log(obj);
     for (var key in obj) {
-      if (obj[key] == null || obj[key] === "")
-          return false;
+      if (obj[key] == null || obj[key] === "") return false;
     }
     return true;
   };
 
   const createOrder = async (data) => {
     try {
-      const response = await EcomDataService.createOrder(data);
+      await EcomDataService.createOrder(data);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const paymentHandler = async (e) => {
     e.preventDefault();
-   
+
     const params = {
       first_name: purchaserData.first_name,
       last_name: purchaserData.last_name,
@@ -74,14 +62,24 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
       address: purchaserData.address,
       city: purchaserData.city,
       state: purchaserData.state,
-      zip: purchaserData.zip,
+      zipcode: purchaserData.zipcode,
     };
-    
-    const data = {params,order};
+
+    //get product id and quantity from product slice
+    const order = Object.values(products).map(({ id, quantity }) => ({
+      productId: id,
+      quantity,
+    }));
+
+    const data = {
+      ...params,
+      products: order,
+      total_amount: amount,
+      shipping_address: purchaserData.address,
+    };
     const check = objCheck(params);
-    // console.log(check);
     if (!stripe || !elements || check === false) {
-      setErrorMsg("Please field all required fields");
+      setErrorMsg("Please fill all required fields");
       return;
     } else {
       setProcessing(true);
@@ -95,13 +93,13 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
           //call api create order
           createOrder(data);
 
-          setErrorMsg('Success!');
+          setErrorMsg("Success!");
           setProcessing(false);
           if (paymentIntent) {
             dispatch(updateInfo(purchaserData));
             dispatch({ type: clearCart });
             setSuccess(true);
-            navigate('/success');
+            navigate("/success");
           }
         })
         .catch((error) => {
@@ -114,45 +112,34 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
 
   return (
     <Container maxWidth="md" style={{ marginTop: "50px" }}>
-      {/* <Stepper activeStep={activeStep}>
-        {[1, 2, 3].map((e) => (
-          <Step key={e}>
-            <StepLabel StepIconComponent={stepIcons} />
-          </Step>
-        ))}
-      </Stepper>
-
-      {activeStep === 3 ? (
-        <Button onClick={handleReset}>Reset</Button>
-      ) : (
-        <>
-          <div style={{ marginTop: "50px" }}>
-            <StepContent step={activeStep} />
-            <Button disabled={activeStep === 0} onClick={handleBack}>
-              Back
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              disabled={!stripe || !elements || processing || success || activeStep == 2}
-            >
-              Next
-            </Button>
-          </div>
-        </>
-      )} */}
-
       <div className="contact">
         <Grid container spacing={2} style={{ marginBottom: "20px" }}>
           <Grid item xs={6}>
-            <TextField value={purchaserData.first_name} onChange={onChange} required label="First Name" name="first_name"/>
+            <TextField
+              value={purchaserData.first_name}
+              onChange={onChange}
+              required
+              label="First Name"
+              name="first_name"
+            />
           </Grid>
           <Grid item xs={6}>
-            <TextField value={purchaserData.last_name} onChange={onChange} required label="Last Name" name="last_name"/>
+            <TextField
+              value={purchaserData.last_name}
+              onChange={onChange}
+              required
+              label="Last Name"
+              name="last_name"
+            />
           </Grid>
           <Grid item xs={6}>
-            <TextField value={purchaserData.email} onChange={onChange} required label="Email" name="email"/>
+            <TextField
+              value={purchaserData.email}
+              onChange={onChange}
+              required
+              label="Email"
+              name="email"
+            />
           </Grid>
           <Grid item xs={6}>
             <TextField
@@ -165,7 +152,7 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
           </Grid>
           <Grid item xs={12}>
             <TextField
-            value={purchaserData.address}
+              value={purchaserData.address}
               onChange={onChange}
               required
               label="Street Address"
@@ -173,19 +160,31 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
             />
           </Grid>
           <Grid item xs={4}>
-            <TextField value={purchaserData.city} onChange={onChange} required label="City" name="city"/>
-          </Grid>
-          <Grid item xs={4}>
-            <TextField value={purchaserData.state} onChange={onChange} required label="State" name="state"/>
+            <TextField
+              value={purchaserData.city}
+              onChange={onChange}
+              required
+              label="City"
+              name="city"
+            />
           </Grid>
           <Grid item xs={4}>
             <TextField
-            value={purchaserData.zip}
+              value={purchaserData.state}
+              onChange={onChange}
+              required
+              label="State"
+              name="state"
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+              value={purchaserData.zipcode}
               onChange={onChange}
               required
               label="Zipcode"
               type="number"
-              name="zip"
+              name="zipcode"
             />
           </Grid>
         </Grid>

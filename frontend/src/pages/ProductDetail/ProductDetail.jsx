@@ -18,6 +18,7 @@ const ProductDetail = () => {
   const dispatch = useDispatch();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [popupSuccess, setPopupSuccess] = useState(false);
+  const [productId, setProductId] = useState();
   const [name, setName] = useState();
   const [images, setImages] = useState();
   const [colors, setColors] = useState();
@@ -62,6 +63,7 @@ const ProductDetail = () => {
         setImages(productData.images);
         setColors(productData.colors);
         setSizes(productData.sizes);
+        setProductId(productData._id);
       }
     } catch (error) {
       setError(true);
@@ -91,6 +93,7 @@ const ProductDetail = () => {
         price: selectedStorage.price,
         quantity,
         images,
+        id: productId,
       })
     );
     setPopupSuccess(true);
@@ -104,6 +107,7 @@ const ProductDetail = () => {
     });
     setError(false);
     getProduct();
+    // eslint-disable-next-line
   }, [params.id]);
 
   if(error){

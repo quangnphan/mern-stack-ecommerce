@@ -14,7 +14,7 @@ class EcomDataService {
     return http.post("/order", data);
   }
   createStripePayment(data) {
-    return http.post("/payment", data);
+    return http.post("/post_payment", data);
   }
 }
 
