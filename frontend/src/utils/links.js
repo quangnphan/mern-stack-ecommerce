@@ -1,27 +1,27 @@
 export const links = [
   {
     id: 1,
-    text: "home",
+    text: "Home",
     url: "/",
   },
   {
     id: 2,
-    text: "store",
+    text: "Store",
     url: "/products",
   },
   {
     id: 3,
-    text: "mac",
+    text: "Mac",
     url: "/products/mac",
   },
   {
     id: 4,
-    text: "iphone",
+    text: "iPhone",
     url: "/products/iphone",
   },
   {
     id: 5,
-    text: "ipad",
+    text: "iPad",
     url: "/products/ipad",
   },
 ];

@@ -15,7 +15,6 @@
 .links {
   display: flex;
   gap: 30px;
-  text-transform: capitalize;
   font-weight: 700;
 }
 .links li a {
@@ -30,6 +29,11 @@
   width: 50%;
   margin: 30px 0;
   line-height: 1.5;
+}
+@media(max-width:768px){
+  .footer-wrapper .about {
+    width: 100%;
+  }
 }
 .footer-wrapper p {
   color: #6e6e73;

@@ -2,9 +2,9 @@ import React from "react";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import "./Footer.css";
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import TwitterIcon from "@mui/icons-material/Twitter";
 import AppleIcon from "@mui/icons-material/Apple";
 import { links } from "../../utils/links";
 
@@ -30,10 +30,10 @@ const Footer = () => {
             </ul>
           </div>
           <p className="about">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+            We want you to have the simplest, easiest buying experience
+            possible. But we know you might have a few questions. Read on for
+            details about purchasing, shipping, checking order status, returns,
+            and more.
           </p>
           <div className="footer-bottom">
             <p>Copyright {year}. All rights reserved</p>
