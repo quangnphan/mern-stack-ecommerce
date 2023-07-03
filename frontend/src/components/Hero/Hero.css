@@ -15,9 +15,23 @@
   font-weight: 300;
 }
 .hero a {
-  color: #06c;
-  font-weight: 300;
+  color: #2997ff;
+  font-weight: 400;
   font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.hero a:hover{
+  text-decoration: underline;
+}
+.hero a span svg{
+  font-size: 18px;
+  color: #2997ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .hero p {
   font-size: 18px;
