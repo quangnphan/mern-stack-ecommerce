@@ -8,17 +8,18 @@ const ProductList = () => {
   const params = useParams();
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setError("");
-    setLoading(true);
+    setLoading(false);
     getProducts();
     // eslint-disable-next-line
   }, [params.category]);
 
   const getProducts = async () => {
     try {
+      setLoading(true);
       const response = await EcomDataService.getProductsByCategory(
         params.category
       );

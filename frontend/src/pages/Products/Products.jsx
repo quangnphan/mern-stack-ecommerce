@@ -6,24 +6,30 @@ import Calendar from "./images/prop-calendar.png";
 import Shipping from "./images/icon-shipping.png";
 import AppleIcon from "./images/icon-apple.png";
 import { Link } from "react-router-dom";
+import Skeleton from '@mui/material/Skeleton';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
+  const [loading,setLoading] = useState(false);
 
   const getProducts = async () => {
     try {
+      setLoading(true);
       const response = await EcomDataService.getAll();
       let allProducts = response.data?.products;
-
+     
       setProducts(allProducts);
+      setLoading(false);
     } catch (error) {
       setError("Failed to fetch products");
+      setLoading(false);
       console.log(error);
     }
   };
 
   useEffect(() => {
+    setLoading(false);
     setError("");
     getProducts();
   }, []);
@@ -32,14 +38,23 @@ const Products = () => {
     return <div className="loading" style={{minHeight: '60vh'}}>{error}</div>;
   }
 
+  if(loading) {
+    return (
+       <Container maxWidth="lg" style={{minHeight: '50vh'}}>
+          <p className="loading" style={{marginTop: '50px'}}>Please wait...</p>
+         <Skeleton height={100} animation="wave"/>
+         <Skeleton height={100} animation="wave"/>
+         <Skeleton height={100} animation="wave"/>
+       </Container>
+    )
+  }
+
   return (
     <div className="products">
       <Container maxWidth="xl">
         <div className="header">
           <Typography variant="h3">
-            Save on a new Mac or iPad
-            <br />
-            with Apple education pricing.
+            Save on a new Mac or iPad.
           </Typography>
           <Typography variant="body1">
             Available to current and newly accepted college students and their

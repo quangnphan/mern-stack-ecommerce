@@ -12,6 +12,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
+import Skeleton from '@mui/material/Skeleton';
 
 const ProductDetail = () => {
   const params = useParams();
@@ -29,6 +30,7 @@ const ProductDetail = () => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [lowestPrice, setLowestPrice] = useState(0);
   const [error, setError] = useState(false);
+  const [loading,setLoading] = useState(false);
 
   const getProductLowestPrice = (product) => {
     if (
@@ -54,6 +56,7 @@ const ProductDetail = () => {
 
   const getProduct = async () => {
     try {
+      setLoading(true);
       const response = await EcomDataService.getProduct(params.id);
       const productData = response.data?.product;
       if (productData) {
@@ -65,8 +68,10 @@ const ProductDetail = () => {
         setSizes(productData.sizes);
         setProductId(productData._id);
       }
+      setLoading(false);
     } catch (error) {
       setError(true);
+      setLoading(false)
       console.log(error);
     }
   };
@@ -100,6 +105,7 @@ const ProductDetail = () => {
   };
 
   useEffect(() => {
+    setLoading(false);
     window.scrollTo({
       top: 0,
       left: 0,
@@ -112,6 +118,17 @@ const ProductDetail = () => {
 
   if (error) {
     return <div className="error">Failed to fetch product.</div>;
+  }
+
+  if(loading) {
+    return (
+       <Container maxWidth="lg" style={{minHeight: '50vh'}}>
+          <p className="loading" style={{marginTop: '50px'}}>Please wait...</p>
+         <Skeleton height={100} animation="wave"/>
+         <Skeleton height={100} animation="wave"/>
+         <Skeleton height={100} animation="wave"/>
+       </Container>
+    )
   }
 
   return (
