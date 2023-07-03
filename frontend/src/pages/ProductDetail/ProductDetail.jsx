@@ -110,8 +110,8 @@ const ProductDetail = () => {
     // eslint-disable-next-line
   }, [params.id]);
 
-  if(error){
-    return <div className="error">Failed to fetch product.</div>
+  if (error) {
+    return <div className="error">Failed to fetch product.</div>;
   }
 
   return (
@@ -185,14 +185,15 @@ const ProductDetail = () => {
                       Model. <span>Choose your settings</span>
                     </Typography>
                     {sizes?.map((sizeItem, key) => {
+                      const lowestStoragePrice = Math.min(...sizeItem.storages.map(storage => storage.price));
                       return (
                         <label key={key}>
                           <input
                             type="radio"
                             name="radio-group1"
                             onChange={() => {
-                              setSelectedModel(sizeItem)
-                              setSelectedStorage(null)
+                              setSelectedModel(sizeItem);
+                              setSelectedStorage(null);
                             }}
                           />
                           <div id="selectable-display">
@@ -206,12 +207,12 @@ const ProductDetail = () => {
                               <span className="input-column-left">
                                 <span className="input-row-left detail-font">
                                   <span className="input-row-single">
-                                    From ${getProductLowestPrice(sizeItem)}
+                                    From ${lowestStoragePrice}
                                   </span>
                                   <span className="input-row-single">
                                     or $
                                     {parseFloat(
-                                      getProductLowestPrice(sizeItem) / 12
+                                      lowestStoragePrice / 12
                                     ).toFixed(2)}
                                     /mo.
                                   </span>
@@ -285,7 +286,7 @@ const ProductDetail = () => {
                                 <span className="input-column-left">
                                   <span className="input-row-left detail-font">
                                     <span className="input-row-single">
-                                      Starting from ${storage.price}
+                                      ${storage.price}
                                     </span>
                                     <span className="input-row-single">
                                       or $
@@ -353,16 +354,18 @@ const ProductDetail = () => {
                     /mo.per month for 12 mo.
                   </Typography>
 
-                 
-                    <Button
-                      className="continue-to-cart-btn"
-                      variant="contained"
-                      type="submit"
-                      disabled={selectedModel && selectedStorage && selectedColor ? false : true}
-                    >
-                      Add To Bag
-                    </Button>
-            
+                  <Button
+                    className="continue-to-cart-btn"
+                    variant="contained"
+                    type="submit"
+                    disabled={
+                      selectedModel && selectedStorage && selectedColor
+                        ? false
+                        : true
+                    }
+                  >
+                    Add To Bag
+                  </Button>
                 </form>
               </div>
             </div>
