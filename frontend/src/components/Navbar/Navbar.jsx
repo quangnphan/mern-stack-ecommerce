@@ -86,7 +86,7 @@ const Navbar = () => {
                             <div>
                               <img
                                 className="cart-popover-img"
-                                src={prod.image}
+                                src={prod.images[0]}
                                 alt="cart img"
                               />
                             </div>

@@ -1,8 +1,6 @@
 import axios from "axios";
 
-const baseURL = `https://mern-stack-ecommerce-qelv.onrender.com/api/ecom`;
-
-// const baseURL = `http://localhost:5000/api/ecom`;
+const baseURL = process.env.REACT_APP_URL;
 
 export default axios.create({
     baseURL: baseURL,

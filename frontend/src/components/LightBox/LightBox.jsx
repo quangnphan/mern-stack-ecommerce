@@ -3,12 +3,9 @@ import "./LightBox.css";
 import Slider from "react-slick";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import EcomDataService from "../../services/ecom.js";
-import { useParams } from "react-router-dom";
 
-const LightBox = () => {
-  const params = useParams();
-  const [selectedProduct, setSelectedProduct] = useState();
+const LightBox = ({images}) => {
+  const [data,setData] = useState([]);
   const settings = {
     dots: false,
     infinite: true,
@@ -19,19 +16,15 @@ const LightBox = () => {
     nextArrow: <ArrowForwardIosIcon />,
     prevArrow: <ArrowBackIosNewIcon />,
   };
-  const getProduct = async () => {
-    const response = await EcomDataService.get(params.id);
-    setSelectedProduct(response.data?.skus);
-  };
 
-  useEffect(() => {    
-    getProduct();
-    // eslint-disable-next-line
-    }, []);
+  useEffect(()=>{
+    setData(images);
+  },[images])
+
   return (
     <div className="lightbox-wrapper">
       <Slider {...settings}>
-        {selectedProduct?.variants?.images.map((img,key) => {
+        {data?.map((img,key) => {
           return <img key={key} src={img} alt="img-slider" />;
         })}
       </Slider>

@@ -18,7 +18,7 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    // console.log(products);    
+    console.log(products);    
   }, [products]);
   return (
     <div className="bag">
@@ -41,7 +41,7 @@ const Cart = () => {
                 <div className="bag-products">
                   <Grid container className="bag-product">
                     <Grid item sx={12} md={4} className="bag-images">
-                      <img src={item.image} alt="img" />
+                      <img src={item.images[0]} alt="img" />
                     </Grid>
                     <Grid item sx={12} md={8} className="bag-info">
                       <div>

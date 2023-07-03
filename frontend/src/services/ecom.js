@@ -1,20 +1,20 @@
 import http from "../helper.js";
 
 class EcomDataService {
-  getAll(page = 0) {
-    return http.get(`?page=${page}`);
+  getAll() {
+    return http.get(`/products`);
   }
-  find(query, by = "category", page = 0) {
-    return http.get(`?${by}=${query}&page=${page}`);
+  getProductsByCategory(category) {
+    return http.get(`/products/${category}`);
   }
-  get(id) {
+  getProduct(id) {
     return http.get(`/product/${id}`);
   }
   createOrder(data) {
     return http.post("/order", data);
   }
   createStripePayment(data) {
-    return http.post("/payment", data);
+    return http.post("/post_payment", data);
   }
 }
 

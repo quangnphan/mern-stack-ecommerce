@@ -62,3 +62,14 @@
   display: flex;
   justify-content: flex-end;
 }
+.error{
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.product-list-box-info ul li{
+  list-style:circle;
+  list-style-position: inside;
+  margin-top: 5px;
+}
