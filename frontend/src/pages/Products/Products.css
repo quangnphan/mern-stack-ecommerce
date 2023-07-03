@@ -42,7 +42,8 @@
 }
 @media (max-width: 600px){
     .product-box{
-        width: 350px;
+        min-width: 300px;
+        width: 340px;
         padding: 20px;
     }
 }
@@ -110,7 +111,7 @@
         min-height: 280px;
     }
     .header h3{
-        font-size: 1.5rem;
+        font-size: 1.7rem;
     }
     .info h4{
         font-size: 1.5rem;

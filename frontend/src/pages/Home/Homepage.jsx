@@ -1,12 +1,12 @@
 import React from "react";
-import { Hero, ProductsGrid, Carousel } from "../../components";
+import { Hero, ProductsGrid } from "../../components";
 
 const Homepage = () => {
   return (
     <div>
       <Hero />
+      {/* <Carousel /> */}
       <ProductsGrid />
-      <Carousel />
     </div>
   );
 };
