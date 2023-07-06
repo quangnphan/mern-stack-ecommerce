@@ -6,19 +6,18 @@ import Calendar from "./images/prop-calendar.png";
 import Shipping from "./images/icon-shipping.png";
 import AppleIcon from "./images/icon-apple.png";
 import { Link } from "react-router-dom";
-import Skeleton from '@mui/material/Skeleton';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const getProducts = async () => {
     try {
       setLoading(true);
       const response = await EcomDataService.getAll();
       let allProducts = response.data?.products;
-     
+
       setProducts(allProducts);
       setLoading(false);
     } catch (error) {
@@ -35,27 +34,27 @@ const Products = () => {
   }, []);
 
   if (error) {
-    return <div className="loading" style={{minHeight: '60vh'}}>{error}</div>;
+    return (
+      <div className="loading" style={{ minHeight: "60vh" }}>
+        {error}
+      </div>
+    );
   }
 
-  if(loading) {
+  if (loading) {
     return (
-       <Container maxWidth="lg" style={{minHeight: '50vh'}}>
-          <p className="loading" style={{marginTop: '50px'}}>Please wait...</p>
-         <Skeleton height={100} animation="wave"/>
-         <Skeleton height={100} animation="wave"/>
-         <Skeleton height={100} animation="wave"/>
-       </Container>
-    )
+      <Container maxWidth="lg" style={{ minHeight: "50vh",textAlign: 'center' }}>
+        <p style={{ margin: "50px 0" }}>Please wait...</p>
+        <CircularProgress />
+      </Container>
+    );
   }
 
   return (
     <div className="products">
       <Container maxWidth="xl">
         <div className="header">
-          <Typography variant="h3">
-            Save on a new Mac or iPad.
-          </Typography>
+          <Typography variant="h3">Save on a new Mac or iPad.</Typography>
           <Typography variant="body1">
             Available to current and newly accepted college students and their
             parents, as well as faculty, staff, and homeschool teachers of all
@@ -63,55 +62,49 @@ const Products = () => {
           </Typography>
         </div>
         <div className="products-category">
-          {products.length > 0 ? (
-            products
-              .reduce((categories, item, key) => {
-                const category = item.category;
-                const existingCategory = categories.find(
-                  (cat) => cat.name === category.name
-                );
+          {products
+            .reduce((categories, item, key) => {
+              const category = item.category;
+              const existingCategory = categories.find(
+                (cat) => cat.name === category.name
+              );
 
-                if (!existingCategory) {
-                  categories.push({ name: category.name, items: [item] });
-                } else {
-                  existingCategory.items.push(item);
-                }
+              if (!existingCategory) {
+                categories.push({ name: category.name, items: [item] });
+              } else {
+                existingCategory.items.push(item);
+              }
 
-                return categories;
-              }, [])
-              .map((category, key) => (
-                <div key={key} className="category">
-                  <div className="category-name">
-                    <Typography variant="h5">{category.name}</Typography>
-                    <Typography className="body1">
-                      Pricing shown for all {category.name} models.
-                    </Typography>
-                  </div>
-                  <div className="products-list">
-                    {category.items.map((product, productKey) => {
-                      const lowestPrice = Math.min(
-                        ...product.sizes.flatMap((size) =>
-                          size.storages.map((storage) => storage.price)
-                        )
-                      );
-                      return (
-                        <Link key={productKey} to={`/product/${product._id}`}>
-                          <div className="product-box">
-                            <img src={product.images[0]} alt="" />
-                            <Typography variant="h5">{product.name}</Typography>
-                            <Typography>From ${lowestPrice}</Typography>
-                          </div>
-                        </Link>
-                      );
-                    })}
-                  </div>
+              return categories;
+            }, [])
+            .map((category, key) => (
+              <div key={key} className="category">
+                <div className="category-name">
+                  <Typography variant="h5">{category.name}</Typography>
+                  <Typography className="body1">
+                    Pricing shown for all {category.name} models.
+                  </Typography>
                 </div>
-              ))
-          ) : (
-            <div className="loading">
-              <CircularProgress />
-            </div>
-          )}
+                <div className="products-list">
+                  {category.items.map((product, productKey) => {
+                    const lowestPrice = Math.min(
+                      ...product.sizes.flatMap((size) =>
+                        size.storages.map((storage) => storage.price)
+                      )
+                    );
+                    return (
+                      <Link key={productKey} to={`/product/${product._id}`}>
+                        <div className="product-box">
+                          <img src={product.images[0]} alt="" />
+                          <Typography variant="h5">{product.name}</Typography>
+                          <Typography>From ${lowestPrice}</Typography>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
         </div>
         <div className="benefits-flex">
           <div className="benefit">
