@@ -46,8 +46,8 @@ const Cart = () => {
                     <Grid item sx={12} md={8} className="bag-info">
                       <div>
                         <Typography variant="h5">
-                          {item.name} {item.storage}
-                          <br />- {item.color} x {item.quantity}
+                          {item.name} {item.storage.capacity}
+                          <br />- {item.color.color} x {item.quantity}
                         </Typography>
                       </div>
                       <div className="info-right">

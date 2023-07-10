@@ -66,9 +66,12 @@ const StripePayment = ({ clientSecret, errorMsg, setErrorMsg }) => {
     };
 
     //get product id and quantity from product slice
-    const order = Object.values(products).map(({ id, quantity }) => ({
+    const order = Object.values(products).map(({ id, quantity, model, color, storage }) => ({
       productId: id,
       quantity,
+      modelId: model.id,
+      colorId: color.id,
+      storageId: storage._id,
     }));
 
     const data = {

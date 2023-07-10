@@ -81,7 +81,7 @@ const ProductDetail = () => {
     if (
       name === "" ||
       selectedModel === "" ||
-      selectedColor === "" ||
+      selectedColor.color === "" ||
       selectedStorage === "" ||
       quantity === ""
     ) {
@@ -92,9 +92,9 @@ const ProductDetail = () => {
       addProduct({
         ...{},
         name,
-        model: selectedModel.size,
+        model: {model: selectedModel.size, id: selectedModel._id},
         color: selectedColor,
-        storage: selectedStorage.capacity,
+        storage: selectedStorage,
         price: selectedStorage.price,
         quantity,
         images,
@@ -253,7 +253,7 @@ const ProductDetail = () => {
                       <Typography variant="h7">
                         Color -{" "}
                         <span style={{ fontWeight: "700" }}>
-                          {selectedColor?.toUpperCase()}
+                          {selectedColor?.color?.toUpperCase()}
                         </span>
                       </Typography>
                       <div className="colors">
@@ -263,7 +263,7 @@ const ProductDetail = () => {
                               <input
                                 type="radio"
                                 name="radio-group2"
-                                onClick={() => setSelectedColor(color.des)}
+                                onClick={() => {setSelectedColor({color: color.des, id: color._id})}}
                               />
                               <div
                                 className="color-select"
@@ -376,7 +376,7 @@ const ProductDetail = () => {
                     variant="contained"
                     type="submit"
                     disabled={
-                      selectedModel && selectedStorage && selectedColor
+                      selectedModel && selectedStorage && selectedColor.color
                         ? false
                         : true
                     }
