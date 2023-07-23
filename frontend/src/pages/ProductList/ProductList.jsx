@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./ProductList.css";
-import { Button, CircularProgress, Container } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import EcomDataService from "../../services/ecom.js";
+import Loading from "../../components/Loading/Loading";
 
 const ProductList = () => {
   const params = useParams();
@@ -35,9 +36,7 @@ const ProductList = () => {
 
   if (loading) {
     return (
-      <div className="error">
-        <CircularProgress />
-      </div>
+      <Loading />
     );
   }
 

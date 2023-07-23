@@ -1,4 +1,4 @@
-import { Container, Typography, Button, CircularProgress } from "@mui/material";
+import { Container, Typography, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { LightBox, InTheBox } from "../../components";
 import { Link } from "react-router-dom";
@@ -12,6 +12,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
+import Loading from "../../components/Loading/Loading";
 
 const ProductDetail = () => {
   const params = useParams();
@@ -121,10 +122,7 @@ const ProductDetail = () => {
 
   if(loading) {
     return (
-      <Container maxWidth="lg" style={{ minHeight: "50vh",textAlign: 'center' }}>
-      <p style={{ margin: "50px 0" }}>Please wait...</p>
-      <CircularProgress />
-    </Container>
+      <Loading />
     )
   }
 
