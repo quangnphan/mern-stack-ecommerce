@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Container, Typography, CircularProgress } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import "./Products.css";
 import EcomDataService from "../../services/ecom.js";
 import Calendar from "./images/prop-calendar.png";
 import Shipping from "./images/icon-shipping.png";
 import AppleIcon from "./images/icon-apple.png";
 import { Link } from "react-router-dom";
+import Loading from "../../components/Loading/Loading";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -43,10 +44,7 @@ const Products = () => {
 
   if (loading) {
     return (
-      <Container maxWidth="lg" style={{ minHeight: "50vh",textAlign: 'center' }}>
-        <p style={{ margin: "50px 0" }}>Please wait...</p>
-        <CircularProgress />
-      </Container>
+     <Loading />
     );
   }
 
