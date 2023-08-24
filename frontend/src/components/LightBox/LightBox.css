@@ -24,13 +24,13 @@
   display: flex !important;
   justify-content: center;
   align-items: center;
-  height: 350px;
+  height: 300px;
   width: auto !important; 
   margin: auto;
   align-self: center;
 }
 @media (max-width: 600px) {
   .lightbox-wrapper .slick-track img{
-    height: 250px;
+    height: 150px;
   }
 }
