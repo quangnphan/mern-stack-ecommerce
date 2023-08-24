@@ -31,6 +31,7 @@ const ProductDetail = () => {
   const [lowestPrice, setLowestPrice] = useState(0);
   const [error, setError] = useState(false);
   const [loading,setLoading] = useState(false);
+  const [boxImgs,setBoxImgs] = useState();
 
   const getProductLowestPrice = (product) => {
     if (
@@ -67,6 +68,7 @@ const ProductDetail = () => {
         setColors(productData.colors);
         setSizes(productData.sizes);
         setProductId(productData._id);
+        setBoxImgs(productData.in_the_box);
       }
       setLoading(false);
     } catch (error) {
@@ -383,7 +385,7 @@ const ProductDetail = () => {
             </div>
           </div>
           <div className="in-the-box-container">
-            <InTheBox />
+            <InTheBox images={boxImgs}/>
           </div>
         </div>
       </Container>
