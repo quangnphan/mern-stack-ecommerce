@@ -1,21 +1,11 @@
 import http from "../helper.js";
 
-class EcomDataService {
-  getAll() {
-    return http.get(`/products`);
-  }
-  getProductsByCategory(category) {
-    return http.get(`/products/${category}`);
-  }
-  getProduct(id) {
-    return http.get(`/product/${id}`);
-  }
-  createOrder(data) {
-    return http.post("/order", data);
-  }
-  createStripePayment(data) {
-    return http.post("/post_payment", data);
-  }
-}
+const EcomDataService = {
+  getAll: () => http.get(`/products`),
+  getProductsByCategory: (category) => http.get(`/products/${category}`),
+  getProduct: (id) => http.get(`/product/${id}`),
+  createOrder: (data) => http.post("/order", data),
+  createStripePayment: (data) => http.post("/post_payment", data),
+};
 
-export default new EcomDataService();
+export default EcomDataService;
