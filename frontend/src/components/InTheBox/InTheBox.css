@@ -13,13 +13,16 @@
 .box-images {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   flex-wrap: wrap;
   gap: 20px;
 }
 .box-images img{
   max-width: 300px;
   max-height: 300px;
+}
+.box-images p{
+  margin-top: 10px;
 }
 @media(max-width: 800px){
   .box-images{
