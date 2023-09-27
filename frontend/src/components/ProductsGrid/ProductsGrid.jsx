@@ -24,7 +24,7 @@ const ProductsGrid = () => {
             </Link>
         </Grid>
         <Grid item xs={12} md={5.93} className="grid-3">
-          <Typography variant="h3">iMac</Typography>
+          <Typography variant="h3">Macbook does <span>that.</span></Typography>
           <Typography variant="body1">Beautiful. Magical. Bigger Screen.</Typography>
           <Link to="/product/64a204f6c0b0ab3f55eba0a8">
                 Learn more <span><ArrowForwardIosIcon /></span>

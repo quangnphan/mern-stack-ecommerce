@@ -9,13 +9,13 @@ const Hero = () => {
     <div className='hero'>
         <Container maxWidth="lg">
             <Typography variant='h1'>
-                iPhone 14
+                iPhone 15 Pro
             </Typography>
             <Typography variant='h4'>
-                Big and bigger.
+                So strong. So light. So Pro.
             </Typography>
             <Typography variant="h5">
-            <Link to="/product/64a20676c0b0ab3f55eba0b5">
+            <Link to="/product/65148403519bea5e638da713">
                 Learn more <span><ArrowForwardIosIcon /></span>
             </Link>
             </Typography>

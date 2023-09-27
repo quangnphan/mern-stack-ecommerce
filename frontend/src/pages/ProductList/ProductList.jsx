@@ -68,7 +68,7 @@ const ProductList = () => {
                     </div>
                   </div>
                 </div>
-                <div>
+                <div className="select-button">
                   <Link to={`/product/${product._id}`}>
                     <Button variant="contained">Select</Button>
                   </Link>
