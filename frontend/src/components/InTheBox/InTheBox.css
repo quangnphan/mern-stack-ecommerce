@@ -12,10 +12,10 @@
 }
 .box-images {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: baseline;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 150px;
 }
 .box-images img{
   max-width: 300px;
