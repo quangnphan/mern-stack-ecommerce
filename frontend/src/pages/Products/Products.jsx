@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Container, Typography } from "@mui/material";
 import "./Products.css";
 import EcomDataService from "../../services/ecom.js";
-import Calendar from "./images/prop-calendar.png";
-import Shipping from "./images/icon-shipping.png";
-import AppleIcon from "./images/icon-apple.png";
 import { Link } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
+import Benefits from "../../components/Benefits/Benefits";
+import Ads from "../../components/Ads/Ads";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -61,7 +60,7 @@ const Products = () => {
         </div>
         <div className="products-category">
           {products
-            .reduce((categories, item, key) => {
+            .reduce((categories, item) => {
               const category = item.category;
               const existingCategory = categories.find(
                 (cat) => cat.name === category.name
@@ -104,53 +103,8 @@ const Products = () => {
               </div>
             ))}
         </div>
-        <div className="benefits-flex">
-          <div className="benefit">
-            <img src={Calendar} alt="" />
-            <Typography variant="h5">
-              Get 3% Daily Cash back with Apple Card
-            </Typography>
-            <Typography variant="body1">
-              And pay over time, interest-free when you choose to check out with
-              Apple Card Monthly Installments.
-            </Typography>
-          </div>
-          <div className="benefit">
-            <img src={Shipping} alt="" />
-            <Typography variant="h5">Fast, free delivery</Typography>
-            <Typography variant="body1">
-              Or pick up available items at an Apple Store.
-            </Typography>
-          </div>
-          <div className="benefit">
-            <img src={AppleIcon} alt="" />
-            <Typography variant="h5">AppleCare+</Typography>
-            <Typography variant="body1">
-              Get additional service and support. Save with education pricing on
-              AppleCare+ for Mac.
-            </Typography>
-          </div>
-        </div>
-        <div className="refurbished">
-          <div className="info">
-            <Typography variant="h4">
-              Get special savings with Apple Certified Refurbished.
-            </Typography>
-            <Typography>
-              Your favorite products for less, backed by our standard one-year
-              warranty.
-            </Typography>
-          </div>
-          <div className="refurbished-img-holder"></div>
-        </div>
-        <div className="apple-tv">
-          <div className="info">
-            <Typography variant="h4">
-              Apple Music Student Plan now comes with Apple TV+ for free.
-            </Typography>
-          </div>
-          <div className="apple-tv-img-holder"></div>
-        </div>
+        <Benefits />
+        <Ads />
       </Container>
     </div>
   );
