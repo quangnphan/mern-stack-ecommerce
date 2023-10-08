@@ -9,24 +9,24 @@ const ProductsGrid = () => {
     <div className="products-grid">
       {/* <Container maxWidth="lg"> */}
       <Grid container>
-        <Grid item xs={12} md={5.93} className="grid-1">
-          <Typography variant="h3">iPhone 14 Pro Max</Typography>
-          <Typography variant="body1">Pro. Beyond.</Typography>
-          <Link to="/product/649b54f46431c73f75170176">
-                Learn more <span><ArrowForwardIosIcon /></span>
-            </Link>
-        </Grid>
-        <Grid item xs={12} md={5.93} className="grid-2">
+      <Grid item xs={12} md={5.93} className="grid-1">
           <Typography variant="h3">iPad Air</Typography>
           <Typography variant="body1">Loveable. Drawable. Magical.</Typography>
           <Link to="/product/64a2086dc0b0ab3f55eba0ca">
                 Learn more <span><ArrowForwardIosIcon /></span>
             </Link>
         </Grid>
+        <Grid item xs={12} md={5.93} className="grid-2">
+          <Typography variant="h3">iPhone 14 Pro Max</Typography>
+          <Typography variant="body1">Pro. Beyond.</Typography>
+          <Link to="/product/649b54f46431c73f75170176">
+                Learn more <span><ArrowForwardIosIcon /></span>
+            </Link>
+        </Grid>
         <Grid item xs={12} md={5.93} className="grid-3">
           <Typography variant="h3">Macbook does <span>that.</span></Typography>
           <Typography variant="body1">Beautiful. Magical. Bigger Screen.</Typography>
-          <Link to="/product/64a204f6c0b0ab3f55eba0a8">
+          <Link to="/product/649b88366f4f7455d741eb1c">
                 Learn more <span><ArrowForwardIosIcon /></span>
             </Link>
         </Grid>

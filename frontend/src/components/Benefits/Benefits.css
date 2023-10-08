@@ -1,0 +1,14 @@
+.benefits-flex {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 50px 0;
+  }
+  .benefit {
+    max-width: 370px;
+    padding: 30px;
+  }
+  .benefit img {
+    max-width: 50px;
+    max-height: 50px;
+  }
