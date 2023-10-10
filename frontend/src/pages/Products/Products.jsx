@@ -50,13 +50,9 @@ const Products = () => {
   return (
     <div className="products">
       <Container maxWidth="xl">
+        <Container maxWidth="lg">
         <div className="header">
-          <Typography variant="h3">Save on a new Mac or iPad.</Typography>
-          <Typography variant="body1">
-            Available to current and newly accepted college students and their
-            parents, as well as faculty, staff, and homeschool teachers of all
-            grade levels.
-          </Typography>
+          <Typography variant="h3"><span>Store.</span> The best way to buy the products you love.</Typography>
         </div>
         <div className="products-category">
           {products
@@ -77,10 +73,7 @@ const Products = () => {
             .map((category, key) => (
               <div key={key} className="category">
                 <div className="category-name">
-                  <Typography variant="h5">{category.name}</Typography>
-                  <Typography className="body1">
-                    Pricing shown for all {category.name} models.
-                  </Typography>
+                  <Typography variant="h5">Shop {category.name}</Typography>
                 </div>
                 <div className="products-list">
                   {category.items.map((product, productKey) => {
@@ -93,8 +86,10 @@ const Products = () => {
                       <Link key={productKey} to={`/product/${product._id}`}>
                         <div className="product-box">
                           <img src={product.images[0]} alt="" />
+                          <div>
                           <Typography variant="h5">{product.name}</Typography>
                           <Typography>From ${lowestPrice}</Typography>
+                          </div>
                         </div>
                       </Link>
                     );
@@ -103,6 +98,7 @@ const Products = () => {
               </div>
             ))}
         </div>
+        </Container>
         <Benefits />
         <Ads />
       </Container>
