@@ -6,11 +6,37 @@ import { Link } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import Benefits from "../../components/Benefits/Benefits";
 import Ads from "../../components/Ads/Ads";
+import Slider from "react-slick";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const settings = {
+    speed: 700,
+    slidesToShow: 3,
+    infinite: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 900,
+        settings: {
+          slidesToShow: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: "unslick"
+      },
+    ],
+  };
 
   const getProducts = async () => {
     try {
@@ -76,6 +102,7 @@ const Products = () => {
                   <Typography variant="h5">Shop {category.name}</Typography>
                 </div>
                 <div className="products-list">
+                  <Slider {...settings}>
                   {category.items.map((product, productKey) => {
                     const lowestPrice = Math.min(
                       ...product.sizes.flatMap((size) =>
@@ -94,6 +121,7 @@ const Products = () => {
                       </Link>
                     );
                   })}
+                  </Slider>
                 </div>
               </div>
             ))}
