@@ -1,13 +1,15 @@
 .products {
   padding: 50px 0;
 }
-.products .slick-list{
+.products .slick-list {
   overflow: unset;
 }
-.products-list .slick-prev:before, .products-list .slick-next:before{
+.products-list .slick-prev:before,
+.products-list .slick-next:before {
   font-size: 45px;
 }
-.products-list .slick-prev.slick-disabled:before, .products-list .slick-next.slick-disabled:before{
+.products-list .slick-prev.slick-disabled:before,
+.products-list .slick-next.slick-disabled:before {
   opacity: 0.15;
 }
 .category {
@@ -24,7 +26,7 @@
   max-width: 600px;
   font-weight: 500;
 }
-.header h3 span{
+.header h3 span {
   color: #1d1d1f;
 }
 .product-box {
@@ -35,44 +37,54 @@
   background-color: #fff;
   padding: 20px;
   border-radius: 18px;
-  transition: all .3s cubic-bezier(0,0,.5,1);
-  box-shadow: 2px 4px 12px rgba(0,0,0,.08);
+  transition: all 0.3s cubic-bezier(0, 0, 0.5, 1);
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
   height: 320px;
   width: 360px;
   text-align: center;
 }
 .product-box:hover {
- transform: scale(1.05);
+  transform: scale(1.05);
 }
 .product-box img {
   max-height: 180px;
 }
-@media(max-width: 900px){
-  .product-box{
-    width: 330px;
+
+@media (max-width: 1200px) {
+  .product-box {
+    width: 340px;
     height: 300px;
+  }
+  .product-box img {
+    max-height: 170px;
+  }
+}
+@media (max-width: 900px) {
+  .product-box {
+    width: 330px;
   }
   .product-box img {
     max-height: 150px;
   }
 }
 
-@media(max-width: 768px){
-  .product-box{
+@media (max-width: 768px) {
+  .product-box {
     width: 290px;
   }
   .product-box img {
     max-height: 140px;
   }
-  .products-list .slick-prev:before, .products-list .slick-next:before{
+  .products-list .slick-prev:before,
+  .products-list .slick-next:before {
     font-size: 30px;
   }
 }
 
-@media(max-width: 700px){
-  .product-box{
+@media (max-width: 700px) {
+  .product-box {
     width: 250px;
-    height: 270px;
+    height: 260px;
   }
   .product-box img {
     max-height: 120px;
@@ -87,9 +99,12 @@
     display: flex;
     flex-direction: column;
   }
-  .product-box{
+  .product-box {
     width: 100%;
-    margin-bottom: 18px;
+    margin-bottom: 30px;
+  }
+  .product-box:hover {
+    transform: unset;
   }
   .header h3 {
     font-size: 1.7rem;
