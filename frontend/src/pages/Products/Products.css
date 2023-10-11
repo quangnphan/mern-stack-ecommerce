@@ -13,7 +13,7 @@
   opacity: 0.15;
 }
 .category {
-  margin: 50px 0;
+  margin: 20px 0 50px 0;
   text-align: left;
 }
 .category-name {
@@ -119,4 +119,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.search-wrapper{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@media(max-width: 600px){
+  .search-wrapper{
+    display: block;
+  }
 }
