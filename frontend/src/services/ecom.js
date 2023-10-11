@@ -1,7 +1,10 @@
 import http from "../helper.js";
 
 const EcomDataService = {
-  getAll: () => http.get(`/products`),
+  getAll: (search) => {
+    const url = search ? `/products?search=${search}` : '/products';
+    return http.get(url);
+  },
   getProductsByCategory: (category) => http.get(`/products/${category}`),
   getProduct: (id) => http.get(`/product/${id}`),
   createOrder: (data) => http.post("/order", data),

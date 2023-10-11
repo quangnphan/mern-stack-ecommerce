@@ -7,6 +7,7 @@ import Loading from "../../components/Loading/Loading";
 import Benefits from "../../components/Benefits/Benefits";
 import Ads from "../../components/Ads/Ads";
 import Slider from "react-slick";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -33,15 +34,21 @@ const Products = () => {
       },
       {
         breakpoint: 600,
-        settings: "unslick"
+        settings: "unslick",
       },
     ],
   };
 
-  const getProducts = async () => {
+  const fetchData = async (searchTerm = "") => {
     try {
       setLoading(true);
-      const response = await EcomDataService.getAll();
+
+      // Define your search parameter (replace 'mysearchparam' with your actual search term)
+      const searchParam = searchTerm;
+
+      // Append the search parameter to the URL if it's provided
+      const response = await EcomDataService.getAll(searchParam);
+
       let allProducts = response.data?.products;
 
       setProducts(allProducts);
@@ -53,10 +60,19 @@ const Products = () => {
     }
   };
 
+  const getProducts = () => {
+    fetchData();
+  };
+
+  const handleSearch = (searchTerm) => {
+    fetchData(searchTerm);
+  };
+
   useEffect(() => {
     setLoading(false);
     setError("");
     getProducts();
+    // eslint-disable-next-line
   }, []);
 
   if (error) {
@@ -67,65 +83,81 @@ const Products = () => {
     );
   }
 
-  if (loading) {
-    return (
-     <Loading />
-    );
-  }
-
   return (
     <div className="products">
       <Container maxWidth="xl">
         <Container maxWidth="lg">
-        <div className="header">
-          <Typography variant="h3"><span>Store.</span> The best way to buy the products you love.</Typography>
-        </div>
-        <div className="products-category">
-          {products
-            .reduce((categories, item) => {
-              const category = item.category;
-              const existingCategory = categories.find(
-                (cat) => cat.name === category.name
-              );
-
-              if (!existingCategory) {
-                categories.push({ name: category.name, items: [item] });
-              } else {
-                existingCategory.items.push(item);
-              }
-
-              return categories;
-            }, [])
-            .map((category, key) => (
-              <div key={key} className="category">
-                <div className="category-name">
-                  <Typography variant="h5">Shop {category.name}</Typography>
-                </div>
-                <div className="products-list">
-                  <Slider {...settings}>
-                  {category.items.map((product, productKey) => {
-                    const lowestPrice = Math.min(
-                      ...product.sizes.flatMap((size) =>
-                        size.storages.map((storage) => storage.price)
-                      )
+          <div className="header">
+            <Typography variant="h3">
+              <span>Store.</span> The best way to buy the products you love.
+            </Typography>
+          </div>
+          <div className="search-wrapper">
+          <SearchBar onSearch={handleSearch} />
+          </div>
+          {!loading ? (
+            <div className="products-category">
+              {products.length > 0 ? (
+                products
+                  .reduce((categories, item) => {
+                    const category = item.category;
+                    const existingCategory = categories.find(
+                      (cat) => cat.name === category.name
                     );
-                    return (
-                      <Link key={productKey} to={`/product/${product._id}`}>
-                        <div className="product-box">
-                          <img src={product.images[0]} alt="" />
-                          <div>
-                          <Typography variant="h5">{product.name}</Typography>
-                          <Typography>From ${lowestPrice}</Typography>
-                          </div>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                  </Slider>
-                </div>
-              </div>
-            ))}
-        </div>
+
+                    if (!existingCategory) {
+                      categories.push({ name: category.name, items: [item] });
+                    } else {
+                      existingCategory.items.push(item);
+                    }
+
+                    return categories;
+                  }, [])
+                  .map((category, key) => (
+                    <div key={key} className="category">
+                      <div className="category-name">
+                        <Typography variant="h5">
+                          Shop {category.name}
+                        </Typography>
+                      </div>
+                      <div className="products-list">
+                        <Slider {...settings}>
+                          {category.items.map((product, productKey) => {
+                            const lowestPrice = Math.min(
+                              ...product.sizes.flatMap((size) =>
+                                size.storages.map((storage) => storage.price)
+                              )
+                            );
+                            return (
+                              <Link
+                                key={productKey}
+                                to={`/product/${product._id}`}
+                              >
+                                <div className="product-box">
+                                  <img src={product.images[0]} alt="" />
+                                  <div>
+                                    <Typography variant="h5">
+                                      {product.name}
+                                    </Typography>
+                                    <Typography>From ${lowestPrice}</Typography>
+                                  </div>
+                                </div>
+                              </Link>
+                            );
+                          })}
+                        </Slider>
+                      </div>
+                    </div>
+                  ))
+              ) : (
+                <Typography style={{ textAlign: "center", margin: "30px 0" }}>
+                  No products found.
+                </Typography>
+              )}
+            </div>
+          ) : (
+            <Loading />
+          )}
         </Container>
         <Benefits />
         <Ads />
